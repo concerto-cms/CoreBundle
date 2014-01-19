@@ -1,0 +1,13 @@
+{
+    "name": "concerto-cms/core-bundle",
+    "description": "Core features for the Concerto CMS software",
+    "authors": [
+        {
+            "name": "Mathieu Maes",
+            "email": "mathieu@webberig.be"
+        }
+    ],
+    "require": {
+
+    }
+}
