@@ -7,6 +7,10 @@
             "email": "mathieu@webberig.be"
         }
     ],
+    "autoload": {
+        "psr-0": { "ConcertoCms\\CoreBundle": "" }
+    },
+    "target-dir": "ConcertoCms/CoreBundle",
     "require": {
         "doctrine/phpcr-bundle": "1.0.0",
         "doctrine/phpcr-odm": "1.0.*",
