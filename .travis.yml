@@ -7,4 +7,4 @@ before_script:
 script: true
 
 after_script:
-  - phpcs --report=summary --standard=PSR2 .
+  - phpcs -v --report=summary --standard=PSR2 .
