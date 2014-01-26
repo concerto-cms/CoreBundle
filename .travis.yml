@@ -1,0 +1,7 @@
+language: php
+
+php:
+  - 5.4
+
+after_script:
+  - bin\phpcs -v --report=summary --standard=PSR2
