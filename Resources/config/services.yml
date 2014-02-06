@@ -2,6 +2,13 @@ parameters:
 #    concerto_cms_core.example.class: ConcertoCms\CoreBundle\Example
 
 services:
-#    concerto_cms_core.example:
-#        class: %concerto_cms_core.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    concerto_cms_core.phpcr.initializer:
+        class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
+        arguments:
+            - [ "/cms", "/cms/pages" ]
+        tags:
+            - { name: doctrine_phpcr.initializer }
+    concerto_cms_core.contentmanager:
+        class: ConcertoCms\CoreBundle\Service\Content
+        arguments:
+            - [ doctrine_phpcr.odm.default_document_manager ]
