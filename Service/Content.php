@@ -12,7 +12,8 @@ namespace ConcertoCms\CoreBundle\Service;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 use ConcertoCms\CoreBundle\Document\ContentDocumentInterface;
 
-class Content {
+class Content
+{
     const SPLASH_MODE_LANGUAGE_DETECTION = 1;
     const SPLASH_MODE_REDIRECT = 2;
     const SPLASH_MODE_PAGE = 3;
@@ -25,11 +26,13 @@ class Content {
     /**
      * @param $dm \Doctrine\ODM\PHPCR\DocumentManager
      */
-    public function __construct($dm) {
+    public function __construct($dm)
+    {
         $this->dm = $dm;
     }
 
-    public function getPage($url) {
+    public function getPage($url)
+    {
         $route = $this->getRoute($url);
         return $route->getContent();
     }
@@ -38,23 +41,28 @@ class Content {
      * @param $url string
      * @return Route
      */
-    public function getRoute($url) {
+    public function getRoute($url)
+    {
 
     }
 
-    public function getLanguages() {
+    public function getLanguages()
+    {
 
     }
 
-    public function addLanguage() {
+    public function addLanguage()
+    {
 
     }
 
-    public function getSplash() {
+    public function getSplash()
+    {
 
     }
 
-    public function setSplash($mode, $argument = null) {
+    public function setSplash($mode, $argument = null)
+    {
         switch ($mode) {
             case self::SPLASH_MODE_LANGUAGE_DETECTION:
                 break;
@@ -73,7 +81,8 @@ class Content {
      * @param $parentUrl string
      * @param $page ContentDocumentInterface
      */
-    public function createPage($parentUrl, $page) {
+    public function createPage($parentUrl, $page)
+    {
         $parentRoute = $this->getRoute($parentUrl);
         $parentPage = $this->dm->find(null, "/cms/pages");
 
@@ -89,7 +98,8 @@ class Content {
         $this->dm->flush();
     }
 
-    public function initializeRoute() {
+    public function initializeRoute()
+    {
         // Create the root route
         $parent = $this->dm->find(null, "/cms");
         $route = new Route();
@@ -100,5 +110,4 @@ class Content {
         $this->dm->persist($route);
         $this->dm->flush();
     }
-
-} 
+}

@@ -10,7 +10,8 @@ namespace ConcertoCms\CoreBundle\Document;
 
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 
-class Page implements ContentDocumentInterface {
+class Page implements ContentDocumentInterface
+{
     /**
      * @PHPCR\Id()
      */
@@ -171,34 +172,38 @@ class Page implements ContentDocumentInterface {
         return $this->slug;
     }
 
-    public function setSlug($slug) {
+    public function setSlug($slug)
+    {
         $this->slug = $slug;
         return $this;
     }
-
 
     public function getClassname()
     {
         return "WebberigCMFCoreBundle:Page";
     }
 
-
-    public function toJson() {
+    public function toJson()
+    {
         return array(
             "title" => $this->getTitle(),
             "description" => $this->getDescription(),
             "type" => $this->getClassname()
         );
     }
-    public function set($params) {
-        if (isset($params->description))
+    public function set($params)
+    {
+        if (isset($params->description)) {
             $this->setDescription($params->description);
-        if (isset($params->title))
+        }
+        if (isset($params->title)) {
             $this->setTitle($params->title);
+        }
         return $this;
     }
 
-    public function getRoute() {
+    public function getRoute()
+    {
         $routes = $this->getRoutes();
         return $routes[0];
     }

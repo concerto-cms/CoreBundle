@@ -10,7 +10,8 @@ namespace ConcertoCms\CoreBundle\Document;
 
 use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
 
-interface ContentDocumentInterface extends RouteReferrersReadInterface {
+interface ContentDocumentInterface extends RouteReferrersReadInterface
+{
     public function getId();
     public function getClassname();
     public function toJson();
@@ -22,4 +23,4 @@ interface ContentDocumentInterface extends RouteReferrersReadInterface {
     public function setTitle($title);
     public function set($params);
     public function getRoute();
-} 
+}

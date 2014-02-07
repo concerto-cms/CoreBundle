@@ -1,5 +1,4 @@
 <?php
-
 namespace ConcertoCms\CoreBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

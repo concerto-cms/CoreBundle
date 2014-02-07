@@ -1,5 +1,4 @@
 <?php
-
 namespace ConcertoCms\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

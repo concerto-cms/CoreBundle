@@ -8,10 +8,8 @@
 
 namespace ConcertoCms\CoreBundle\Document;
 
-
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 
-class SplashRoute extends Route {
-
-
-} 
+class SplashRoute extends Route
+{
+}

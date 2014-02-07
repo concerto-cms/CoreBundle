@@ -12,7 +12,8 @@ namespace ConcertoCms\CoreBundle\Service;
 use Doctrine\Bundle\PHPCRBundle\Initializer\InitializerInterface;
 use PHPCR\SessionInterface;
 
-class Initializer implements InitializerInterface {
+class Initializer implements InitializerInterface
+{
 
     /**
      * @var \ConcertoCms\CoreBundle\Service\Content
@@ -22,7 +23,8 @@ class Initializer implements InitializerInterface {
     /**
      * @param $cm \ConcertoCms\CoreBundle\Service\Content
      */
-    public function __construct($cm) {
+    public function __construct($cm)
+    {
         $this->cm = $cm;
     }
 
