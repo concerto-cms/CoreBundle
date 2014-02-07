@@ -9,7 +9,8 @@
 namespace ConcertoCms\CoreBundle\Service;
 
 
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route;
+use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
+use ConcertoCms\CoreBundle\Document\ContentDocumentInterface;
 
 class Content {
     const SPLASH_MODE_LANGUAGE_DETECTION = 1;
@@ -67,8 +68,37 @@ class Content {
         }
     }
 
-    public function createPage($parentUrl, $page) {
 
+    /**
+     * @param $parentUrl string
+     * @param $page ContentDocumentInterface
+     */
+    public function createPage($parentUrl, $page) {
+        $parentRoute = $this->getRoute($parentUrl);
+        $parentPage = $this->dm->find(null, "/cms/pages");
+
+        $page->setParent($parentPage);
+        $this->dm->persist($page);
+
+        $route = new Route();
+        $route->setId($page->getSlug());
+        $route->setName($page->getSlug());
+        $route->setParent($parentRoute);
+        $route->setContent($page);
+        $this->dm->persist($route);
+        $this->dm->flush();
+    }
+
+    public function initializeRoute() {
+        // Create the root route
+        $parent = $this->dm->find(null, "/cms");
+        $route = new Route();
+        $route->setParent($parent);
+        $route->setName("routes");
+        $route->setId("routes");
+
+        $this->dm->persist($route);
+        $this->dm->flush();
     }
 
 } 

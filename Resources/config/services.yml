@@ -5,7 +5,13 @@ services:
     concerto_cms_core.phpcr.initializer:
         class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
         arguments:
-            - [ "/cms", "/cms/pages" ]
+            - [ "/cms", "/cms/pages", "/cms/media" ]
+        tags:
+            - { name: doctrine_phpcr.initializer }
+    concerto_cms_core.initializer:
+        class: ConcertoCms\CoreBundle\Service\Initializer
+        arguments:
+            - [ concerto_cms_core.contentmanager ]
         tags:
             - { name: doctrine_phpcr.initializer }
     concerto_cms_core.contentmanager:
