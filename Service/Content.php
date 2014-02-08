@@ -9,6 +9,8 @@
 namespace ConcertoCms\CoreBundle\Service;
 
 
+use ConcertoCms\CoreBundle\Document\LanguageRoute;
+use ConcertoCms\CoreBundle\Model\Locale;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 use ConcertoCms\CoreBundle\Document\ContentDocumentInterface;
 
@@ -26,7 +28,7 @@ class Content
     /**
      * @param $dm \Doctrine\ODM\PHPCR\DocumentManager
      */
-    public function __construct($dm)
+    public function __construct(\Doctrine\ODM\PHPCR\DocumentManager $dm)
     {
         $this->dm = $dm;
     }
@@ -43,17 +45,34 @@ class Content
      */
     public function getRoute($url)
     {
-
+        return $this->dm->find(null, "/cms/routes" . $url);
     }
 
+    /**
+     * @return LanguageRoute
+     */
     public function getLanguages()
     {
-
+        /**
+         * @var $root Route
+         */
+        $root = $this->dm->find(null, "/cms/routes");
+        return $root->getRouteChildren();
     }
 
-    public function addLanguage()
+    public function addLanguage(Locale $locale, ContentDocumentInterface $page)
     {
+        $page->setSlug($locale->getPrefix());
+        $page = $this->storePage("", $page);
 
+        $parent = $this->dm->find(null, "/cms/routes");
+        $route = new LanguageRoute();
+        $route->setParent($parent);
+        $route->setLocale($locale);
+        $route->setContent($page);
+
+        $this->dm->persist($route);
+        $this->dm->flush();
     }
 
     public function getSplash()
@@ -76,7 +95,14 @@ class Content
         }
     }
 
-
+    private function storePage($parentUrl, ContentDocumentInterface $page)
+    {
+        $parentPage = $this->dm->find(null, "/cms/pages" . $parentUrl);
+        $page->setParent($parentPage);
+        $this->dm->persist($page);
+        $this->dm->flush();
+        return $page;
+    }
     /**
      * @param $parentUrl string
      * @param $page ContentDocumentInterface
@@ -84,13 +110,9 @@ class Content
     public function createPage($parentUrl, $page)
     {
         $parentRoute = $this->getRoute($parentUrl);
-        $parentPage = $this->dm->find(null, "/cms/pages");
-
-        $page->setParent($parentPage);
-        $this->dm->persist($page);
+        $page = $this->storePage($parentUrl, $page);
 
         $route = new Route();
-        $route->setId($page->getSlug());
         $route->setName($page->getSlug());
         $route->setParent($parentRoute);
         $route->setContent($page);
@@ -105,7 +127,7 @@ class Content
         $route = new Route();
         $route->setParent($parent);
         $route->setName("routes");
-        $route->setId("routes");
+        //$route->setId("routes");
 
         $this->dm->persist($route);
         $this->dm->flush();

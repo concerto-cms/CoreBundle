@@ -11,10 +11,10 @@ services:
     concerto_cms_core.initializer:
         class: ConcertoCms\CoreBundle\Service\Initializer
         arguments:
-            - [ concerto_cms_core.contentmanager ]
+            - @concerto_cms_core.contentmanager
         tags:
             - { name: doctrine_phpcr.initializer }
     concerto_cms_core.contentmanager:
         class: ConcertoCms\CoreBundle\Service\Content
         arguments:
-            - [ doctrine_phpcr.odm.default_document_manager ]
+            - @doctrine_phpcr.odm.default_document_manager

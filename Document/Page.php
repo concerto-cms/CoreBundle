@@ -10,6 +10,9 @@ namespace ConcertoCms\CoreBundle\Document;
 
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 
+/**
+ * @PHPCR\Document(referenceable=true)
+ */
 class Page implements ContentDocumentInterface
 {
     /**

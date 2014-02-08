@@ -38,6 +38,8 @@ class Initializer implements InitializerInterface
      */
     public function init(SessionInterface $session)
     {
-        $this->cm->initializeRoute();
+        if (!$session->nodeExists("/cms/routes")) {
+            $this->cm->initializeRoute();
+        }
     }
 }
