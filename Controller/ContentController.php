@@ -34,7 +34,7 @@ class ContentController extends Controller
          * @var $lang LanguageRoute
          * @var $page ContentDocumentInterface
          */
-        foreach($languages as $lang) {
+        foreach ($languages as $lang) {
             $locale = $lang->getLocale();
             $page = $lang->getContent();
 
