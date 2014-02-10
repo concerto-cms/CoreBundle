@@ -189,6 +189,9 @@ class Page implements ContentDocumentInterface
     public function toJson()
     {
         return array(
+            "id" => $this->getId(),
+            "parent" => $this->getParent()->getId(),
+            "slug" => $this->getSlug(),
             "title" => $this->getTitle(),
             "description" => $this->getDescription(),
             "type" => $this->getClassname()

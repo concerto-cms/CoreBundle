@@ -2,71 +2,10 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h2>Content</h2>
-        <h3>Splash page</h3>
-        <ul class="list-group content-list">
-            <li>
-                <a href="#" class="list-group-item">
-                    <h4 class="list-group-item-heading">No splash page</h4>
-                    <p class="list-group-item-text"><em>Redirect to /nl</em></p>
-                </a>
-            </li>
-        </ul>
+    <div id="contentContainer">
 
-        <h3>English</h3>
-        <ul class="list-group content-list">
-            <li>
-                <a href="#" class="list-group-item">
-                    <h4 class="list-group-item-heading">Homepage</h4>
-                    <p class="list-group-item-text">/nl</p>
-                </a>
-                <ul>
-                    <li>
-                        <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">About our company</h4>
-                            <p class="list-group-item-text">/nl/about</p>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="#" class="list-group-item">
-                                    <h4 class="list-group-item-heading">Meet the team</h4>
-                                    <p class="list-group-item-text">/nl/about/team</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="list-group-item">
-                                    <h4 class="list-group-item-heading">Policy &amp; disclaimer</h4>
-                                    <p class="list-group-item-text">/nl/about/policy</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">About our company</h4>
-                            <p class="list-group-item-text">/nl/about</p>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="#" class="list-group-item">
-                                    <h4 class="list-group-item-heading">Meet the team</h4>
-                                    <p class="list-group-item-text">/nl/about/team</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="list-group-item">
-                                    <h4 class="list-group-item-heading">Policy &amp; disclaimer</h4>
-                                    <p class="list-group-item-text">/nl/about/policy</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-
-
-        </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/templates.core.js') }}"></script>
 {% endblock %}

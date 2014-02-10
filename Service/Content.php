@@ -57,7 +57,7 @@ class Content
          * @var $root Route
          */
         $root = $this->dm->find(null, "/cms/routes");
-        return $root->getRouteChildren();
+        return $root->getChildren();
     }
 
     public function addLanguage(Locale $locale, ContentDocumentInterface $page)

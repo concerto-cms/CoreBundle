@@ -18,8 +18,13 @@ use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
  */
 class LanguageRoute extends Route
 {
-    private $prefix;
+    /**
+     * @PHPCR\String(nullable=false)
+     */
     private $isoCode;
+    /**
+     * @PHPCR\String(nullable=false)
+     */
     private $description;
 
     /**

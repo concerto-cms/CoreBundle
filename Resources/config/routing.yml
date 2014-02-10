@@ -7,19 +7,19 @@ concerto_cms_core_content:
     defaults: { _controller: ConcertoCmsCoreBundle:Content:index }
 
 concerto_cms_core_content_rest:
-    pattern:  /content/rest
+    pattern:  /rest/content
     defaults: { _controller: ConcertoCmsCoreBundle:Content:getPages }
     methods:  [GET]
     options:
         expose: true
 
 concerto_cms_core_content_rest_post:
-    pattern:  /content/rest
+    pattern:  /rest/content
     defaults: { _controller: ConcertoCmsCoreBundle:Content:postPage }
     methods:  [POST]
 
 concerto_cms_core_content_rest_put:
-    pattern:  /content/rest/{id}
+    pattern:  /rest/content/{id}
     defaults: { _controller: ConcertoCmsCoreBundle:Content:putPage }
     methods:  [PUT]
 
