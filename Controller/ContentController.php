@@ -11,14 +11,11 @@ class ContentController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('ConcertoCmsCoreBundle:Content:index.html.twig');
-
-
+        return $this->render('ConcertoCmsCoreBundle:Content:index.html.twig', array("pages" => $this->getPages()));
     }
 
     public function getPagesAction()
     {
-
         var_dump($this->getPages());
         die();
     }
@@ -26,8 +23,9 @@ class ContentController extends Controller
     private function getPages()
     {
         $data = array();
-        $data["splash"] = null;
-        $splash = $this->getDocumentManager()->getRoute("");
+        $data["splash"] = $this->getDocumentManager()->getRoute("");
+        $data["languages"] = array();
+        $data["pages"] = array();
 
         $languages = $this->getDocumentManager()->getLanguages();
         /**
@@ -38,17 +36,14 @@ class ContentController extends Controller
             $locale = $lang->getLocale();
             $page = $lang->getContent();
 
-            $data[$locale->getPrefix()] = array(
+            $data["languages"][$locale->getPrefix()] = array(
                 "iso" => $locale->getIsoCode(),
                 "description" => $locale->getName(),
                 "prefix" => $lang->getName()
             );
 
-            $pageData = array($page->toJson());
-
-            $this->populatePageData($pageData, $lang->getChildren());
-            $data[$locale->getPrefix()]["pages"] = $pageData;
-
+            $data["pages"][] = $page->toJson();
+            $this->populatePageData($data["pages"], $lang->getChildren());
         }
         return $data;
     }

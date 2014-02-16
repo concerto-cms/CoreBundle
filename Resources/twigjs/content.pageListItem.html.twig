@@ -1,0 +1,13 @@
+<li>
+    <a href="#{{ language.prefix }}/{{ page.get('id')|url_encode }}" class="list-group-item">
+        <h4 class="list-group-item-heading">{{ page.get('title') }}</h4>
+        <p class="list-group-item-text">{{ page.get('id')|replace("/cms/pages", "") }}</p>
+    </a>
+    {% if page.children|length > 0 %}
+        <ul>
+        {% for child in page.children %}
+            {% include 'content.pageListItem.html.twig' with {language: language, page: child} %}
+        {% endfor %}
+        </ul>
+    {% endif %}
+</li>

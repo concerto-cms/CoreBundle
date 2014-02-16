@@ -8,4 +8,7 @@
 {% endblock %}
 {% block javascripts %}
     <script src="{{ asset('js/templates.core.js') }}"></script>
+    <script>
+        Concerto.View.Content.init({{ pages|json_encode|raw }})
+    </script>
 {% endblock %}

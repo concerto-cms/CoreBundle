@@ -4,8 +4,11 @@ Concerto.Collection = Concerto.Collection || {};
 Concerto.Collection.Routes = Backbone.Collection.extend({
     model: Concerto.Model.Route,
 
-    getLanguages: function() {
+    getLanguage: function(lang) {
+        return this.get("/cms/pages/" + lang);
+    },
 
+    getPage: function(id) {
+        return this.get("/cms/pages/" + id);
     }
-
 });
