@@ -23,8 +23,6 @@ class ContentController extends Controller
     private function getPages()
     {
         $data = array();
-        $data["languages"] = array();
-        $data["pages"] = array();
 
         $languages = $this->getDocumentManager()->getLanguages();
         /**
@@ -33,16 +31,14 @@ class ContentController extends Controller
          */
         foreach ($languages as $lang) {
             $locale = $lang->getLocale();
-            $page = $lang->getContent();
+            $page = $lang->getContent()->toJson();
 
-            $data["languages"][$locale->getPrefix()] = array(
-                "iso" => $locale->getIsoCode(),
-                "description" => $locale->getName(),
-                "prefix" => $lang->getName()
-            );
+            $page["iso"] = $locale->getIsoCode();
+            $page["description"] = $locale->getName();
+            $page["prefix"] = $locale->getPrefix();
 
-            $data["pages"][] = $page->toJson();
-            $this->populatePageData($data["pages"], $lang->getChildren());
+            $data[] = $page;
+            $this->populatePageData($data, $lang->getChildren());
         }
         return $data;
     }
