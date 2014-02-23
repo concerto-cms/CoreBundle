@@ -9,6 +9,6 @@
 {% block javascripts %}
     <script src="{{ asset('js/templates.core.js') }}"></script>
     <script>
-        Concerto.View.Content.init({{ pages|json_encode|raw }})
+        window.controller = new Concerto.Controller.Content({{ pages|json_encode|raw }});
     </script>
 {% endblock %}

@@ -23,3 +23,10 @@ concerto_cms_core_content_rest_put:
     defaults: { _controller: ConcertoCmsCoreBundle:Content:putPage }
     methods:  [PUT]
 
+concerto_cms_core_navigation:
+    pattern:  /navigation
+    defaults: { _controller: ConcertoCmsCoreBundle:Navigation:index }
+
+concerto_cms_core_media:
+    pattern:  /media
+    defaults: { _controller: ConcertoCmsCoreBundle:Media:index }

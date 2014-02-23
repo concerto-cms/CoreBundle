@@ -1,16 +1,4 @@
-<header class="herounit">
-    <nav class="navbar" role="navigation">
-        <div class="container">
-            <ul class="nav navbar-nav">
-                <li><a href="#splash" data-toggle="tab">Splash</a></li>
-                {% for lang in languages %}
-                    <li{% if lang.prefix == language.prefix %} class="active"{% endif %}><a href="#{{ lang.prefix }}" data-toggle="tab">{{ lang.description }}</a></li>
-                {% endfor %}
-                <li><a href="/cms/settings/languages" data-toggle="tab"><i class="glyphicon glyphicon-cog"></i> Manage...</a></li>
-            </ul>
-        </div><!-- /.container-fluid -->
-    </nav>
-</header>
+
 <div class="container">
     <div class="pull-right">
         <button class="btn btn-info"><i class="glyphicon glyphicon-plus"></i> Add page</button>

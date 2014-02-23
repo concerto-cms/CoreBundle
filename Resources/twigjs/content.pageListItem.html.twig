@@ -1,7 +1,7 @@
 <li>
     <a href="#{{ language.prefix }}/{{ page.get('id')|url_encode }}" class="list-group-item">
         <h4 class="list-group-item-heading">{{ page.get('title') }}</h4>
-        <p class="list-group-item-text">{{ page.get('id')|replace("/cms/pages", "") }}</p>
+        <p class="list-group-item-text">{{ page.getId() }}</p>
     </a>
     {% if page.children|length > 0 %}
         <ul>

@@ -2,14 +2,12 @@
     <nav class="navbar" role="navigation">
         <div class="container">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#splash" data-toggle="tab">Splash</a></li>
+                <li><a href="#splash" data-toggle="tab">Splash</a></li>
                 {% for lang in languages %}
-                    <li><a href="#{{ lang.prefix }}" data-toggle="tab">{{ lang.description }}</a></li>
+                    <li{% if lang.prefix == language.prefix %} class="active"{% endif %}><a href="#{{ lang.prefix }}" data-toggle="tab">{{ lang.description }}</a></li>
                 {% endfor %}
                 <li><a href="/cms/settings/languages" data-toggle="tab"><i class="glyphicon glyphicon-cog"></i> Manage...</a></li>
             </ul>
         </div><!-- /.container-fluid -->
     </nav>
 </header>
-
-Splash page can be configured here

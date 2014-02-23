@@ -17,15 +17,18 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Content <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Create new page</a></li>
+                    <li><a href="{{ path('concerto_cms_core_content') }}#new">Create new page</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">Browse content</a></li>
-                    <li><a href="#">Navigation</a></li>
-                    <li><a href="#">Media manager</a></li>
+                    <li><a href="{{ path('concerto_cms_core_content') }}">Browse content</a></li>
+                    <li><a href="{{ path('concerto_cms_core_navigation') }}">Navigation</a></li>
+                    <li><a href="{{ path('concerto_cms_core_media') }}">Media manager</a></li>
+                    <!--
                     <li class="divider"></li>
                     <li><a href="#">Settings</a></li>
+                    -->
                 </ul>
             </li>
+            <!--
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -49,6 +52,7 @@
                     <li><a href="#">Settings</a></li>
                 </ul>
             </li>
+            -->
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><i class="glyphicon glyphicon-search"></i></a></li>

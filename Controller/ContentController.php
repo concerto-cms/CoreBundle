@@ -6,6 +6,7 @@ use ConcertoCms\CoreBundle\Document\LanguageRoute;
 use ConcertoCms\CoreBundle\Service\Content;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ContentController extends Controller
 {
@@ -16,8 +17,7 @@ class ContentController extends Controller
 
     public function getPagesAction()
     {
-        var_dump($this->getPages());
-        die();
+        return new JsonResponse($this->getPages());
     }
 
     private function getPages()

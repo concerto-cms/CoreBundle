@@ -1,8 +1,7 @@
 var Concerto = Concerto || {};
-Concerto.View = Concerto.View || {};
+Concerto.Controller = Concerto.Controller || {};
 
-Concerto.View.Content = {
-    init: function(data) {
+Concerto.Controller.Content = function(data) {
         var that = this,
             router;
 
@@ -10,24 +9,18 @@ Concerto.View.Content = {
             language.pages = new Concerto.Collection.Routes(language.pages);
         });
 
+
         this.pages = new Concerto.Collection.Routes(data.pages);
         this.languages = data.languages;
-        this.splash = data.splash;
 
         // Setup router
         this.contentContainer = document.getElementById("contentContainer");
 
         router = Backbone.Router.extend({
             routes: {
-                "splash":                 "editSplash",
                 ":lang":                  "language",
-                ":lang/:page":            "editPage"
-            },
-
-            editSplash: function() {
-                that.contentContainer.innerHTML = window.JST["content.editSplash.html.twig"].render({
-                    languages: that.languages
-                });
+                ":lang/:page":            "editPage",
+                "new":                    "newPage"
             },
 
             language: function(lang) {
@@ -40,6 +33,7 @@ Concerto.View.Content = {
             },
 
             editPage: function(lang, page) {
+
                 that.contentContainer.innerHTML = window.JST["content.edit.html.twig"].render({
 
                 });
@@ -47,8 +41,6 @@ Concerto.View.Content = {
 
         });
         this.router = new router();
-
-
 
         if (!Backbone.history.start()) {
             // Go to the first language
@@ -60,7 +52,6 @@ Concerto.View.Content = {
             }
         }
 
-    }
-};
 
-_.extend(Concerto.View.Content, Backbone.Events);
+};
+_.extend(Concerto.Controller.Content, Backbone.Events);
