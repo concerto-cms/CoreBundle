@@ -24,19 +24,24 @@ Concerto.Controller.Content = function(data) {
             },
 
             language: function(lang) {
-                var language = that.languages[lang];
-                that.contentContainer.innerHTML = window.JST["content.language.html.twig"].render({
-                    languages: that.languages,
-                    language: language,
-                    page: that.pages.getLanguage(lang)
-                });
+                var language = that.languages[lang],
+                    view = new Concerto.View.PageList({
+                        languages: that.languages,
+                        language: language,
+                        page: that.pages.getLanguage(lang)
+                    });
+                $(that.contentContainer)
+                    .html("")
+                    .append(view.$el);
             },
 
             editPage: function(lang, page) {
-
-                that.contentContainer.innerHTML = window.JST["content.edit.html.twig"].render({
-
-                });
+                var header = new Concerto.View.PageHeader(),
+                    content = new Concerto.View.PageContent();
+                $(that.contentContainer)
+                    .html("")
+                    .append(header.$el)
+                    .append(content.$el);
             }
 
         });

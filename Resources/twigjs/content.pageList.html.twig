@@ -1,0 +1,22 @@
+<header class="herounit">
+    {% if languages|length > 1 %}
+    <nav class="navbar" role="navigation">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                {% for lang in languages %}
+                    <li{% if lang.prefix == language.prefix %} class="active"{% endif %}><a href="#{{ lang.prefix }}" data-toggle="tab">{{ lang.description }}</a></li>
+                {% endfor %}
+                <li><a href="#" data-toggle="tab"><i class="glyphicon glyphicon-cog"></i> Manage...</a></li>
+            </ul>
+        </div><!-- /.container-fluid -->
+    </nav>
+    {% endif %}
+</header>
+<div class="container">
+    <p class="text-right">
+        <a class="btn btn-info" href="#new"><i class="glyphicon glyphicon-plus"></i> Add page</a>
+    </p>
+    <ul class="list-group content-list">
+        {% include 'content.pageListItem.html.twig' with {language: language, page: page} %}
+    </ul>
+</div>
