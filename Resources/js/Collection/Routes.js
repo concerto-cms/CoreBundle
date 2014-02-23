@@ -11,5 +11,11 @@ Concerto.Collection.Routes = Backbone.Collection.extend({
 
     getPage: function(id) {
         return this.get("/cms/pages/" + id);
+    },
+
+    getLanguages: function() {
+        return this.where({
+            "parent": "/cms/pages"
+        })
     }
 });

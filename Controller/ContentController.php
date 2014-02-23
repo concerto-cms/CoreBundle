@@ -23,7 +23,6 @@ class ContentController extends Controller
     private function getPages()
     {
         $data = array();
-        $data["splash"] = $this->getDocumentManager()->getRoute("");
         $data["languages"] = array();
         $data["pages"] = array();
 
