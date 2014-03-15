@@ -8,6 +8,9 @@
 
 namespace ConcertoCms\CoreBundle\Document;
 
+use ConcertoCms\CoreBundle\Model\Locale;
+use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+
 /**
  * @PHPCR\Document(referenceable=true)
  */
@@ -72,7 +75,6 @@ class LanguageRoute extends Route
         return array(
             "id" => $this->getId(),
             "isoCode" => $this->getIsoCode(),
-            "locale" => $this->getLocale(),
             "description" => $this->getDescription(),
             "name" => $this->getName(),
             "content" => $this->getContent()->jsonSerialize()

@@ -8,6 +8,11 @@
 
 namespace ConcertoCms\CoreBundle\Document;
 
+use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+
+/**
+ * @PHPCR\Document(referenceable=true)
+ */
 class SplashRoute extends Route
 {
 }

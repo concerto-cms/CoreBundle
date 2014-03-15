@@ -11,7 +11,7 @@ namespace ConcertoCms\CoreBundle\Service;
 
 use ConcertoCms\CoreBundle\Document\LanguageRoute;
 use ConcertoCms\CoreBundle\Model\Locale;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
+use ConcertoCms\CoreBundle\Document\Route;
 use ConcertoCms\CoreBundle\Document\ContentInterface;
 
 class Content
@@ -124,7 +124,7 @@ class Content
     {
         // Create the root route
         $parent = $this->dm->find(null, "/cms");
-        $route = new Route();
+        $route = new SplashRoute();
         $route->setParent($parent);
         $route->setName("routes");
         //$route->setId("routes");

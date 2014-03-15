@@ -35,13 +35,13 @@ class ContentController extends Controller
      */
     private function populatePageData(&$pageData, $route)
     {
-        $pageData[] = $route;
         $children = $route->getChildren();
         /**
          * @var $route RouteInterface
          */
-        foreach ($children as $route) {
-            $this->populatePageData($pageData, $route);
+        foreach ($children as $child) {
+            $pageData[] = $child;
+            $this->populatePageData($pageData, $child);
         }
     }
 
