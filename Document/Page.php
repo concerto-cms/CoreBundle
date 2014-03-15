@@ -13,7 +13,7 @@ use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 /**
  * @PHPCR\Document(referenceable=true)
  */
-class Page implements ContentDocumentInterface
+class Page implements ContentInterface
 {
     /**
      * @PHPCR\Id()
@@ -60,6 +60,7 @@ class Page implements ContentDocumentInterface
 
     /**
      * @PHPCR\Date()
+     * @var \DateTime
      */
     protected $date;
 
@@ -96,7 +97,7 @@ class Page implements ContentDocumentInterface
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -212,5 +213,18 @@ class Page implements ContentDocumentInterface
     {
         $routes = $this->getRoutes();
         return $routes[0];
+    }
+
+    public function jsonSerialize()
+    {
+        return array(
+            "id" => $this->getId(),
+            "parent" => $this->getParent()->getId(),
+            "slug" => $this->getSlug(),
+            "title" => $this->getTitle(),
+            "description" => $this->getDescription(),
+            "content" => $this->getContent(),
+            "date" => $this->getDate()
+        );
     }
 }

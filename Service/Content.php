@@ -12,7 +12,7 @@ namespace ConcertoCms\CoreBundle\Service;
 use ConcertoCms\CoreBundle\Document\LanguageRoute;
 use ConcertoCms\CoreBundle\Model\Locale;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
-use ConcertoCms\CoreBundle\Document\ContentDocumentInterface;
+use ConcertoCms\CoreBundle\Document\ContentInterface;
 
 class Content
 {
@@ -60,7 +60,7 @@ class Content
         return $root->getChildren();
     }
 
-    public function addLanguage(Locale $locale, ContentDocumentInterface $page)
+    public function addLanguage(Locale $locale, ContentInterface $page)
     {
         $page->setSlug($locale->getPrefix());
         $page = $this->storePage("", $page);
@@ -77,7 +77,7 @@ class Content
 
     public function getSplash()
     {
-
+        return $this->getRoute("");
     }
 
     public function setSplash($mode, $argument = null)
@@ -95,7 +95,7 @@ class Content
         }
     }
 
-    private function storePage($parentUrl, ContentDocumentInterface $page)
+    private function storePage($parentUrl, ContentInterface $page)
     {
         $parentPage = $this->dm->find(null, "/cms/pages" . $parentUrl);
         $page->setParent($parentPage);
@@ -105,7 +105,7 @@ class Content
     }
     /**
      * @param $parentUrl string
-     * @param $page ContentDocumentInterface
+     * @param $page ContentInterface
      */
     public function createPage($parentUrl, $page)
     {

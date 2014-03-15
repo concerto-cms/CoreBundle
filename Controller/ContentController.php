@@ -1,10 +1,11 @@
 <?php
 namespace ConcertoCms\CoreBundle\Controller;
 
-use ConcertoCms\CoreBundle\Document\ContentDocumentInterface;
+use ConcertoCms\CoreBundle\Document\ContentInterface;
 use ConcertoCms\CoreBundle\Document\LanguageRoute;
 use ConcertoCms\CoreBundle\Service\Content;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use ConcertoCms\CoreBundle\Document\RouteInterface;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -23,34 +24,24 @@ class ContentController extends Controller
     private function getPages()
     {
         $data = array();
-
-        $languages = $this->getDocumentManager()->getLanguages();
-        /**
-         * @var $lang LanguageRoute
-         * @var $page ContentDocumentInterface
-         */
-        foreach ($languages as $lang) {
-            $locale = $lang->getLocale();
-            $page = $lang->getContent()->toJson();
-
-            $page["iso"] = $locale->getIsoCode();
-            $page["description"] = $locale->getName();
-            $page["prefix"] = $locale->getPrefix();
-
-            $data[] = $page;
-            $this->populatePageData($data, $lang->getChildren());
-        }
+        $splash = $this->getDocumentManager()->getSplash();
+        $this->populatePageData($data, $splash);
         return $data;
     }
 
-    private function populatePageData(&$pageData, $children)
+    /**
+     * @param array $pageData
+     * @param RouteInterface $route
+     */
+    private function populatePageData(&$pageData, $route)
     {
+        $pageData[] = $route;
+        $children = $route->getChildren();
         /**
-         * @var $route Route
+         * @var $route RouteInterface
          */
         foreach ($children as $route) {
-            $pageData[] = $route->getContent()->toJson();
-            $this->populatePageData($pageData, $route->getChildren());
+            $this->populatePageData($pageData, $route);
         }
     }
 
