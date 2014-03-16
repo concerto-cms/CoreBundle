@@ -4,7 +4,7 @@
         <div class="container">
             <ul class="nav navbar-nav">
                 {% for lang in languages %}
-                    <li{% if lang.get('prefix') == page.get('prefix') %} class="active"{% endif %}><a href="#{{ lang.get('prefix') }}" data-toggle="tab">{{ lang.get('description') }}</a></li>
+                    <li{% if lang.get('name') == page.get('name') %} class="active"{% endif %}><a href="#{{ lang.get('name') }}" data-toggle="tab">{{ lang.get('description') }}</a></li>
                 {% endfor %}
                 <li><a href="#" data-toggle="tab"><i class="glyphicon glyphicon-cog"></i> Manage...</a></li>
             </ul>

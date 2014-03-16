@@ -14,8 +14,24 @@ Concerto.Model.Route = Backbone.Model.extend({
         }
     },
 
+    getContent: function() {
+        return this.get('content');
+    },
+
+    set: function(attributes, options) {
+        if (attributes === "content" && !(options instanceof Concerto.Model.Page)) {
+            options = new Concerto.Model.Page(options);
+        }
+
+        if (typeof attributes === "object" && typeof attributes.content !== "undefined") {
+            attributes.content = new Concerto.Model.Page(attributes.content);
+        }
+
+        Backbone.Model.prototype.set.apply(this, arguments);
+    },
+
     getId: function() {
-        return this.get('id').replace("/cms/pages", "");
+        return this.get('id').replace("/cms/routes/", "");
     }
 
 })

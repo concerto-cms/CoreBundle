@@ -12,7 +12,8 @@ class Route extends \Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route imple
         return array(
             "id" => $this->getId(),
             "name" => $this->getName(),
-            "content" => $this->getContent()->jsonSerialize()
+            "content" => $this->getContent()->jsonSerialize(),
+            "parent" => $this->getParent()->getId()
         );
     }
 }

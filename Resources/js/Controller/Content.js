@@ -12,7 +12,7 @@ Concerto.Controller.Content = function(data) {
     router = Backbone.Router.extend({
         routes: {
             ":lang":                  "language",
-            ":lang/:id":            "editPage",
+            ":lang/:id":              "editPage",
             "new":                    "newPage"
         },
 
@@ -49,9 +49,10 @@ Concerto.Controller.Content = function(data) {
         // Go to the first language
         var languages = this.pages.getLanguages();
         if (languages.length > 0) {
-            this.router.navigate(languages[0].get('prefix'), {trigger: true});
+            this.router.navigate(languages[0].get('name'), {trigger: true});
         } else {
             // @todo show an error page saying there are no languages
+            alert("No languages");
         }
     }
 

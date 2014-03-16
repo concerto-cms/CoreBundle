@@ -77,7 +77,9 @@ class LanguageRoute extends Route
             "isoCode" => $this->getIsoCode(),
             "description" => $this->getDescription(),
             "name" => $this->getName(),
-            "content" => $this->getContent()->jsonSerialize()
+            "content" => $this->getContent()->jsonSerialize(),
+            "parent" => $this->getParent()->getId()
+
         );
     }
 }

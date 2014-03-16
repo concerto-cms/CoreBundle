@@ -219,8 +219,6 @@ class Page implements ContentInterface
     {
         return array(
             "id" => $this->getId(),
-            "parent" => $this->getParent()->getId(),
-            "slug" => $this->getSlug(),
             "title" => $this->getTitle(),
             "description" => $this->getDescription(),
             "content" => $this->getContent(),
