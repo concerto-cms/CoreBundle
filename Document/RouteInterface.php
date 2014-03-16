@@ -9,11 +9,11 @@
 namespace ConcertoCms\CoreBundle\Document;
 
 
-interface RouteInterface extends \JsonSerializable {
+interface RouteInterface extends \JsonSerializable
+{
     public function getId();
     public function getName();
     public function getContent();
     public function getParent();
     public function getChildren();
-
-} 
+}
