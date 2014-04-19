@@ -11,6 +11,7 @@ namespace ConcertoCms\CoreBundle\Service;
 
 use ConcertoCms\CoreBundle\Document\LanguageRoute;
 use ConcertoCms\CoreBundle\Document\SplashRoute;
+use ConcertoCms\CoreBundle\Event\LanguageEvent;
 use ConcertoCms\CoreBundle\Model\Locale;
 use ConcertoCms\CoreBundle\Document\Route;
 use ConcertoCms\CoreBundle\Document\ContentInterface;
@@ -28,10 +29,12 @@ class Content
 
     /**
      * @param $dm \Doctrine\ODM\PHPCR\DocumentManager
+     * @param $dispatcher EventDispatcher
      */
-    public function __construct(\Doctrine\ODM\PHPCR\DocumentManager $dm)
+    public function __construct(\Doctrine\ODM\PHPCR\DocumentManager $dm, \Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher $dispatcher)
     {
         $this->dm = $dm;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -79,8 +82,13 @@ class Content
         $route->setLocale($locale);
         $route->setContent($page);
 
+        $event = new LanguageEvent();
+        $event->setLanguage($route);
+        $this->dispatcher->dispatch('concerto.language.add', $event);
+
         $this->dm->persist($route);
         $this->dm->flush();
+
     }
 
     public function getSplash()

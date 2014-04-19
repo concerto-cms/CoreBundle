@@ -18,8 +18,15 @@ services:
         class: ConcertoCms\CoreBundle\Service\Content
         arguments:
             - @doctrine_phpcr.odm.default_document_manager
+            - @event_dispatcher
 
     concerto_cms_core.navigation:
         class: ConcertoCms\CoreBundle\Service\Navigation
         arguments:
             - @doctrine_phpcr.odm.default_document_manager
+        tags:
+            - name: kernel.event_listener
+              event: concerto.language.add
+              method: onLanguageAdd
+
+

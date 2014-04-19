@@ -59,7 +59,6 @@ class CreateMenuCommand extends ContainerAwareCommand {
         $main = new Menu();
         $main->setName($name);
         $main->setLabel($label);
-        $main->setLocale("en");
         $main->setParent($menuParent);
         $dm->persist($main);
 

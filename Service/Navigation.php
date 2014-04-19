@@ -9,9 +9,11 @@
 namespace ConcertoCms\CoreBundle\Service;
 
 use ConcertoCms\CoreBundle\Document\LanguageRoute;
+use ConcertoCms\CoreBundle\Event\LanguageEvent;
 use ConcertoCms\CoreBundle\Model\Locale;
 use ConcertoCms\CoreBundle\Document\Route;
 use ConcertoCms\CoreBundle\Document\ContentInterface;
+use Jackalope\NotImplementedException;
 use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu;
 use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
 
@@ -62,6 +64,13 @@ class Navigation {
     {
         $this->dm->persist($object);
         $this->dm->flush();
+    }
+
+    public function onLanguageAdd(LanguageEvent $event)
+    {
+
+        throw new NotImplementedException("Hey, you can't do that!!");
+
     }
 
 } 
