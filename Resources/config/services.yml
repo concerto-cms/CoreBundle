@@ -5,16 +5,21 @@ services:
     concerto_cms_core.phpcr.initializer:
         class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
         arguments:
-            - [ "/cms", "/cms/pages", "/cms/media" ]
+            - [ "/cms", "/cms/pages" ]
         tags:
             - { name: doctrine_phpcr.initializer }
     concerto_cms_core.initializer:
         class: ConcertoCms\CoreBundle\Service\Initializer
         arguments:
-            - @concerto_cms_core.contentmanager
+            - @concerto_cms_core.content
         tags:
             - { name: doctrine_phpcr.initializer }
-    concerto_cms_core.contentmanager:
+    concerto_cms_core.content:
         class: ConcertoCms\CoreBundle\Service\Content
+        arguments:
+            - @doctrine_phpcr.odm.default_document_manager
+
+    concerto_cms_core.navigation:
+        class: ConcertoCms\CoreBundle\Service\Navigation
         arguments:
             - @doctrine_phpcr.odm.default_document_manager

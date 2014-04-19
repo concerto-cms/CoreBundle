@@ -200,11 +200,14 @@ class Page implements ContentInterface
     }
     public function set($params)
     {
-        if (isset($params->description)) {
-            $this->setDescription($params->description);
+        if (isset($params["description"])) {
+            $this->setDescription($params["description"]);
         }
-        if (isset($params->title)) {
-            $this->setTitle($params->title);
+        if (isset($params["content"])) {
+            $this->setContent($params["content"]);
+        }
+        if (isset($params["title"])) {
+            $this->setTitle($params["title"]);
         }
         return $this;
     }
@@ -222,7 +225,8 @@ class Page implements ContentInterface
             "title" => $this->getTitle(),
             "description" => $this->getDescription(),
             "content" => $this->getContent(),
-            "date" => $this->getDate()
+            "date" => $this->getDate(),
+            "type" => $this->getClassname()
         );
     }
 }

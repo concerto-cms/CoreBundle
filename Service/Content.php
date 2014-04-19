@@ -10,6 +10,7 @@ namespace ConcertoCms\CoreBundle\Service;
 
 
 use ConcertoCms\CoreBundle\Document\LanguageRoute;
+use ConcertoCms\CoreBundle\Document\SplashRoute;
 use ConcertoCms\CoreBundle\Model\Locale;
 use ConcertoCms\CoreBundle\Document\Route;
 use ConcertoCms\CoreBundle\Document\ContentInterface;
@@ -33,10 +34,13 @@ class Content
         $this->dm = $dm;
     }
 
+    /**
+     * @param $url string
+     * @return null|ContentInterface
+     */
     public function getPage($url)
     {
-        $route = $this->getRoute($url);
-        return $route->getContent();
+        return $this->dm->find(null, "/cms/pages/" . $url);
     }
 
     /**
@@ -45,8 +49,12 @@ class Content
      */
     public function getRoute($url)
     {
+        if (!empty($url) && substr($url, 0,1) !== "/") {
+            $url = "/" . $url;
+        }
         return $this->dm->find(null, "/cms/routes" . $url);
     }
+
 
     /**
      * @return LanguageRoute
@@ -114,10 +122,13 @@ class Content
 
         $route = new Route();
         $route->setName($page->getSlug());
+        $route->setDefault("_locale", $parentRoute->getDefault("_locale"));
+
         $route->setParent($parentRoute);
         $route->setContent($page);
         $this->dm->persist($route);
         $this->dm->flush();
+        return $route;
     }
 
     public function initializeRoute()
@@ -130,6 +141,12 @@ class Content
         //$route->setId("routes");
 
         $this->dm->persist($route);
+        $this->dm->flush();
+    }
+
+    public function save($object)
+    {
+        $this->dm->persist($object);
         $this->dm->flush();
     }
 }

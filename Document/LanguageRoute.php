@@ -48,10 +48,10 @@ class LanguageRoute extends Route
 
     public function setLocale(Locale $locale)
     {
+        $this->setDefault("_locale", $locale->getPrefix());
         $this->setDescription($locale->getName());
         $this->setName($locale->getPrefix());
         $this->setIsoCode($locale->getIsoCode());
-
     }
 
     /**

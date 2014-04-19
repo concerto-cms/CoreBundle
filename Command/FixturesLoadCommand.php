@@ -30,7 +30,7 @@ class FixturesLoadCommand extends ContainerAwareCommand
         /**
          * @var $cm Content
          */
-        $cm = $this->getContainer()->get("concerto_cms_core.contentmanager");
+        $cm = $this->getContainer()->get("concerto_cms_core.content");
 
         // English homepage
         $page = new Page();
@@ -42,6 +42,11 @@ class FixturesLoadCommand extends ContainerAwareCommand
         $page = new Page();
         $page->setTitle("Hallo, wereld");
         $language = new Locale("nl-BE", "Nederlands", "nl");
+        $cm->addLanguage($language, $page);
+
+        $page = new Page();
+        $page->setTitle("Hello world");
+        $language = new Locale("fr-BE", "Français", "fr");
         $cm->addLanguage($language, $page);
 
 
@@ -60,7 +65,8 @@ class FixturesLoadCommand extends ContainerAwareCommand
         $page->setSlug("contact");
         $cm->createPage("/en/company", $page);
 
-        $cm->setSplash(Content::SPLASH_MODE_REDIRECT, "/en");
+        // Splash page is not supported yet...
+        //$cm->setSplash(Content::SPLASH_MODE_REDIRECT, "/en");
 
 
 

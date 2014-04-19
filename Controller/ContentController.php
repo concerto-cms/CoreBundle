@@ -50,6 +50,6 @@ class ContentController extends Controller
      */
     private function getDocumentManager()
     {
-        return $this-> get("concerto_cms_core.contentmanager");
+        return $this-> get("concerto_cms_core.content");
     }
 }
