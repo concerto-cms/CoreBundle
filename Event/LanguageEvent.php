@@ -9,13 +9,14 @@
 namespace ConcertoCms\CoreBundle\Event;
 
 
+use ConcertoCms\CoreBundle\Document\LanguageRoute;
 use Symfony\Component\EventDispatcher\Event;
 
 class LanguageEvent extends Event {
     private $language;
 
     /**
-     * @param mixed $language
+     * @param LanguageRoute $language
      */
     public function setLanguage($language)
     {
@@ -23,7 +24,7 @@ class LanguageEvent extends Event {
     }
 
     /**
-     * @return mixed
+     * @return LanguageRoute
      */
     public function getLanguage()
     {

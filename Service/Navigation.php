@@ -40,9 +40,11 @@ class Navigation {
         return $this->dm->find(null, "/cms/menu/" . $id);
     }
 
-    /**
-     * @param $id string
-     */
+    public function getMenuLocale($id, $locale)
+    {
+        return $this->dm->find(null, "/cms/menu/" . $id . "/" . $locale);
+    }
+
     public function getMenus()
     {
         $node = $this->dm->find(null, "/cms/menu");
@@ -50,7 +52,7 @@ class Navigation {
     }
 
     /**
-     * @param MenuNode $menu
+     * @param Menu $menu
      */
     public function addMenu($menu)
     {
@@ -58,6 +60,29 @@ class Navigation {
         $menu->setParent($parent);
         $this->dm->persist($menu);
         $this->dm->flush();
+
+        $languages = $this->dm->find(null, "/cms/routes");
+        foreach($languages->getChildren() as $lang) {
+            $this->addLanguageToMenu($menu, $lang);
+        }
+
+    }
+
+    /**
+     * @param string $menuName
+     * @param string $locale
+     * @param string $parentName
+     * @param MenuNode $item
+     */
+    public function addMenuItem($menuName, $locale, $parentName, MenuNode $item)
+    {
+        if ($parentName == "/")
+            $parentName = "";
+        $menu = $this->getMenuLocale($menuName, $locale);
+
+        $parent = $this->dm->find(null, $menu->getId() . $parentName);
+        $item->setParent($parent);
+        $this->save($item);
     }
 
     public function save($object)
@@ -68,9 +93,22 @@ class Navigation {
 
     public function onLanguageAdd(LanguageEvent $event)
     {
-
-        throw new NotImplementedException("Hey, you can't do that!!");
-
+        $route = $event->getLanguage();
+        $menus = $this->getMenus();
+        /**
+         * @var $menu Menu
+         */
+        foreach ($menus as $menu) {
+            $this->addLanguageToMenu($menu, $route);
+        }
+    }
+    private function addLanguageToMenu(Menu $menu, LanguageRoute $route)
+    {
+        $lang = new MenuNode();
+        $lang->setParent($menu);
+        $lang->setName($route->getLocale()->getPrefix());
+        $lang->setLabel($route->getLocale()->getName());
+        $this->save($lang);
     }
 
 } 

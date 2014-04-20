@@ -8,6 +8,7 @@
 
 namespace ConcertoCms\CoreBundle\Command;
 
+use ConcertoCms\CoreBundle\Service\Navigation;
 use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu;
@@ -31,19 +32,12 @@ class CreateMenuCommand extends ContainerAwareCommand {
     {
         /**
          * @var $provider PhpcrMenuProvider
-         * @var $dm \Doctrine\ODM\PHPCR\DocumentManager
          * @var $dialog DialogHelper
+         * @var $cm Navigation
          */
+        $cm = $this->getContainer()->get("concerto_cms_core.navigation");
         $provider =  $this->getContainer()->get("cmf_menu.provider");
-        $dm = $this->getContainer()->get("doctrine_phpcr.odm.default_document_manager");
         $dialog = $this->getHelperSet()->get('dialog');
-
-        $menuParent = $dm->find(null, $provider->getMenuRoot());
-        if (!$menuParent)
-        {
-            $output->writeln("MenuBundle has not yet been initialized! Please run doctrine:phpcr:repository:init first!");
-            die();
-        }
 
         $name = $dialog->ask(
             $output,
@@ -56,13 +50,11 @@ class CreateMenuCommand extends ContainerAwareCommand {
             'Main menu'
         );
 
-        $main = new Menu();
-        $main->setName($name);
-        $main->setLabel($label);
-        $main->setParent($menuParent);
-        $dm->persist($main);
+        $menu = new Menu();
+        $menu->setName($name);
+        $menu->setLabel($label);
+        $cm->addMenu($menu);
 
-        $dm->flush();
         $output->writeln("Menu was created successfully!");
     }
 

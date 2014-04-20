@@ -8,6 +8,7 @@
 
 namespace ConcertoCms\CoreBundle\Command;
 
+use ConcertoCms\CoreBundle\Service\Navigation;
 use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu;
@@ -31,11 +32,13 @@ class CreateMenuItemCommand extends ContainerAwareCommand {
     {
         /**
          * @var $provider PhpcrMenuProvider
-         * @var $dm \Doctrine\ODM\PHPCR\DocumentManager
          * @var $dialog DialogHelper
+         * @var $cm Navigation
+         * @var $contentService Content
          */
+        $contentService = $this->getContainer()->get("concerto_cms_core.content");
+        $cm = $this->getContainer()->get("concerto_cms_core.navigation");
         $provider =  $this->getContainer()->get("cmf_menu.provider");
-        $dm = $this->getContainer()->get("doctrine_phpcr.odm.default_document_manager");
         $dialog = $this->getHelperSet()->get('dialog');
 
 
@@ -45,10 +48,14 @@ class CreateMenuItemCommand extends ContainerAwareCommand {
             'main-menu'
         );
 
+        $locale = $dialog->ask(
+            $output,
+            'Please enter the locale menu item [en]:  ',
+            'en'
+        );
 
-        $menuName = $provider->getMenuRoot() . "/" . $menuName;
-        $menu = $dm->find(null, $menuName);
 
+        $menu = $cm->getMenuLocale($menuName, $locale);
         if (!$menu)
         {
             $output->writeln("The menu you entered does not exist!");
@@ -57,18 +64,17 @@ class CreateMenuItemCommand extends ContainerAwareCommand {
 
         $parentName = $dialog->ask(
             $output,
-            'Please enter the path of the parent menu [/]:  ',
-            '/'
+            'Please enter the path of the parent menu []:  ',
+            ''
         );
 
         if ($parentName == "/")
             $parentName = "";
-        $parentName = $menuName . $parentName;
-        $parent = $dm->find(null, $parentName);
+        $parent = $cm->getMenu($menuName . "/" . $locale . $parentName);
 
         if (!$parent)
         {
-            $output->writeln("The menu you entered ( ". $parentName . ") does not exist!");
+            $output->writeln("The menu you entered ( ". $menuName . "/" . $locale . "/" . $parentName . ") does not exist!");
             die();
         }
 
@@ -93,18 +99,16 @@ class CreateMenuItemCommand extends ContainerAwareCommand {
         $item = new MenuNode();
         $item->setName($itemName);
         $item->setLabel($itemLabel);
-        $item->setParent($parent);
 
-        $page = $dm->find(null, "/cms/routes" . $itemUrl);
+        $page = $contentService->getRoute($itemUrl);
         if ($page) {
             $item->setContent($page);
         } else {
             $item->setUri($itemUrl);
         }
 
-        $dm->persist($item);
+        $cm->addMenuItem($menuName, $locale, $parentName, $item);
 
-        $dm->flush();
         $output->writeln("Menu was created successfully!");
     }
 
