@@ -15,6 +15,7 @@ use ConcertoCms\CoreBundle\Event\LanguageEvent;
 use ConcertoCms\CoreBundle\Model\Locale;
 use ConcertoCms\CoreBundle\Document\Route;
 use ConcertoCms\CoreBundle\Document\ContentInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Content
 {
@@ -29,9 +30,9 @@ class Content
 
     /**
      * @param $dm \Doctrine\ODM\PHPCR\DocumentManager
-     * @param $dispatcher EventDispatcher
+     * @param $dispatcher EventDispatcherInterface
      */
-    public function __construct(\Doctrine\ODM\PHPCR\DocumentManager $dm, \Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher $dispatcher)
+    public function __construct(\Doctrine\ODM\PHPCR\DocumentManager $dm, EventDispatcherInterface $dispatcher)
     {
         $this->dm = $dm;
         $this->dispatcher = $dispatcher;
