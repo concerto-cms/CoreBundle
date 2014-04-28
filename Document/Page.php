@@ -48,7 +48,7 @@ class Page implements ContentInterface
     /**
      * @PHPCR\Children
      */
-    private $children;
+    protected $children;
 
     /**
      * @PHPCR\Referrers(
