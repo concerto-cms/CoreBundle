@@ -58,21 +58,6 @@ class Page implements ContentInterface
      */
     protected $routes;
 
-    /**
-     * @PHPCR\Date()
-     * @var \DateTime
-     */
-    protected $date;
-
-    /**
-     * @PHPCR\PrePersist()
-     */
-    public function updateDate()
-    {
-        if (!$this->date) {
-            $this->date = new \DateTime();
-        }
-    }
 
     /**
      * @param mixed $content
@@ -94,14 +79,6 @@ class Page implements ContentInterface
     public function getChildren()
     {
         return $this->children;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
     }
 
     /**
@@ -184,20 +161,9 @@ class Page implements ContentInterface
 
     public function getClassname()
     {
-        return "WebberigCMFCoreBundle:Page";
+        return "ConcertoCMFCoreBundle:Page";
     }
 
-    public function toJson()
-    {
-        return array(
-            "id" => $this->getId(),
-            "parent" => $this->getParent()->getId(),
-            "slug" => $this->getSlug(),
-            "title" => $this->getTitle(),
-            "description" => $this->getDescription(),
-            "type" => $this->getClassname()
-        );
-    }
     public function set($params)
     {
         if (isset($params["description"])) {
@@ -225,7 +191,6 @@ class Page implements ContentInterface
             "title" => $this->getTitle(),
             "description" => $this->getDescription(),
             "content" => $this->getContent(),
-            "date" => $this->getDate(),
             "type" => $this->getClassname()
         );
     }
