@@ -81,6 +81,16 @@ class Page implements ContentInterface
         return $this->children;
     }
 
+    public function showChildrenInList()
+    {
+        return true;
+    }
+    public function showInList()
+    {
+        return true;
+    }
+
+
     /**
      * @param mixed $description
      */

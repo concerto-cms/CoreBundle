@@ -25,6 +25,9 @@ interface ContentInterface extends RouteReferrersReadInterface, \JsonSerializabl
     public function getTitle();
     public function setTitle($title);
     public function set($params);
+    public function showInList();
+    public function showChildrenInList();
+    public function getChildren();
 
     /**
      * @return RouteInterface
