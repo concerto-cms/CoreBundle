@@ -19,7 +19,8 @@ use ConcertoCms\CoreBundle\Document\Page;
 use ConcertoCms\CoreBundle\Model\Locale;
 use ConcertoCms\CoreBundle\Service\Content;
 
-class CreateLanguageCommand extends ContainerAwareCommand {
+class CreateLanguageCommand extends ContainerAwareCommand
+{
     protected function configure()
     {
         $this
@@ -46,11 +47,13 @@ class CreateLanguageCommand extends ContainerAwareCommand {
                 $output,
                 'Please enter the full name of the homepage [English]:  ',
                 'English'
-            ), $dialog->ask(
+            ),
+            $dialog->ask(
                 $output,
                 'Please provide a URL prefix [en]:  ',
                 'en'
-            ));
+            )
+        );
 
         $page = new Page();
         $page->setTitle("");
@@ -59,5 +62,4 @@ class CreateLanguageCommand extends ContainerAwareCommand {
 
         $output->writeln("Language was created successfully!");
     }
-
-} 
+}

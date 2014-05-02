@@ -20,7 +20,8 @@ use ConcertoCms\CoreBundle\Document\Page;
 use ConcertoCms\CoreBundle\Model\Locale;
 use ConcertoCms\CoreBundle\Service\Content;
 
-class CreateMenuItemCommand extends ContainerAwareCommand {
+class CreateMenuItemCommand extends ContainerAwareCommand
+{
     protected function configure()
     {
         $this
@@ -56,8 +57,7 @@ class CreateMenuItemCommand extends ContainerAwareCommand {
 
 
         $menu = $cm->getMenuLocale($menuName, $locale);
-        if (!$menu)
-        {
+        if (!$menu) {
             $output->writeln("The menu you entered does not exist!");
             die();
         }
@@ -68,13 +68,15 @@ class CreateMenuItemCommand extends ContainerAwareCommand {
             ''
         );
 
-        if ($parentName == "/")
+        if ($parentName == "/") {
             $parentName = "";
+        }
         $parent = $cm->getMenu($menuName . "/" . $locale . $parentName);
 
-        if (!$parent)
-        {
-            $output->writeln("The menu you entered ( ". $menuName . "/" . $locale . "/" . $parentName . ") does not exist!");
+        if (!$parent) {
+            $output->writeln(
+                "The menu you entered ( ". $menuName . "/" . $locale . "/" . $parentName . ") does not exist!"
+            );
             die();
         }
 
@@ -111,5 +113,4 @@ class CreateMenuItemCommand extends ContainerAwareCommand {
 
         $output->writeln("Menu was created successfully!");
     }
-
-} 
+}

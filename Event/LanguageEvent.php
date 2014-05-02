@@ -12,7 +12,8 @@ namespace ConcertoCms\CoreBundle\Event;
 use ConcertoCms\CoreBundle\Document\LanguageRoute;
 use Symfony\Component\EventDispatcher\Event;
 
-class LanguageEvent extends Event {
+class LanguageEvent extends Event
+{
     private $language;
 
     /**
@@ -30,5 +31,4 @@ class LanguageEvent extends Event {
     {
         return $this->language;
     }
-
-} 
+}

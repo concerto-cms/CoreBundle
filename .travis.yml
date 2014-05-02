@@ -3,10 +3,9 @@ language: php
 php:
   - 5.5
   - 5.4
-  
-before_script:
-  - pear install PHP_CodeSniffer
-  - phpenv rehash
 
-script: 
-  - phpcs --report=summary --standard=PSR2 .
+before_script: wget -q -O - https://raw.github.com/chluehr/roundsman/master/travis-phing.sh
+script: ./travis-phing.sh
+
+#script:
+#  - phpcs --report=summary --standard=PSR2 .

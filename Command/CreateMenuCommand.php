@@ -20,7 +20,8 @@ use ConcertoCms\CoreBundle\Document\Page;
 use ConcertoCms\CoreBundle\Model\Locale;
 use ConcertoCms\CoreBundle\Service\Content;
 
-class CreateMenuCommand extends ContainerAwareCommand {
+class CreateMenuCommand extends ContainerAwareCommand
+{
     protected function configure()
     {
         $this
@@ -57,5 +58,4 @@ class CreateMenuCommand extends ContainerAwareCommand {
 
         $output->writeln("Menu was created successfully!");
     }
-
-} 
+}

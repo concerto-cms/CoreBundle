@@ -15,6 +15,7 @@ use ConcertoCms\CoreBundle\Event\LanguageEvent;
 use ConcertoCms\CoreBundle\Model\Locale;
 use ConcertoCms\CoreBundle\Document\Route;
 use ConcertoCms\CoreBundle\Document\ContentInterface;
+use Doctrine\ODM\PHPCR\ChildrenCollection;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Content
@@ -53,7 +54,7 @@ class Content
      */
     public function getRoute($url)
     {
-        if (!empty($url) && substr($url, 0,1) !== "/") {
+        if (!empty($url) && substr($url, 0, S1) !== "/") {
             $url = "/" . $url;
         }
         return $this->dm->find(null, "/cms/routes" . $url);
@@ -61,7 +62,7 @@ class Content
 
 
     /**
-     * @return LanguageRoute
+     * @return ChildrenCollection
      */
     public function getLanguages()
     {

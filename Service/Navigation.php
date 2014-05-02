@@ -17,7 +17,8 @@ use Jackalope\NotImplementedException;
 use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu;
 use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
 
-class Navigation {
+class Navigation
+{
     /**
      * @var \Doctrine\ODM\PHPCR\DocumentManager
      */
@@ -62,7 +63,7 @@ class Navigation {
         $this->dm->flush();
 
         $languages = $this->dm->find(null, "/cms/routes");
-        foreach($languages->getChildren() as $lang) {
+        foreach ($languages->getChildren() as $lang) {
             $this->addLanguageToMenu($menu, $lang);
         }
 
@@ -76,8 +77,9 @@ class Navigation {
      */
     public function addMenuItem($menuName, $locale, $parentName, MenuNode $item)
     {
-        if ($parentName == "/")
+        if ($parentName == "/") {
             $parentName = "";
+        }
         $menu = $this->getMenuLocale($menuName, $locale);
 
         $parent = $this->dm->find(null, $menu->getId() . $parentName);
@@ -110,5 +112,4 @@ class Navigation {
         $lang->setLabel($route->getLocale()->getName());
         $this->save($lang);
     }
-
-} 
+}
