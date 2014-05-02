@@ -5,6 +5,7 @@ php:
   - 5.4
 
 before_script:
+  - pear install PHP_CodeSniffer
   - wget --no-check-certificate https://raw.githubusercontent.com/chluehr/roundsman/master/travis-phing.sh
   - chmod a+x travis-phing.sh
 
