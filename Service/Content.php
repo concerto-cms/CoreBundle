@@ -54,7 +54,7 @@ class Content
      */
     public function getRoute($url)
     {
-        if (!empty($url) && substr($url, 0, S1) !== "/") {
+        if (!empty($url) && substr($url, 0, 1) !== "/") {
             $url = "/" . $url;
         }
         return $this->dm->find(null, "/cms/routes" . $url);
