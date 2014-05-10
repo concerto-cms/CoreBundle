@@ -71,7 +71,7 @@ class CreateMenuItemCommand extends ContainerAwareCommand
         if ($parentName == "/") {
             $parentName = "";
         }
-        $parent = $cm->getMenu($menuName . "/" . $locale . $parentName);
+        $parent = $cm->getMenu($menuName . "/" . $locale . "/" . $parentName);
 
         if (!$parent) {
             $output->writeln(

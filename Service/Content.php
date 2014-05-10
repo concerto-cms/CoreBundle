@@ -45,6 +45,7 @@ class Content
      */
     public function getPage($url)
     {
+        $url = ltrim($url, "/");
         return $this->dm->find(null, "/cms/pages/" . $url);
     }
 

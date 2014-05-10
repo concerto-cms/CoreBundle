@@ -80,6 +80,7 @@ class Navigation
         if ($parentName == "/") {
             $parentName = "";
         }
+        $parentName = "/" . ltrim($parentName, "/");
         $menu = $this->getMenuLocale($menuName, $locale);
 
         $parent = $this->dm->find(null, $menu->getId() . $parentName);
