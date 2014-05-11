@@ -10,10 +10,6 @@ use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 
 class ContentController extends BaseController
 {
-    public function indexAction()
-    {
-        return $this->render('ConcertoCmsCoreBundle:Content:index.html.twig', array("pages" => $this->getPages()));
-    }
 
     public function getPageAction($path)
     {
@@ -54,7 +50,7 @@ class ContentController extends BaseController
      * @param array $pageData
      * @param RouteInterface $route
      */
-    private function populatePageData(&$pageData, $route)
+    protected function populatePageData(&$pageData, $route)
     {
         $children = $route->getChildren();
         /**

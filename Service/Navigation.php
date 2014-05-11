@@ -45,7 +45,7 @@ class Navigation
     {
 
         $parent = $menu->getParent();
-        $this->dm->reorder($parent, $menu->getName(), basename($beforePath), true);
+        $this->dm->reorder($parent, $menu->getName(), basename($beforePath), false);
         $this->dm->flush();
     }
     public function getMenuLocale($id, $locale)

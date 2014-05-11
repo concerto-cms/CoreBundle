@@ -41,7 +41,7 @@ class Content
     public function addRepository(RepositoryInterface $repository)
     {
         $type = $repository->getType();
-        $repositories[$type] = $repository;
+        $this->repositories[$type] = $repository;
     }
 
     /**

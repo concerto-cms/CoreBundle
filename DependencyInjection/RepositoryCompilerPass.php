@@ -27,6 +27,7 @@ class RepositoryCompilerPass implements CompilerPassInterface
         $taggedServices = $container->findTaggedServiceIds(
             'concerto.repository'
         );
+
         foreach ($taggedServices as $id => $attributes) {
             $definition->addMethodCall(
                 'addRepository',

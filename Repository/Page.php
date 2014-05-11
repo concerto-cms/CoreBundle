@@ -41,7 +41,7 @@ class Page implements RepositoryInterface
 
     public function getType()
     {
-        // TODO: Implement getType() method.
+        return "ConcertoCMFCoreBundle:Page";
     }
 
     public function getJSView()

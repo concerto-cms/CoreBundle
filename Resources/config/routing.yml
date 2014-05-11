@@ -13,6 +13,8 @@ concerto_cms_core_content_rest:
     pattern:  /rest/content/{path}
     defaults: { _controller: ConcertoCmsCoreBundle:Content:getPage, path: null }
     methods:  [GET]
+    requirements:
+        path: .+
     options:
         expose: true
 
@@ -20,16 +22,22 @@ concerto_cms_core_content_rest_post:
     pattern:  /rest/content/{path}
     defaults: { _controller: ConcertoCmsCoreBundle:Content:postPage }
     methods:  [POST]
+    requirements:
+        path: .+
 
 concerto_cms_core_content_rest_put:
     pattern:  /rest/content/{path}
     defaults: { _controller: ConcertoCmsCoreBundle:Content:putPage }
     methods:  [PUT]
+    requirements:
+        path: .+
 
 concerto_cms_core_content_rest_delete:
     pattern:  /rest/content/{path}
     defaults: { _controller: ConcertoCmsCoreBundle:Content:deletePage }
     methods:  [DELETE]
+    requirements:
+        path: .+
 
 ########################################################################
 #  Navigation
@@ -41,6 +49,6 @@ concerto_cms_core_content_rest_delete:
 ########################################################################
 #  Media
 ########################################################################
-#concerto_cms_core_media:
-#    pattern:  /media
-#    defaults: { _controller: ConcertoCmsCoreBundle:Media:index }
+concerto_cms_core_media:
+    pattern:  /media
+    defaults: { _controller: ConcertoCmsCoreBundle:Media:index }
