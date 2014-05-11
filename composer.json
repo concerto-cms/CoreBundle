@@ -14,7 +14,7 @@
     "require": {
         "jackalope/jackalope-doctrine-dbal": "1.1.*",
 
-        "symfony-cmf/routing-bundle": "1.1.*",
+        "symfony-cmf/routing-bundle": "1.*",
         "doctrine/data-fixtures": "1.0.*",
         "friendsofsymfony/jsrouting-bundle": "1.5.3",
         "symfony-cmf/media-bundle": "1.1.*",
