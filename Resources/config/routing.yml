@@ -1,32 +1,46 @@
-concerto_cms_core_dashboard:
-    pattern:  /
-    defaults: { _controller: ConcertoCmsCoreBundle:Default:index }
+#concerto_cms_core_dashboard:
+#    pattern:  /
+#    defaults: { _controller: ConcertoCmsCoreBundle:Default:index }
 
-concerto_cms_core_content:
-    pattern:  /content
-    defaults: { _controller: ConcertoCmsCoreBundle:Content:index }
+########################################################################
+#  Content
+########################################################################
+#concerto_cms_core_content:
+#    pattern:  /content
+#    defaults: { _controller: ConcertoCmsCoreBundle:Content:index }
 
 concerto_cms_core_content_rest:
-    pattern:  /rest/content
-    defaults: { _controller: ConcertoCmsCoreBundle:Content:getPages }
+    pattern:  /rest/content/{path}
+    defaults: { _controller: ConcertoCmsCoreBundle:Content:getPage, path: null }
     methods:  [GET]
     options:
         expose: true
 
 concerto_cms_core_content_rest_post:
-    pattern:  /rest/content
+    pattern:  /rest/content/{path}
     defaults: { _controller: ConcertoCmsCoreBundle:Content:postPage }
     methods:  [POST]
 
 concerto_cms_core_content_rest_put:
-    pattern:  /rest/content/{id}
+    pattern:  /rest/content/{path}
     defaults: { _controller: ConcertoCmsCoreBundle:Content:putPage }
     methods:  [PUT]
 
-concerto_cms_core_navigation:
-    pattern:  /navigation
-    defaults: { _controller: ConcertoCmsCoreBundle:Navigation:index }
+concerto_cms_core_content_rest_delete:
+    pattern:  /rest/content/{path}
+    defaults: { _controller: ConcertoCmsCoreBundle:Content:deletePage }
+    methods:  [DELETE]
 
-concerto_cms_core_media:
-    pattern:  /media
-    defaults: { _controller: ConcertoCmsCoreBundle:Media:index }
+########################################################################
+#  Navigation
+########################################################################
+#concerto_cms_core_navigation:
+#    pattern:  /navigation
+#    defaults: { _controller: ConcertoCmsCoreBundle:Navigation:index }
+
+########################################################################
+#  Media
+########################################################################
+#concerto_cms_core_media:
+#    pattern:  /media
+#    defaults: { _controller: ConcertoCmsCoreBundle:Media:index }

@@ -12,8 +12,8 @@
     },
     "target-dir": "ConcertoCms/CoreBundle",
     "require": {
-        "doctrine/phpcr-bundle": "1.0.0",
-        "doctrine/phpcr-odm": "1.0.*",
+        "doctrine/phpcr-bundle": "1.1.*",
+        "doctrine/phpcr-odm": "1.1.*",
         "jackalope/jackalope-doctrine-dbal": "1.0.0",
 
         "symfony-cmf/routing-bundle": "1.1.0",

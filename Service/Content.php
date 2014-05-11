@@ -15,15 +15,12 @@ use ConcertoCms\CoreBundle\Event\LanguageEvent;
 use ConcertoCms\CoreBundle\Model\Locale;
 use ConcertoCms\CoreBundle\Document\Route;
 use ConcertoCms\CoreBundle\Document\ContentInterface;
+use ConcertoCms\CoreBundle\Repository\RepositoryInterface;
 use Doctrine\ODM\PHPCR\ChildrenCollection;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Content
 {
-    const SPLASH_MODE_LANGUAGE_DETECTION = 1;
-    const SPLASH_MODE_REDIRECT = 2;
-    const SPLASH_MODE_PAGE = 3;
-
     /**
      * @var \Doctrine\ODM\PHPCR\DocumentManager
      */
@@ -37,6 +34,14 @@ class Content
     {
         $this->dm = $dm;
         $this->dispatcher = $dispatcher;
+    }
+
+    private $repositories = array();
+
+    public function addRepository(RepositoryInterface $repository)
+    {
+        $type = $repository->getType();
+        $repositories[$type] = $repository;
     }
 
     /**
@@ -55,7 +60,8 @@ class Content
      */
     public function getRoute($url)
     {
-        if (!empty($url) && substr($url, 0, 1) !== "/") {
+        $url = ltrim($url, "/");
+        if (!empty($url)) {
             $url = "/" . $url;
         }
         return $this->dm->find(null, "/cms/routes" . $url);
@@ -99,21 +105,6 @@ class Content
         return $this->getRoute("");
     }
 
-    public function setSplash($mode, $argument = null)
-    {
-        switch ($mode) {
-            case self::SPLASH_MODE_LANGUAGE_DETECTION:
-                break;
-            case self::SPLASH_MODE_PAGE:
-                break;
-            case self::SPLASH_MODE_REDIRECT:
-                break;
-            default:
-                throw new \InvalidArgumentException("Illegal mode given");
-                break;
-        }
-    }
-
     private function storePage($parentUrl, ContentInterface $page)
     {
         $parentPage = $this->dm->find(null, "/cms/pages" . $parentUrl);
@@ -153,6 +144,15 @@ class Content
 
         $this->dm->persist($route);
         $this->dm->flush();
+    }
+
+    /**
+     * @param $type
+     * @return RepositoryInterface
+     */
+    public function getRepository($type)
+    {
+        return $this->repositories[$type];
     }
 
     public function save($object)

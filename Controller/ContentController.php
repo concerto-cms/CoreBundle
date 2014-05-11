@@ -3,30 +3,51 @@ namespace ConcertoCms\CoreBundle\Controller;
 
 use ConcertoCms\CoreBundle\Document\ContentInterface;
 use ConcertoCms\CoreBundle\Document\LanguageRoute;
-use ConcertoCms\CoreBundle\Service\Content;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use ConcertoCms\CoreBundle\Document\RouteInterface;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 
-class ContentController extends Controller
+class ContentController extends BaseController
 {
     public function indexAction()
     {
         return $this->render('ConcertoCmsCoreBundle:Content:index.html.twig', array("pages" => $this->getPages()));
     }
 
-    public function getPagesAction()
+    public function getPageAction($path)
     {
-        return new JsonResponse($this->getPages());
+        $page = $path ? $this->getContentService()->getRoute($path) : $this->getContentService()->getSplash();
+        $data = array();
+        $this->populatePageData($data, $page);
+        return new JsonResponse($data);
     }
 
-    private function getPages()
+    public function putPageAction($path)
     {
-        $data = array();
-        $splash = $this->getDocumentManager()->getSplash();
-        $this->populatePageData($data, $splash);
-        return $data;
+        $data = $this->getJsonInput();
+        $page = $this->getContentService()->getPage($path);
+        if (!$page) {
+            throw $this->createNotFoundException("Page with id '/cms/pages/" . $path . "' not found");
+        }
+        $repository = $this->getContentService()->getRepository($page->getClassname());
+        $repository->populate($page, $data);
+        $this->getContentService()->save($page);
+        return new JsonResponse($page);
+    }
+
+    public function postPageAction($path)
+    {
+        $data = $this->getJsonInput();
+        $repository = $this->getContentService()->getRepository($data["type"]);
+        $page = $repository->create($data);
+        $this->getContentService()->save($page);
+        return new JsonResponse($page);
+    }
+
+    public function deletePageAction($path)
+    {
+        return new ServiceUnavailableHttpException("Deleting is not implemented yet");
     }
 
     /**
@@ -43,13 +64,5 @@ class ContentController extends Controller
             $pageData[] = $child;
             $this->populatePageData($pageData, $child);
         }
-    }
-
-    /**
-     * @return Content
-     */
-    private function getDocumentManager()
-    {
-        return $this-> get("concerto_cms_core.content");
     }
 }

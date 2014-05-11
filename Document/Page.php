@@ -174,20 +174,6 @@ class Page implements ContentInterface
         return "ConcertoCMFCoreBundle:Page";
     }
 
-    public function set($params)
-    {
-        if (isset($params["description"])) {
-            $this->setDescription($params["description"]);
-        }
-        if (isset($params["content"])) {
-            $this->setContent($params["content"]);
-        }
-        if (isset($params["title"])) {
-            $this->setTitle($params["title"]);
-        }
-        return $this;
-    }
-
     public function getRoute()
     {
         $routes = $this->getRoutes();

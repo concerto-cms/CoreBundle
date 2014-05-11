@@ -41,6 +41,13 @@ class Navigation
         return $this->dm->find(null, "/cms/menu/" . $id);
     }
 
+    public function reorder(MenuNode $menu, $beforePath)
+    {
+
+        $parent = $menu->getParent();
+        $this->dm->reorder($parent, $menu->getName(), basename($beforePath), true);
+        $this->dm->flush();
+    }
     public function getMenuLocale($id, $locale)
     {
         return $this->dm->find(null, "/cms/menu/" . $id . "/" . $locale);
