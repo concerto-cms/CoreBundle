@@ -21,7 +21,7 @@
         "friendsofsymfony/jsrouting-bundle": "1.5.3",
         "symfony-cmf/media-bundle": "1.0.2",
         "liip/imagine-bundle": "~0.12",
-        "symfony-cmf/menu-bundle": "1.0.0",
+        "symfony-cmf/menu-bundle": "1.1.*",
         "helios-ag/fm-elfinder-bundle": "1.x"
 
     }

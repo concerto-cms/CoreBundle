@@ -19,5 +19,4 @@ class ConcertoCmsCoreBundle extends Bundle
         parent::build($container);
         $container->addCompilerPass(new RepositoryCompilerPass());
     }
-
 }

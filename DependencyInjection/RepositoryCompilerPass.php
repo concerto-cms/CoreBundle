@@ -12,7 +12,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;
 
-class RepositoryCompilerPass implements CompilerPassInterface {
+class RepositoryCompilerPass implements CompilerPassInterface
+{
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition('concerto_cms_core.content')) {
@@ -33,4 +34,4 @@ class RepositoryCompilerPass implements CompilerPassInterface {
             );
         }
     }
-} 
+}

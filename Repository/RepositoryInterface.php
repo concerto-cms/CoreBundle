@@ -9,7 +9,8 @@
 namespace ConcertoCms\CoreBundle\Repository;
 
 
-interface RepositoryInterface {
+interface RepositoryInterface
+{
     /**
      * @param object $document
      * @param array $params

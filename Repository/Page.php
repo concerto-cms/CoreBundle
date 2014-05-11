@@ -5,11 +5,10 @@
  * Date: 11/05/14
  * Time: 08:58
  */
-
 namespace ConcertoCms\CoreBundle\Repository;
 
-
-class Page implements RepositoryInterface {
+class Page implements RepositoryInterface
+{
     /**
      * @param object $document
      * @param array $params
@@ -28,7 +27,8 @@ class Page implements RepositoryInterface {
         }
         return $this;
     }
-    public function create($params) {
+    public function create($params)
+    {
         $page = new Page();
         $this->populate($page, $params);
         return $page;
@@ -53,5 +53,4 @@ class Page implements RepositoryInterface {
     {
         // TODO: Implement getLabel() method.
     }
-
-} 
+}
