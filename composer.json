@@ -12,13 +12,11 @@
     },
     "target-dir": "ConcertoCms/CoreBundle",
     "require": {
-        "doctrine/phpcr-bundle": "1.1.*",
-        "doctrine/phpcr-odm": "1.1.*",
-        "jackalope/jackalope-doctrine-dbal": "1.0.*",
+        "jackalope/jackalope-doctrine-dbal": "1.1.*",
 
         "symfony-cmf/routing-bundle": "1.1.*",
         "doctrine/data-fixtures": "1.0.*",
-        "friendsofsymfony/jsrouting-bundle": "1.5.*",
+        "friendsofsymfony/jsrouting-bundle": "1.5.3",
         "symfony-cmf/media-bundle": "1.1.*",
         "liip/imagine-bundle": "~0.12",
         "symfony-cmf/menu-bundle": "1.1.*",
