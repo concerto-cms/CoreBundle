@@ -6,6 +6,8 @@ php:
 
 before_script:
   - pear install PHP_CodeSniffer
+  - phpenv rehash
+
 #  - chmod a+x .travis.sh
 
 #script: ./.travis.sh
