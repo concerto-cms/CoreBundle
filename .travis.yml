@@ -6,9 +6,9 @@ php:
 
 before_script:
   - pear install PHP_CodeSniffer
-  - pear install pear.phing.info/phing
+  - chmod a+x .travis.sh
 
-script: phing
+script: .travis.sh
 
 #script:
 #  - phpcs --report=summary --standard=PSR2 .
