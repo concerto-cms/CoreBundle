@@ -6,9 +6,9 @@ php:
 
 before_script:
   - pear install PHP_CodeSniffer
-  - chmod a+x .travis.sh
+#  - chmod a+x .travis.sh
 
-script: ./.travis.sh
+#script: ./.travis.sh
 
-#script:
-#  - phpcs --report=summary --standard=PSR2 .
+script:
+  - phpcs --report=summary --standard=PSR2 .
