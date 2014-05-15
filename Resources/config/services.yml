@@ -34,5 +34,21 @@ services:
             - name: kernel.event_listener
               event: concerto.language.add
               method: onLanguageAdd
+    concerto_cms_core.extension_container:
+        class: ConcertoCms\CoreBundle\Extension\ExtensionContainer
+        arguments:
+            - @knp_menu.factory
+    concerto_cms_core.extension:
+        class: ConcertoCms\CoreBundle\Service\Extension
+        tags:
+            - { name: concerto.extension }
+    concerto_cms_core.menu.topmenu:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: concerto_cms_core.extension_container
+        factory_method: buildTopMenu
+        arguments: ["@request"]
+        scope: request # needed as we have the request as a dependency here
+        tags:
+            - { name: knp_menu.menu, alias: topmenu } # The alias is what is used to retrieve the menu
 
 

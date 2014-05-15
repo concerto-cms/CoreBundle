@@ -1,6 +1,7 @@
 <?php
 namespace ConcertoCms\CoreBundle;
 
+use ConcertoCms\CoreBundle\DependencyInjection\ExtensionsCompilerPass;
 use ConcertoCms\CoreBundle\DependencyInjection\RepositoryCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -18,5 +19,6 @@ class ConcertoCmsCoreBundle extends Bundle
     {
         parent::build($container);
         $container->addCompilerPass(new RepositoryCompilerPass());
+        $container->addCompilerPass(new ExtensionsCompilerPass());
     }
 }
