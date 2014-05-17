@@ -10,8 +10,17 @@ use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 
 class ContentController extends BaseController
 {
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function indexAction()
+    {
+        $data = array();
+        $this->populatePageData($data, $this->getContentService()->getSplash());
+        return $this->render('ConcertoCmsCoreBundle:Content:index.html.twig', array("pages" => $data));
+    }
 
-    public function getPageAction($path)
+    public function getAction($path)
     {
         $page = $path ? $this->getContentService()->getRoute($path) : $this->getContentService()->getSplash();
         $data = array();
@@ -19,7 +28,7 @@ class ContentController extends BaseController
         return new JsonResponse($data);
     }
 
-    public function putPageAction($path)
+    public function putAction($path)
     {
         $data = $this->getJsonInput();
         $page = $this->getContentService()->getPage($path);
@@ -32,7 +41,7 @@ class ContentController extends BaseController
         return new JsonResponse($page);
     }
 
-    public function postPageAction($path)
+    public function postAction($path)
     {
         $data = $this->getJsonInput();
         $repository = $this->getContentService()->getRepository($data["type"]);
@@ -41,7 +50,7 @@ class ContentController extends BaseController
         return new JsonResponse($page);
     }
 
-    public function deletePageAction($path)
+    public function deleteAction($path)
     {
         return new ServiceUnavailableHttpException("Deleting is not implemented yet");
     }

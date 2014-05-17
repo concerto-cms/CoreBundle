@@ -1,19 +1,29 @@
-var Concerto = Concerto || {};
-Concerto.View = Concerto.View || {};
+var View = View || {};
 
-Concerto.View.PageList = Backbone.View.extend({
+View.PageList = Backbone.View.extend({
     initialize: function(options) {
-        this.languages = options.languages;
+        _.extend(this, options);
         this.render();
     },
 
     render: function() {
         this.el.innerHTML = window.JST["content.pageList.html.twig"].render({
             page: this.model,
+            pageTypes: _.pluck(this.pageTypes.getList(), "id"),
             languages: this.languages
         });
     },
     events: {
+        "click button.new-page": "openNewpageDialog"
+    },
+
+    openNewpageDialog: function() {
+        window.modal = new View.NewpageDialog({
+            languages: this.languages,
+            current: this.model,
+            pages: this.pages,
+            pageTypes: this.pageTypes
+        });
 
     }
 

@@ -1,0 +1,50 @@
+{% import _self as macros %}
+{% macro newsitem(items) %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Title</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td style="width: 1px; white-space: nowrap;">{{ item.get('date') }}</td>
+                <td><a href="#edit/{{ item.get('slug') }}">{{ item.get('title')|default('<em>Untitled news item</em>') }}</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}
+<div class="container clearfix">
+    <h1 class="pull-left">News</h1>
+    <p class="text-right">
+        <a href="#new" class="btn btn-info new-page"><i class="glyphicon glyphicon-plus"></i> Toevoegen...</a>
+    </p>
+</div>
+<hr />
+<div class="container">
+    {% set planned = getPlanned() %}
+    {% if (planned|length > 0) %}
+        <h4>Planned items</h4>
+        {{ macros.newsitem(planned) }}
+    {% endif %}
+    {% set published = getPublished() %}
+
+    <h4>Published items</h4>
+    {% if published|length > 0 %}
+        {{ macros.newsitem(published) }}
+    {% else %}
+        <div class="alert alert-danger">
+        No news items currently published.
+        </div>
+    {% endif %}
+
+    {% set archived = getArchived() %}
+    {% if (archived|length > 0) %}
+    <h4>Archived items</h4>
+        {{ macros.newsitem(archived) }}
+    {% endif %}
+
+</div>

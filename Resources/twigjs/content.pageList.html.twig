@@ -1,22 +1,19 @@
-<header class="herounit">
+<div class="container clearfix">
     {% if languages|length > 1 %}
-    <nav class="navbar" role="navigation">
-        <div class="container">
-            <ul class="nav navbar-nav">
-                {% for lang in languages %}
-                    <li{% if lang.get('name') == page.get('name') %} class="active"{% endif %}><a href="#{{ lang.get('name') }}" data-toggle="tab">{{ lang.get('description') }}</a></li>
-                {% endfor %}
-                <li><a href="#" data-toggle="tab"><i class="glyphicon glyphicon-cog"></i> Manage...</a></li>
-            </ul>
-        </div><!-- /.container-fluid -->
-    </nav>
+    <ul class="nav nav-pills pull-left">
+        {% for lang in languages %}
+            <li{% if lang.get('name') == page.get('name') %} class="active"{% endif %}><a href="#{{ lang.get('name') }}" data-toggle="tab">{{ lang.get('description') }}</a></li>
+        {% endfor %}
+    </ul>
     {% endif %}
-</header>
-<div class="container">
+
     <p class="text-right">
-        <a class="btn btn-info" href="#new"><i class="glyphicon glyphicon-plus"></i> Add page</a>
+        <button type="button" class="btn btn-info new-page"><i class="glyphicon glyphicon-plus"></i> Toevoegen...</button>
     </p>
-    <ul class="list-group content-list">
-        {% include 'content.pageListItem.html.twig' with {language: page, page: page} %}
+</div>
+<hr />
+<div class="container">
+    <ul class="list-group item-list content-list">
+        {% include 'content.pageListItem.html.twig' with {language: page, page: page, pageTypes: pageTypes} %}
     </ul>
 </div>

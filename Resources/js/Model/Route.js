@@ -1,7 +1,6 @@
-var Concerto = Concerto || {};
-Concerto.Model = Concerto.Model || {};
+var Model = Model || {};
 
-Concerto.Model.Route = Backbone.Model.extend({
+Model.Route = Backbone.Model.extend({
     getParent: function() {
         if (this.collection) {
             return this.collection.get(this.get('parent'));
@@ -20,11 +19,11 @@ Concerto.Model.Route = Backbone.Model.extend({
 
     set: function(attributes, options) {
         if (attributes === "content" && !(options instanceof Concerto.Model.Page)) {
-            options = new Concerto.Model.Page(options);
+            options = new Model.Page(options);
         }
 
         if (typeof attributes === "object" && typeof attributes.content !== "undefined") {
-            attributes.content = new Concerto.Model.Page(attributes.content);
+            attributes.content = new Model.Page(attributes.content);
         }
 
         Backbone.Model.prototype.set.apply(this, arguments);
@@ -32,6 +31,11 @@ Concerto.Model.Route = Backbone.Model.extend({
 
     getId: function() {
         return this.get('id').replace("/cms/routes/", "");
+    },
+
+    getLanguage: function() {
+        var idParts = this.getId().split("/");
+        return this.collection.getLanguage(_.first(idParts));
     }
 
-})
+});

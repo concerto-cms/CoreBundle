@@ -1,0 +1,27 @@
+<div class="container clearfix">
+    {% if languages.length > 1 %}
+    <ul class="nav nav-pills pull-left">
+        {% for lang in languages.toArray() %}
+            <li{% if lang.get('name') == language %} class="active"{% endif %}><a href="#{{ model.getParent().get('name') }}/{{ lang.get('name') }}">{{ lang.get('description') }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <p class="text-right">
+        <button type="button" class="btn btn-info new-page"><i class="glyphicon glyphicon-plus"></i> Toevoegen...</button>
+    </p>
+    {% if menus.getMenus()|length > 1 %}
+    <ul class="nav nav-pills pull-left">
+        {% for m in menus.getMenus() %}
+            <li{% if m.get('name') == model.getParent().get('name') %} class="active"{% endif %}><a href="#{{ m.get('name') }}/{{ language }}">{{ m.get('label') }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+<hr />
+
+<div class="container">
+    <ul class="list-group item-list menu-list">
+        {% include 'navigation.menuItem.html.twig' with {menu: model} %}
+    </ul>
+
+</div>

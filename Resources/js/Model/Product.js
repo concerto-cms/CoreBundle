@@ -1,6 +1,6 @@
 var Model = Model || {};
 
-Model.Page = Backbone.Model.extend({
+Model.Product = Backbone.Model.extend({
     initialize: function() {
         this.on("sync", function() {
             $.growl({
@@ -11,5 +11,13 @@ Model.Page = Backbone.Model.extend({
     },
     getId: function() {
         return this.get('id').replace("/cms/pages/", "");
+    },
+
+    getBrochure: function() {
+        if (this.has('brochure')) {
+            return Routing.generate('betec_website_brochure', {path: this.getId()});
+        } else {
+            return null;
+        }
     }
 })

@@ -1,0 +1,22 @@
+ul.item-list.menu-list {
+    li.active {
+        & > a {
+            background-color: @brand-primary;
+            border-color: @brand-primary;
+
+            &, * {
+                color: white;
+            }
+        }
+        & > form {
+            border: 1px solid @brand-primary;
+            background-color: @gray-lighter;
+            padding: 15px;
+
+            .btn-toolbar {
+                margin-bottom: 20px;
+            }
+        }
+
+    }
+}

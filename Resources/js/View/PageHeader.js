@@ -1,13 +1,19 @@
-var Concerto = Concerto || {};
-Concerto.View = Concerto.View || {};
+var View = View || {};
 
-Concerto.View.PageHeader = Backbone.View.extend({
-    initialize: function() {
+View.PageHeader = Backbone.View.extend({
+    initialize: function(options) {
+        this.model = options.page;
+        this.language = options.language;
+        this.route = options.route;
         this.render();
+        this.listenTo(this.model, "sync", this.render);
     },
 
     render: function() {
         this.el.innerHTML = window.JST["content.pageHeader.html.twig"].render({
+            route: this.route,
+            page: this.model,
+            language: this.language
         });
     },
     events: {

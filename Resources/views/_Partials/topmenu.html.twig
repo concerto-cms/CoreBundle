@@ -7,63 +7,27 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Concerto CMS</a>
+        <a class="navbar-brand" href="{{ path('concerto_cms_core_dashboard') }}">Betec NV</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Dashboard</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Content <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="{{ path('concerto_cms_core_content') }}#new">Create new page</a></li>
-                    <li class="divider"></li>
-                    <li><a href="{{ path('concerto_cms_core_content') }}">Browse content</a></li>
-                    <li><a href="{{ path('concerto_cms_core_navigation') }}">Navigation</a></li>
-                    <li><a href="{{ path('concerto_cms_core_media') }}">Media manager</a></li>
-                    <!--
-                    <li class="divider"></li>
-                    <li><a href="#">Settings</a></li>
-                    -->
-                </ul>
-            </li>
-            <!--
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Create new post</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Browse content</a></li>
-                    <li><a href="#">Manage tags &amp; categories</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Settings</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">eCommerce <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Create new product</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Browse content</a></li>
-                    <li><a href="#">Orders</a></li>
-                    <li><a href="#">Customers</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Settings</a></li>
-                </ul>
-            </li>
-            -->
+            {% set route = app.request.get('_route') %}
+            <li{% if route == 'concerto_cms_core_content' %} class="active"{% endif %}><a href="{{ path('concerto_cms_core_content') }}">Content</a></li>
+            <li{% if route == 'betec_backend_navigation' %} class="active"{% endif %}><a href="{{ path('betec_backend_navigation') }}">Menu</a></li>
+            <li{% if route == 'betec_backend_news' %} class="active"{% endif %}><a href="{{ path('betec_backend_news') }}">News</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            {#
             <li><a href="#"><i class="glyphicon glyphicon-search"></i></a></li>
-            <li><a href="#"><i class="glyphicon glyphicon-cog"></i></a></li>
+            #}
+            <li><a href="javascript:openFilemanager"><i class="glyphicon glyphicon glyphicon-hdd"></i></a></li>
+
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> Mathieu Maes</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">My account</a></li>
-                    <li><a href="#">Change password</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="#">Afmelden</a></li>
                 </ul>
             </li>
         </ul>
