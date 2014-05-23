@@ -58,5 +58,4 @@ class Page implements RepositoryInterface
     {
         return null;
     }
-
 }

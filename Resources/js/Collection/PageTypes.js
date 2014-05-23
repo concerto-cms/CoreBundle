@@ -17,5 +17,12 @@ Collection.PageTypes = Backbone.Collection.extend({
             return this.where({showInList: true});
         }
 
+    },
+    isChildrenAllowed: function(type) {
+        var pageType = this.get(type);
+        if (!pageType) {
+            return false;
+        }
+        return pageType.allowChildren();
     }
 });

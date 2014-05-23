@@ -167,8 +167,7 @@ class Content
         /**
          * @var $repo RepositoryInterface
          */
-        foreach($this->repositories as $id => $repo)
-        {
+        foreach ($this->repositories as $id => $repo) {
             $type = array(
                 "id" => $id,
                 "label" => $repo->getLabel(),

@@ -5,15 +5,14 @@
  * Date: 18/05/14
  * Time: 15:50
  */
-
 namespace ConcertoCms\CoreBundle\Twig;
-
 
 use ConcertoCms\CoreBundle\Service\Content;
 
-class ContentExtension extends \Twig_Extension {
+class ContentExtension extends \Twig_Extension
+{
     private $contentService;
-    function __construct(Content $contentService)
+    public function __construct(Content $contentService)
     {
         $this->contentService = $contentService;
     }
@@ -40,5 +39,4 @@ class ContentExtension extends \Twig_Extension {
         return $this->contentService->getPagetypes();
 
     }
-
-} 
+}

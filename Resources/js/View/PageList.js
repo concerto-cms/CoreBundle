@@ -9,7 +9,7 @@ View.PageList = Backbone.View.extend({
     render: function() {
         this.el.innerHTML = window.JST["content.pageList.html.twig"].render({
             page: this.model,
-            pageTypes: _.pluck(this.pageTypes.getList(), "id"),
+            pageTypes: this.pageTypes,
             languages: this.languages
         });
     },
@@ -22,7 +22,7 @@ View.PageList = Backbone.View.extend({
             languages: this.languages,
             current: this.model,
             pages: this.pages,
-            pageTypes: this.pageTypes
+            pageTypes: this.pageTypes.getList()
         });
 
     }
