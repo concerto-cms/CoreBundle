@@ -35,8 +35,8 @@ class ContentController extends BaseController
         if (!$page) {
             throw $this->createNotFoundException("Page with id '/cms/pages/" . $path . "' not found");
         }
-        $repository = $this->getContentService()->getRepository($page->getClassname());
-        $repository->populate($page, $data);
+        $manager = $this->getContentService()->getManager($page->getClassname());
+        $manager->populate($page, $data);
         $this->getContentService()->save($page);
         return new JsonResponse($page);
     }
@@ -44,8 +44,8 @@ class ContentController extends BaseController
     public function postAction($path)
     {
         $data = $this->getJsonInput();
-        $repository = $this->getContentService()->getRepository($data["type"]);
-        $page = $repository->create($data);
+        $manager = $this->getContentService()->getManager($data["type"]);
+        $page = $manager->create($data);
         $this->getContentService()->save($page);
         return new JsonResponse($page);
     }

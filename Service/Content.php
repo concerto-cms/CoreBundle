@@ -12,10 +12,10 @@ namespace ConcertoCms\CoreBundle\Service;
 use ConcertoCms\CoreBundle\Document\LanguageRoute;
 use ConcertoCms\CoreBundle\Document\SplashRoute;
 use ConcertoCms\CoreBundle\Event\LanguageEvent;
+use ConcertoCms\CoreBundle\Extension\PageManagerInterface;
 use ConcertoCms\CoreBundle\Model\Locale;
 use ConcertoCms\CoreBundle\Document\Route;
 use ConcertoCms\CoreBundle\Document\ContentInterface;
-use ConcertoCms\CoreBundle\Repository\RepositoryInterface;
 use Doctrine\ODM\PHPCR\ChildrenCollection;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -36,12 +36,12 @@ class Content
         $this->dispatcher = $dispatcher;
     }
 
-    private $repositories = array();
+    private $pageManagers = array();
 
-    public function addRepository(RepositoryInterface $repository)
+    public function addManager(PageManagerInterface $pagemanager)
     {
-        $type = $repository->getType();
-        $this->repositories[$type] = $repository;
+        $type = $pagemanager->getType();
+        $this->pageManagers[$type] = $pagemanager;
     }
 
     /**
@@ -148,11 +148,11 @@ class Content
 
     /**
      * @param $type
-     * @return RepositoryInterface
+     * @return PageManagerInterface
      */
-    public function getRepository($type)
+    public function getManager($type)
     {
-        return $this->repositories[$type];
+        return $this->pageManagers[$type];
     }
 
     public function save($object)
@@ -165,9 +165,9 @@ class Content
     {
         $types = array();
         /**
-         * @var $repo RepositoryInterface
+         * @var $repo PageManagerInterface
          */
-        foreach ($this->repositories as $id => $repo) {
+        foreach ($this->pageManagers as $id => $repo) {
             $type = array(
                 "id" => $id,
                 "label" => $repo->getLabel(),

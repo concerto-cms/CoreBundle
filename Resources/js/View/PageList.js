@@ -22,7 +22,7 @@ View.PageList = Backbone.View.extend({
             languages: this.languages,
             current: this.model,
             pages: this.pages,
-            pageTypes: this.pageTypes.getList()
+            pageTypes: this.pageTypes
         });
 
     }

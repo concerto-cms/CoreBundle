@@ -6,10 +6,10 @@
  * Time: 08:58
  */
 
-namespace ConcertoCms\CoreBundle\Repository;
+namespace ConcertoCms\CoreBundle\Extension;
 
 
-interface RepositoryInterface
+interface PageManagerInterface
 {
     /**
      * @param object $document

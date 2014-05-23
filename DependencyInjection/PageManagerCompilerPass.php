@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;
 
-class RepositoryCompilerPass implements CompilerPassInterface
+class PageManagerCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
@@ -25,12 +25,12 @@ class RepositoryCompilerPass implements CompilerPassInterface
         );
 
         $taggedServices = $container->findTaggedServiceIds(
-            'concerto.repository'
+            'concerto.pagemanager'
         );
 
         foreach ($taggedServices as $id => $attributes) {
             $definition->addMethodCall(
-                'addRepository',
+                'addManager',
                 array(new Reference($id))
             );
         }

@@ -19,13 +19,13 @@ services:
         arguments:
             - @doctrine_phpcr.odm.default_document_manager
             - @event_dispatcher
-    concerto_cms_core.repository.page:
-        class: ConcertoCms\CoreBundle\Repository\Page
+    concerto_cms_core.manager.page:
+        class: ConcertoCms\CoreBundle\PageManager\Page
         arguments:
             - @doctrine_phpcr.odm.default_document_manager
             - @event_dispatcher
         tags:
-            - { name: concerto.repository }
+            - { name: concerto.pagemanager }
     concerto_cms_core.navigation:
         class: ConcertoCms\CoreBundle\Service\Navigation
         arguments:

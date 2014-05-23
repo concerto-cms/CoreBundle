@@ -5,9 +5,11 @@
  * Date: 11/05/14
  * Time: 08:58
  */
-namespace ConcertoCms\CoreBundle\Repository;
+namespace ConcertoCms\CoreBundle\PageManager;
 
-class Page implements RepositoryInterface
+use ConcertoCms\CoreBundle\Extension\PageManagerInterface;
+
+class Page implements PageManagerInterface
 {
     /**
      * @param object $document
