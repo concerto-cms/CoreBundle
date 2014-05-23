@@ -46,11 +46,17 @@ class Page implements RepositoryInterface
 
     public function getJSView()
     {
-        // TODO: Implement getJSView() method.
+        return "View.PageContent_Page";
     }
 
     public function getLabel()
     {
-        // TODO: Implement getLabel() method.
+        return "Basic page";
     }
+
+    public function getAllowedChildPageTypes()
+    {
+        return null;
+    }
+
 }

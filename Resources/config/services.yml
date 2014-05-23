@@ -50,5 +50,8 @@ services:
         scope: request # needed as we have the request as a dependency here
         tags:
             - { name: knp_menu.menu, alias: topmenu } # The alias is what is used to retrieve the menu
-
-
+    concerto_cms_core.twig.content_extension:
+        class: ConcertoCms\CoreBundle\Twig\ContentExtension
+        arguments: ["@concerto_cms_core.content"]
+        tags:
+            - { name: twig.extension }

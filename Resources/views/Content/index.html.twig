@@ -35,7 +35,7 @@
 
         window.controller = new Controller.Content({
             pages: {{ pages|json_encode|raw }},
-            pageTypes: [
+            pageTypes: {{ getPagetypes()|json_encode|raw }} {#[
                 {
                     id: 'ConcertoCMFCoreBundle:Page',
                     label: 'Eenvoudige pagina',
@@ -54,7 +54,7 @@
                     allowChildPageTypes: [],
                     createRoute: 'betec_backend_content_rest_new_newslist'
                 }
-            ]
+            ]#}
         });
     </script>
 {% endblock %}

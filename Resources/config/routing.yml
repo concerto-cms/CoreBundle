@@ -2,7 +2,7 @@ concerto_cms_core_dashboard:
     path: /
     defaults:
         _controller: FrameworkBundle:Redirect:redirect
-        route: betec_backend_content
+        route: concerto_cms_core_content
         permanent: true
 
 #concerto_cms_core_dashboard:

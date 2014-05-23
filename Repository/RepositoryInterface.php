@@ -23,4 +23,5 @@ interface RepositoryInterface
     public function getType();
     public function getJSView();
     public function getLabel();
+    public function getAllowedChildPageTypes();
 }

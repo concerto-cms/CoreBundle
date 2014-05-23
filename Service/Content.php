@@ -160,4 +160,23 @@ class Content
         $this->dm->persist($object);
         $this->dm->flush();
     }
+
+    public function getPagetypes()
+    {
+        $types = array();
+        /**
+         * @var $repo RepositoryInterface
+         */
+        foreach($this->repositories as $id => $repo)
+        {
+            $type = array(
+                "id" => $id,
+                "label" => $repo->getLabel(),
+                "view" => $repo->getJSView(),
+                "allowChildPageTypes" => $repo->getAllowedChildPageTypes()
+            );
+            $types[] = $type;
+        }
+        return $types;
+    }
 }

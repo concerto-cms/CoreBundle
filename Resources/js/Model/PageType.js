@@ -10,7 +10,7 @@ Model.PageType = Backbone.Model.extend({
     },
 
     createView: function(options) {
-        var view = this.get('view');
+        var view = eval(this.get('view'));
         return new view(options);
     },
 
@@ -26,4 +26,5 @@ Model.PageType = Backbone.Model.extend({
         var allowed = this.get('allowChildPageTypes');
         return (allowed === null || allowed.length > 0);
     }
+
 });
