@@ -7,10 +7,11 @@ View.NewpageDialog = Backbone.View.extend({
 
         this.model = new Model.Route({
             type: this.pageTypes.first().id,
-            parent: this.current.id
+            parent: this.current.getId()
         });
+        window.newModel = this.model;
 
-        this.listenTo(this.model, "change:parent", this.render);
+        //this.listenTo(this.model, "change:parent", this.render);
         this.parentList = [this.current];
         this.populateParents(this.current);
         this.render();
@@ -48,7 +49,7 @@ View.NewpageDialog = Backbone.View.extend({
     },
     getPageTypes: function() {
         var parentId = this.model.get('parent'),
-            parentPage = this.pages.get(parentId),
+            parentPage = this.pages.get('/cms/routes/' + parentId),
             parentType = this.pageTypes.get(parentPage.getContent().get('type'));
 
         return this.pageTypes.getList(parentType);
@@ -57,8 +58,8 @@ View.NewpageDialog = Backbone.View.extend({
         console.dir(this.getPageTypes());
     },
     save: function() {
-        var that = this,
-            pageType = this.pageTypes.get(this.model.get('type'));
+        var that = this;
+        console.dir(this.model);
         this.model.url = Routing.generate('concerto_cms_core_content_rest', {path: this.model.get('parent')});
 
         this.$("button").attr("disabled", "disabled").addClass("disabled");

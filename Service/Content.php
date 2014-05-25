@@ -107,7 +107,11 @@ class Content
 
     private function storePage($parentUrl, ContentInterface $page)
     {
+        $parentUrl = "/" . ltrim($parentUrl, "/");
         $parentPage = $this->dm->find(null, "/cms/pages" . $parentUrl);
+        if (!$parentPage) {
+            throw new \InvalidArgumentException("Couldn't find route for url " . $parentUrl);
+        }
         $page->setParent($parentPage);
         $this->dm->persist($page);
         $this->dm->flush();
@@ -120,13 +124,17 @@ class Content
     public function createPage($parentUrl, $page)
     {
         $parentRoute = $this->getRoute($parentUrl);
+        if (!$parentRoute) {
+            throw new \InvalidArgumentException("Couldn't find route for url " . $parentUrl);
+        }
         $page = $this->storePage($parentUrl, $page);
 
         $route = new Route();
         $route->setName($page->getSlug());
         $route->setDefault("_locale", $parentRoute->getDefault("_locale"));
 
-        $route->setParent($parentRoute);
+        $route->setParentDocument($parentRoute);
+//        $route->setParent($parentRoute);
         $route->setContent($page);
         $this->dm->persist($route);
         $this->dm->flush();

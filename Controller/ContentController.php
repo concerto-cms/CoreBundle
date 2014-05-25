@@ -6,6 +6,7 @@ use ConcertoCms\CoreBundle\Document\LanguageRoute;
 use ConcertoCms\CoreBundle\Document\RouteInterface;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 
 class ContentController extends BaseController
@@ -46,8 +47,16 @@ class ContentController extends BaseController
         $data = $this->getJsonInput();
         $manager = $this->getContentService()->getManager($data["type"]);
         $page = $manager->create($data);
-        $this->getContentService()->save($page);
-        return new JsonResponse($page);
+
+        $page->setSlug($data["name"]);
+
+        $parentRoute = $this->getContentService()->getRoute($path);
+        if (!$parentRoute)
+        {
+            throw new BadRequestHttpException("Couldn't find route " . $path);
+        }
+        $route = $this->getContentService()->createPage($path, $page);
+        return new JsonResponse($route);
     }
 
     public function deleteAction($path)

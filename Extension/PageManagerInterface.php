@@ -8,6 +8,7 @@
 
 namespace ConcertoCms\CoreBundle\Extension;
 
+use ConcertoCms\CoreBundle\Document\ContentInterface;
 
 interface PageManagerInterface
 {
@@ -18,6 +19,11 @@ interface PageManagerInterface
      */
     public function populate($document, $params);
     public function toJSON($document);
+
+    /**
+     * @param $params
+     * @return ContentInterface
+     */
     public function create($params);
 
     public function getType();

@@ -13,9 +13,12 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
+            {% set currentUri = app.request.baseUrl ~ app.request.pathInfo %}
+            {% set menu = knp_menu_get('topmenu') %}
+            {% for item in menu.children %}
+                <li{% if item.uri == currentUri %} class="active"{% endif %}><a href="{{ item.uri }}">{{ item.name }}</a></li>
+            {% endfor %}
 
-            {% set route = app.request.get('_route') %}
-            {{ knp_menu_render('topmenu') }}
             {#
             <li{% if route == 'concerto_cms_core_content' %} class="active"{% endif %}><a href="{{ path('concerto_cms_core_content') }}">Content</a></li>
             <li{% if route == 'betec_backend_navigation' %} class="active"{% endif %}><a href="{{ path('betec_backend_navigation') }}">Menu</a></li>
