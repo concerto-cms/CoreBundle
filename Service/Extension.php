@@ -27,7 +27,7 @@ class Extension extends ConcertoExtension
         $content = $root->addChild(
             "Content",
             array(
-                'route' => 'concerto_cms_core_content_rest'
+                'route' => 'concerto_cms_core_content'
             )
         );
     }

@@ -5,13 +5,8 @@ services:
     concerto_cms_core.phpcr.initializer:
         class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
         arguments:
+            - concerto_cms_core.phpcr.initializer
             - [ "/cms", "/cms/pages", "/cms/media", "/cms/media/shared" ]
-        tags:
-            - { name: doctrine_phpcr.initializer }
-    concerto_cms_core.initializer:
-        class: ConcertoCms\CoreBundle\Service\Initializer
-        arguments:
-            - @concerto_cms_core.content
         tags:
             - { name: doctrine_phpcr.initializer }
     concerto_cms_core.content:
