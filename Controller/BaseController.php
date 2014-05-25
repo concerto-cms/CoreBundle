@@ -11,6 +11,7 @@ namespace ConcertoCms\CoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use ConcertoCms\CoreBundle\Service\Content;
+use ConcertoCms\CoreBundle\Service\Navigation;
 
 class BaseController extends Controller
 {
@@ -30,5 +31,13 @@ class BaseController extends Controller
     protected function getContentService()
     {
         return $this-> get("concerto_cms_core.content");
+    }
+
+    /**
+     * @return Navigation
+     */
+    protected function getNavigationService()
+    {
+        return $this-> get("concerto_cms_core.navigation");
     }
 }

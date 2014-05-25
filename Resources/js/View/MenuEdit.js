@@ -6,7 +6,7 @@ View.MenuEdit = Backbone.View.extend({
         this.originalModel = this.model;
         this.model = this.originalModel.clone();
         this.listenToOnce(this.model, "change", this.onChange);
-        this.originalModel.url = Routing.generate('betec_backend_navigation_rest_save_menu', {path: this.model.getId()});
+        this.originalModel.url = Routing.generate('concerto_cms_core_navigation_rest', {path: this.model.getId()});
     },
 
     render: function() {
@@ -49,7 +49,7 @@ View.MenuEdit = Backbone.View.extend({
         $.ajax
         ({
             type: "PUT",
-            url: Routing.generate('betec_backend_navigation_rest_save_menu', {path: first}),
+            url: Routing.generate('concerto_cms_core_navigation_rest', {path: first}),
             dataType: 'json',
             contentType:"application/json; charset=utf-8",
             data: '{"orderBefore": "' + second + '"}'
@@ -64,7 +64,7 @@ View.MenuEdit = Backbone.View.extend({
         var that = this;
         $.ajax({
             type: 'DELETE',
-            url: Routing.generate('betec_backend_navigation_rest_save_menu', {path: this.model.getId()}),
+            url: Routing.generate('concerto_cms_core_navigation_rest', {path: this.model.getId()}),
             contentType:"application/json; charset=utf-8",
             dataType:"json"
         });
@@ -104,10 +104,7 @@ View.MenuEdit = Backbone.View.extend({
             view = new View.NewMenuDialog({
                 model: model
             });
-        model.url = Routing.generate('betec_backend_navigation_rest_new_menu', {path: this.model.getId()});
-
+        model.url = Routing.generate('concerto_cms_core_navigation_rest', {path: this.model.getId()});
         model.once("change:id", this.trigger("add"));
-
-
     }
 });

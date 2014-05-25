@@ -14,7 +14,15 @@ View.MenuList = Backbone.View.extend({
     },
 
     newMenu: function() {
-
+        console.log("new menu");
+        var model = new Model.Menu({
+                parent: this.model.id
+            }),
+            view = new View.NewMenuDialog({
+                model: model
+            });
+        model.url = Routing.generate('concerto_cms_core_navigation_rest', {path: this.model.getId()});
+        model.once("change:id", this.trigger("add"));
     }
 
 });

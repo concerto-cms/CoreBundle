@@ -51,8 +51,7 @@ class ContentController extends BaseController
         $page->setSlug($data["name"]);
 
         $parentRoute = $this->getContentService()->getRoute($path);
-        if (!$parentRoute)
-        {
+        if (!$parentRoute) {
             throw new BadRequestHttpException("Couldn't find route " . $path);
         }
         $route = $this->getContentService()->createPage($path, $page);

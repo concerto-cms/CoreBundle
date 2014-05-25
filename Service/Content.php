@@ -8,7 +8,6 @@
 
 namespace ConcertoCms\CoreBundle\Service;
 
-
 use ConcertoCms\CoreBundle\Document\LanguageRoute;
 use ConcertoCms\CoreBundle\Document\SplashRoute;
 use ConcertoCms\CoreBundle\Event\LanguageEvent;

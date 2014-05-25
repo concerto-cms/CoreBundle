@@ -14,13 +14,6 @@ services:
         arguments:
             - @doctrine_phpcr.odm.default_document_manager
             - @event_dispatcher
-    concerto_cms_core.manager.page:
-        class: ConcertoCms\CoreBundle\PageManager\Page
-        arguments:
-            - @doctrine_phpcr.odm.default_document_manager
-            - @event_dispatcher
-        tags:
-            - { name: concerto.pagemanager }
     concerto_cms_core.navigation:
         class: ConcertoCms\CoreBundle\Service\Navigation
         arguments:
@@ -29,18 +22,22 @@ services:
             - name: kernel.event_listener
               event: concerto.language.add
               method: onLanguageAdd
-    concerto_cms_core.extension_container:
-        class: ConcertoCms\CoreBundle\Extension\ExtensionContainer
+    concerto_cms_core.manager.page:
+        class: ConcertoCms\CoreBundle\PageManager\Page
         arguments:
-            - @knp_menu.factory
-    concerto_cms_core.extension:
-        class: ConcertoCms\CoreBundle\Service\Extension
+            - @doctrine_phpcr.odm.default_document_manager
+            - @event_dispatcher
         tags:
-            - { name: concerto.extension }
-    concerto_cms_core.menu.topmenu:
+            - { name: concerto.pagemanager }
+    concerto_cms_core.mainmenu.builder:
+        class: ConcertoCms\CoreBundle\Menu\MainMenuBuilder
+        arguments:
+            - @event_dispatcher
+            - @knp_menu.factory
+    concerto_cms_core.mainmenu.provider:
         class: Knp\Menu\MenuItem # the service definition requires setting the class
-        factory_service: concerto_cms_core.extension_container
-        factory_method: buildTopMenu
+        factory_service: concerto_cms_core.mainmenu.builder
+        factory_method: build
         arguments: ["@request"]
         scope: request # needed as we have the request as a dependency here
         tags:
@@ -50,3 +47,9 @@ services:
         arguments: ["@concerto_cms_core.content"]
         tags:
             - { name: twig.extension }
+    concerto_cms_core.extension.mainmenu:
+        class: ConcertoCms\CoreBundle\Extension\MainMenuListener
+        tags:
+            - name: kernel.event_listener
+              event: concerto.menu.main.build
+              method: onBuild
