@@ -4,12 +4,10 @@
         <p class="list-group-item-text">{{ page.getId() }}</p>
     </a>
     {% if page.children|length > 0 %}
-        {% if pageTypes.isChildrenAllowed(page.getContent().get('type')) %}
         <ul>
             {% for child in page.children %}
                 {% include 'content.pageListItem.html.twig' with {language: language, page: child} %}
             {% endfor %}
         </ul>
-        {% endif %}
     {% endif %}
 </li>

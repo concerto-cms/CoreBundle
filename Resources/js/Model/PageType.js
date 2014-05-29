@@ -2,20 +2,18 @@ var Model = Model || {};
 
 Model.PageType = Backbone.Model.extend({
     defaults: {
-        showInList: true,
-        allowChildPageTypes: null,
-        createRoute: 'betec_backend_content_rest_new_page'
     },
+    idAttribute: 'name',
     initialize: function() {
     },
 
     createView: function(options) {
-        var view = eval(this.get('view'));
+        var view = eval(this.get('jsView'));
         return new view(options);
     },
 
     isAllowed: function(type) {
-        var allowed = this.get('allowChildPageTypes');
+        var allowed = this.get('allowedChildTypes');
         if (allowed === null) {
             return type.get('showInList');
         }
@@ -23,7 +21,7 @@ Model.PageType = Backbone.Model.extend({
     },
 
     allowChildren: function() {
-        var allowed = this.get('allowChildPageTypes');
+        var allowed = this.get('allowedChildTypes');
         return (allowed === null || allowed.length > 0);
     }
 

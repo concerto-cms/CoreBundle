@@ -9,25 +9,25 @@
 namespace ConcertoCms\CoreBundle\Extension;
 
 use ConcertoCms\CoreBundle\Document\ContentInterface;
+use ConcertoCms\CoreBundle\Event\PageCreateEvent;
+use ConcertoCms\CoreBundle\Event\PagePopulateEvent;
 
 interface PageManagerInterface
 {
     /**
-     * @param object $document
-     * @param array $params
-     * @return mixed
+     * @return \ConcertoCms\CoreBundle\Extension\PageType[]
      */
-    public function populate($document, $params);
-    public function toJSON($document);
+    public function getPageTypes();
 
     /**
-     * @param $params
-     * @return ContentInterface
+     * @param PagePopulateEvent $event
+     * @return void
      */
-    public function create($params);
+    public function onPopulate(PagePopulateEvent $event);
 
-    public function getType();
-    public function getJSView();
-    public function getLabel();
-    public function getAllowedChildPageTypes();
+    /**
+     * @param PagePopulateEvent $event
+     * @return void
+     */
+    public function onCreate(PageCreateEvent $event);
 }

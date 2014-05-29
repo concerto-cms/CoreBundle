@@ -35,26 +35,7 @@
 
         window.controller = new Controller.Content({
             pages: {{ pages|json_encode|raw }},
-            pageTypes: {{ getPagetypes()|json_encode|raw }} {#[
-                {
-                    id: 'ConcertoCMFCoreBundle:Page',
-                    label: 'Eenvoudige pagina',
-                    view: View.PageContent_Page
-                },
-                {
-                    id: 'BetecWebsiteBundle:Product',
-                    label: 'Productpagina',
-                    view: View.PageContent_Product,
-                    createRoute: 'betec_backend_content_rest_new_product'
-                },
-                {
-                    id: 'BetecWebsiteBundle:NewsList',
-                    label: 'Nieuwsoverzicht',
-                    view: View.PageContent_Page,
-                    allowChildPageTypes: [],
-                    createRoute: 'betec_backend_content_rest_new_newslist'
-                }
-            ]#}
+            pageTypes: {{ getPagetypes()|json_encode|raw }}
         });
     </script>
 {% endblock %}

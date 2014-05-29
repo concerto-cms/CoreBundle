@@ -171,7 +171,7 @@ class Page implements ContentInterface
 
     public function getClassname()
     {
-        return "ConcertoCMFCoreBundle:Page";
+        return "ConcertoCmsCoreBundle:Page";
     }
 
     public function getRoute()

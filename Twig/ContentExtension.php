@@ -7,14 +7,15 @@
  */
 namespace ConcertoCms\CoreBundle\Twig;
 
+use ConcertoCms\CoreBundle\Extension\PageManagerContainer;
 use ConcertoCms\CoreBundle\Service\Content;
 
 class ContentExtension extends \Twig_Extension
 {
-    private $contentService;
-    public function __construct(Content $contentService)
+    private $pagemanager;
+    public function __construct(PageManagerContainer $pagemanager)
     {
-        $this->contentService = $contentService;
+        $this->pagemanager = $pagemanager;
     }
 
     /**
@@ -36,7 +37,6 @@ class ContentExtension extends \Twig_Extension
 
     public function pagetypesFunction()
     {
-        return $this->contentService->getPagetypes();
-
+        return $this->pagemanager->getPagetypes();
     }
 }

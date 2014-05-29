@@ -10,7 +10,8 @@ namespace ConcertoCms\CoreBundle\Service;
 
 use ConcertoCms\CoreBundle\Document\LanguageRoute;
 use ConcertoCms\CoreBundle\Document\SplashRoute;
-use ConcertoCms\CoreBundle\Event\LanguageEvent;
+use ConcertoCms\CoreBundle\Event;
+use ConcertoCms\CoreBundle\Extension\PageManagerContainer;
 use ConcertoCms\CoreBundle\Extension\PageManagerInterface;
 use ConcertoCms\CoreBundle\Model\Locale;
 use ConcertoCms\CoreBundle\Document\Route;
@@ -35,12 +36,13 @@ class Content
         $this->dispatcher = $dispatcher;
     }
 
-    private $pageManagers = array();
-
-    public function addManager(PageManagerInterface $pagemanager)
+    public function persist($document)
     {
-        $type = $pagemanager->getType();
-        $this->pageManagers[$type] = $pagemanager;
+        $this->dm->persist($document);
+    }
+    public function flush()
+    {
+        $this->dm->flush();
     }
 
     /**
@@ -90,13 +92,12 @@ class Content
         $route->setLocale($locale);
         $route->setContent($page);
 
-        $event = new LanguageEvent();
+        $event = new Event\LanguageEvent();
         $event->setLanguage($route);
         $this->dispatcher->dispatch('concerto.language.add', $event);
 
         $this->dm->persist($route);
         $this->dm->flush();
-
     }
 
     public function getSplash()
@@ -104,62 +105,67 @@ class Content
         return $this->getRoute("");
     }
 
-    private function storePage($parentUrl, ContentInterface $page)
-    {
-        $parentUrl = "/" . ltrim($parentUrl, "/");
-        $parentPage = $this->dm->find(null, "/cms/pages" . $parentUrl);
-        if (!$parentPage) {
-            throw new \InvalidArgumentException("Couldn't find route for url " . $parentUrl);
-        }
-        $page->setParent($parentPage);
-        $this->dm->persist($page);
-        $this->dm->flush();
-        return $page;
-    }
     /**
      * @param $parentUrl string
-     * @param $page ContentInterface
+     * @param $params array
      */
-    public function createPage($parentUrl, $page)
+    public function createPage($parentUrl, $name, $type, $params = array())
     {
+        // Check if parentUrl is a valid route
         $parentRoute = $this->getRoute($parentUrl);
+        $parentPage = $this->getPage($parentUrl);
         if (!$parentRoute) {
             throw new \InvalidArgumentException("Couldn't find route for url " . $parentUrl);
         }
-        $page = $this->storePage($parentUrl, $page);
 
+        if (!$parentPage) {
+            throw new \InvalidArgumentException("Couldn't find parent page with url " . $parentUrl);
+        }
+
+        // Create a new Page using the pagemanager events
+        $createEvent = new Event\PageCreateEvent($type);
+        $this->dispatcher->dispatch(PageManagerContainer::CREATE_EVENT, $createEvent);
+        $page = $createEvent->getDocument();
+        if ($page == null) {
+            return null;
+        }
+
+        $page->setParent($parentPage);
+        $page->setSlug($name);
+
+        // If there are params, perform populate as well
+        if (count($params)) {
+            $this->populate($page, $params);
+        }
+
+        // Create a route for the new page
         $route = new Route();
         $route->setName($page->getSlug());
         $route->setDefault("_locale", $parentRoute->getDefault("_locale"));
-
         $route->setParentDocument($parentRoute);
-//        $route->setParent($parentRoute);
         $route->setContent($page);
         $this->dm->persist($route);
-        $this->dm->flush();
         return $route;
     }
+
+    public function populate($page, $params)
+    {
+        $event = new Event\PagePopulateEvent($page, $params);
+        $this->dispatcher->dispatch(PageManagerContainer::POPULATE_EVENT, $event);
+    }
+
 
     public function initializeRoute()
     {
         // Create the root route
         $parent = $this->dm->find(null, "/cms");
         $route = new SplashRoute();
-        $route->setParent($parent);
+        $route->setParentDocument($parent);
         $route->setName("routes");
         //$route->setId("routes");
 
         $this->dm->persist($route);
         $this->dm->flush();
-    }
-
-    /**
-     * @param $type
-     * @return PageManagerInterface
-     */
-    public function getManager($type)
-    {
-        return $this->pageManagers[$type];
     }
 
     public function save($object)

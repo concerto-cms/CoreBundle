@@ -16,12 +16,12 @@ class PageManagerCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('concerto_cms_core.content')) {
+        if (!$container->hasDefinition('concerto_cms_core.pagemanager_container')) {
             return;
         }
 
         $definition = $container->getDefinition(
-            'concerto_cms_core.content'
+            'concerto_cms_core.pagemanager_container'
         );
 
         $taggedServices = $container->findTaggedServiceIds(

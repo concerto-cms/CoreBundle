@@ -16,9 +16,15 @@ class ContentController extends BaseController
      */
     public function indexAction()
     {
+        $pagemanager = $this->container->get('concerto_cms_core.pagemanager_container');
+        $pageTypes = $pagemanager->getPageTypes();
+
         $data = array();
         $this->populatePageData($data, $this->getContentService()->getSplash());
-        return $this->render('ConcertoCmsCoreBundle:Content:index.html.twig', array("pages" => $data));
+        return $this->render('ConcertoCmsCoreBundle:Content:index.html.twig', array(
+                "pages" => $data,
+                "pagetypes" => $pageTypes
+        ));
     }
 
     public function getAction($path)
@@ -36,26 +42,37 @@ class ContentController extends BaseController
         if (!$page) {
             throw $this->createNotFoundException("Page with id '/cms/pages/" . $path . "' not found");
         }
-        $manager = $this->getContentService()->getManager($page->getClassname());
-        $manager->populate($page, $data);
-        $this->getContentService()->save($page);
+
+        $this->getContentService()->populate($page, $data);
+        $this->getContentService()->flush();
         return new JsonResponse($page);
     }
 
     public function postAction($path)
     {
         $data = $this->getJsonInput();
-        $manager = $this->getContentService()->getManager($data["type"]);
-        $page = $manager->create($data);
-
-        $page->setSlug($data["name"]);
-
-        $parentRoute = $this->getContentService()->getRoute($path);
-        if (!$parentRoute) {
-            throw new BadRequestHttpException("Couldn't find route " . $path);
+        if (!isset($data["type"])) {
+            throw new BadRequestHttpException("No type given");
         }
-        $route = $this->getContentService()->createPage($path, $page);
-        return new JsonResponse($route);
+        $type = $data["type"];
+        unset($data["type"]);
+
+        if (!isset($data["parent"])) {
+            throw new BadRequestHttpException("No parent given");
+        }
+        $parent = $data["parent"];
+        unset($data["parent"]);
+
+        if (!isset($data["name"])) {
+            throw new BadRequestHttpException("No name given");
+        }
+        $name = $data["name"];
+        unset($data["name"]);
+
+        $page = $this->getContentService()->createPage($parent, $name, $type);
+
+        $this->getContentService()->flush();
+        return new JsonResponse($page);
     }
 
     public function deleteAction($path)
@@ -71,11 +88,19 @@ class ContentController extends BaseController
     {
         $children = $route->getChildren();
         /**
-         * @var $route RouteInterface
+         * @var $child RouteInterface
          */
         foreach ($children as $child) {
-            $pageData[] = $child;
-            $this->populatePageData($pageData, $child);
+            /**
+             * @var $content ContentInterface
+             */
+            $content = $child->getContent();
+            $className = $content->getClassName();
+            $pageType = $this->container->get("concerto_cms_core.pagemanager_container")->getPageType($className);
+            if ($pageType && $pageType->getShowInList()) {
+                $pageData[] = $child;
+                $this->populatePageData($pageData, $child);
+            }
         }
     }
 }
