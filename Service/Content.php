@@ -35,8 +35,8 @@ class Content
     public function __construct(
         \Doctrine\ODM\PHPCR\DocumentManager $dm,
         EventDispatcherInterface $dispatcher,
-        PageManagerContainer $pmc)
-    {
+        PageManagerContainer $pmc
+    ) {
         $this->dm = $dm;
         $this->dispatcher = $dispatcher;
     }
@@ -134,7 +134,10 @@ class Content
 
         $page = $createEvent->getDocument();
         if ($page == null) {
-            throw new \UnexpectedValueException("Document was not created after dispatching event " . PageManagerContainer::CREATE_EVENT);
+            throw new \UnexpectedValueException(
+                "Document was not created after dispatching event " .
+                PageManagerContainer::CREATE_EVENT
+            );
         }
 
         $page->setParent($parentPage);
