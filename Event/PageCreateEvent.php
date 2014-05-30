@@ -24,7 +24,7 @@ class PageCreateEvent extends Event
      */
     private $document;
 
-    public function __construct(string $type)
+    public function __construct($type)
     {
         $this->setType($type);
     }

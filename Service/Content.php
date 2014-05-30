@@ -26,11 +26,16 @@ class Content
      */
     private $dm;
 
+    private $dispatcher;
+
     /**
      * @param $dm \Doctrine\ODM\PHPCR\DocumentManager
      * @param $dispatcher EventDispatcherInterface
      */
-    public function __construct(\Doctrine\ODM\PHPCR\DocumentManager $dm, EventDispatcherInterface $dispatcher)
+    public function __construct(
+        \Doctrine\ODM\PHPCR\DocumentManager $dm,
+        EventDispatcherInterface $dispatcher,
+        PageManagerContainer $pmc)
     {
         $this->dm = $dm;
         $this->dispatcher = $dispatcher;
@@ -109,7 +114,7 @@ class Content
      * @param $parentUrl string
      * @param $params array
      */
-    public function createPage($parentUrl, $name, $type, $params = array())
+    public function createPage($parentUrl, $type, $params = array())
     {
         // Check if parentUrl is a valid route
         $parentRoute = $this->getRoute($parentUrl);
@@ -125,19 +130,21 @@ class Content
         // Create a new Page using the pagemanager events
         $createEvent = new Event\PageCreateEvent($type);
         $this->dispatcher->dispatch(PageManagerContainer::CREATE_EVENT, $createEvent);
+
+
         $page = $createEvent->getDocument();
         if ($page == null) {
-            return null;
+            throw new \UnexpectedValueException("Document was not created after dispatching event " . PageManagerContainer::CREATE_EVENT);
         }
 
         $page->setParent($parentPage);
-        $page->setSlug($name);
 
         // If there are params, perform populate as well
         if (count($params)) {
             $this->populate($page, $params);
         }
 
+        $this->persist($page);
         // Create a route for the new page
         $route = new Route();
         $route->setName($page->getSlug());

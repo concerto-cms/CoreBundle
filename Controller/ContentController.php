@@ -57,19 +57,7 @@ class ContentController extends BaseController
         $type = $data["type"];
         unset($data["type"]);
 
-        if (!isset($data["parent"])) {
-            throw new BadRequestHttpException("No parent given");
-        }
-        $parent = $data["parent"];
-        unset($data["parent"]);
-
-        if (!isset($data["name"])) {
-            throw new BadRequestHttpException("No name given");
-        }
-        $name = $data["name"];
-        unset($data["name"]);
-
-        $page = $this->getContentService()->createPage($parent, $name, $type);
+        $page = $this->getContentService()->createPage($path, $type, $data);
 
         $this->getContentService()->flush();
         return new JsonResponse($page);

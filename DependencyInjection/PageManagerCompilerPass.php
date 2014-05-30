@@ -17,7 +17,7 @@ class PageManagerCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition('concerto_cms_core.pagemanager_container')) {
-            return;
+            throw new \RuntimeException("Couldn't find service concerto_cms_core.pagemanager_container");
         }
 
         $definition = $container->getDefinition(

@@ -19,7 +19,7 @@ class NavigationController extends BaseController
 
         $languages = array_values($this->getContentService()->getLanguages()->toArray());
 
-        return $this->render('BetecBackendBundle:Navigation:index.html.twig', array(
+        return $this->render('ConcertoCmsCoreBundle:Navigation:index.html.twig', array(
                 "menus" => $this->getMenus(),
                 "languages" => $languages
             ));

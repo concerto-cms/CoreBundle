@@ -34,7 +34,7 @@ View.NewpageDialog = Backbone.View.extend({
     bindings: {
         '[name=type]': 'type',
         '[name=parent]': 'parent',
-        '[name=name]': 'name'
+        '[name=name]': 'slug'
     },
     populateParents: function(item) {
         var that = this;

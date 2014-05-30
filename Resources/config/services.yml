@@ -9,12 +9,11 @@ services:
             - [ "/cms", "/cms/pages", "/cms/media", "/cms/media/shared" ]
         tags:
             - { name: doctrine_phpcr.initializer }
-
-    concerto_cms_core.content:
-        class: ConcertoCms\CoreBundle\Service\Content
+    concerto_cms_core.pagemanager_container:
+        class: ConcertoCms\CoreBundle\Extension\PageManagerContainer
         arguments:
-            - @doctrine_phpcr.odm.default_document_manager
             - @event_dispatcher
+
     concerto_cms_core.navigation:
         class: ConcertoCms\CoreBundle\Service\Navigation
         arguments:
@@ -24,10 +23,12 @@ services:
               event: concerto.language.add
               method: onLanguageAdd
 
-    concerto_cms_core.pagemanager_container:
-        class: ConcertoCms\CoreBundle\Extension\PageManagerContainer
+    concerto_cms_core.content:
+        class: ConcertoCms\CoreBundle\Service\Content
         arguments:
+            - @doctrine_phpcr.odm.default_document_manager
             - @event_dispatcher
+            - @concerto_cms_core.pagemanager_container
 
     concerto_cms_core.manager.page:
         class: ConcertoCms\CoreBundle\Service\PageManager

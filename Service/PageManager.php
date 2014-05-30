@@ -46,7 +46,7 @@ class PageManager implements PageManagerInterface
      */
     public function onCreate(PageCreateEvent $event)
     {
-        if ($event->getType()->getName() == "ConcertoCmsCoreBundle:Page") {
+        if ($event->getType() == "ConcertoCmsCoreBundle:Page") {
             $event->setDocument(new Page());
         }
     }
@@ -54,7 +54,6 @@ class PageManager implements PageManagerInterface
     /**
      * @param ContentInterface $document
      * @param array $params
-     * @return mixed
      */
     private function populate($document, $params)
     {
@@ -67,6 +66,8 @@ class PageManager implements PageManagerInterface
         if (isset($params["title"])) {
             $document->setTitle($params["title"]);
         }
-        return $this;
+        if (isset($params["slug"])) {
+            $document->setSlug($params["slug"]);
+        }
     }
 }

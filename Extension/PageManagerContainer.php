@@ -31,6 +31,7 @@ class PageManagerContainer
         foreach ($service->getPageTypes() as $pt) {
             $this->pageTypes[] = $pt;
         }
+
         $this->dispatcher->addListener(self::CREATE_EVENT, array($service, "onCreate"));
         $this->dispatcher->addListener(self::POPULATE_EVENT, array($service, "onPopulate"));
     }
