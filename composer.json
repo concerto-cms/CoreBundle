@@ -20,7 +20,8 @@
         "symfony-cmf/media-bundle": "1.1.*",
         "liip/imagine-bundle": "~0.12",
         "symfony-cmf/menu-bundle": "1.1.*",
-        "helios-ag/fm-elfinder-bundle": "1.x"
+        "helios-ag/fm-elfinder-bundle": "1.x",
+        "aferrandini/urlizer": "1.0.*"
 
     }
 }
