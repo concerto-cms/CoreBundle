@@ -5,6 +5,7 @@
         <phpcodesniffer
                 standard="PSR2"
                 format="full"
+                ignorePatterns="Resources/public/*"
                 file="."
                 haltonerror="true"
                 allowedFileExtensions="php"/>

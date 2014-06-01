@@ -9,4 +9,4 @@ before_script:
   - phpenv rehash
 
 script:
-  - phpcs --report=summary --extensions=php --standard=PSR2 .
+  - phpcs --report=summary --ignore=Resources/public/* --extensions=php --standard=PSR2 .

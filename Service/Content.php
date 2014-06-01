@@ -89,25 +89,31 @@ class Content
     public function addLanguage(Locale $locale, ContentInterface $page)
     {
         $page->setSlug($locale->getPrefix());
-        $page = $this->storePage("", $page);
+        $page->setParent($this->dm->find(null, "/cms/pages"));
+        $this->persist($page);
 
         $parent = $this->dm->find(null, "/cms/routes");
         $route = new LanguageRoute();
-        $route->setParent($parent);
+        $route->setParentDocument($this->getSplash());
+        //$route->setParent($this->getSplash());
         $route->setLocale($locale);
         $route->setContent($page);
+        $this->dm->persist($route);
 
         $event = new Event\LanguageEvent();
         $event->setLanguage($route);
         $this->dispatcher->dispatch('concerto.language.add', $event);
 
-        $this->dm->persist($route);
         $this->dm->flush();
     }
 
     public function getSplash()
     {
-        return $this->getRoute("");
+        $splash = $this->getRoute("");
+        if (!$splash) {
+            $splash = $this->initializeRoute();
+        }
+        return $splash;
     }
 
     /**
@@ -176,6 +182,7 @@ class Content
 
         $this->dm->persist($route);
         $this->dm->flush();
+        return $route;
     }
 
     public function save($object)
