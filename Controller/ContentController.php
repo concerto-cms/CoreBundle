@@ -4,6 +4,7 @@ namespace ConcertoCms\CoreBundle\Controller;
 use ConcertoCms\CoreBundle\Document\ContentInterface;
 use ConcertoCms\CoreBundle\Document\LanguageRoute;
 use ConcertoCms\CoreBundle\Document\RouteInterface;
+use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -79,15 +80,19 @@ class ContentController extends BaseController
          * @var $child RouteInterface
          */
         foreach ($children as $child) {
-            /**
-             * @var $content ContentInterface
-             */
-            $content = $child->getContent();
-            $className = $content->getClassName();
-            $pageType = $this->container->get("concerto_cms_core.pagemanager_container")->getPageType($className);
-            if ($pageType && $pageType->getShowInList()) {
-                $pageData[] = $child;
-                $this->populatePageData($pageData, $child);
+            if ($child instanceof RedirectRoute) {
+                continue;
+            } else {
+                /**
+                 * @var $content ContentInterface
+                 */
+                $content = $child->getContent();
+                $className = $content->getClassName();
+                $pageType = $this->container->get("concerto_cms_core.pagemanager_container")->getPageType($className);
+                if ($pageType && $pageType->getShowInList()) {
+                    $pageData[] = $child;
+                    $this->populatePageData($pageData, $child);
+                }
             }
         }
     }
