@@ -11,8 +11,6 @@ services:
             - { name: doctrine_phpcr.initializer }
     concerto_cms_core.pagemanager_container:
         class: ConcertoCms\CoreBundle\Extension\PageManagerContainer
-        arguments:
-            - @event_dispatcher
 
     concerto_cms_core.navigation:
         class: ConcertoCms\CoreBundle\Service\Navigation
@@ -28,7 +26,6 @@ services:
         arguments:
             - @doctrine_phpcr.odm.default_document_manager
             - @event_dispatcher
-            - @concerto_cms_core.pagemanager_container
 
     concerto_cms_core.manager.page:
         class: ConcertoCms\CoreBundle\Service\PageManager

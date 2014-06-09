@@ -34,8 +34,7 @@ class Content
      */
     public function __construct(
         \Doctrine\ODM\PHPCR\DocumentManager $dm,
-        EventDispatcherInterface $dispatcher,
-        PageManagerContainer $pmc
+        EventDispatcherInterface $dispatcher
     ) {
         $this->dm = $dm;
         $this->dispatcher = $dispatcher;
