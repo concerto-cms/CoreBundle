@@ -5,7 +5,6 @@ use ConcertoCms\CoreBundle\Document\ContentInterface;
 use ConcertoCms\CoreBundle\Document\LanguageRoute;
 use ConcertoCms\CoreBundle\Document\RouteInterface;
 use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
@@ -30,9 +29,9 @@ class ContentController extends BaseController
 
     public function getAction($path)
     {
-        $page = $path ? $this->getContentService()->getRoute($path) : $this->getContentService()->getSplash();
+        $route = $path ? $this->getContentService()->getRoute($path) : $this->getContentService()->getSplash();
         $data = array();
-        $this->populatePageData($data, $page);
+        $this->populatePageData($data, $route);
         return new JsonResponse($data);
     }
 
@@ -90,7 +89,17 @@ class ContentController extends BaseController
                 $className = $content->getClassName();
                 $pageType = $this->container->get("concerto_cms_core.pagemanager_container")->getPageType($className);
                 if ($pageType && $pageType->getShowInList()) {
-                    $pageData[] = $child;
+                    $item = $content->jsonSerialize();
+                    $item["id"] = ltrim(str_replace("/cms/pages", "", $item["id"]), "/");
+                    $item["parent"] = ltrim(str_replace("/cms/routes", "", $child->getParent()->getId()), "/");
+                    if ($child instanceof LanguageRoute) {
+                        /**
+                         * @var $child LanguageRoute
+                         */
+                        $item["language"] = $child->getLocale();
+                    }
+//                    $routeJson = $route->jsonSerialize();
+                    $pageData[] = $item;
                     $this->populatePageData($pageData, $child);
                 }
             }

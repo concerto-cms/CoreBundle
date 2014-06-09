@@ -6,7 +6,7 @@ Controller.Content = function(options) {
 
     this.views = [];
     this.pageTypes = new Collection.PageTypes(options.pageTypes);
-    this.pages = new Collection.Routes(options.pages, {
+    this.pages = new Collection.Pages(options.pages, {
         pageTypes: this.pageTypes
     });
 
@@ -23,7 +23,7 @@ Controller.Content = function(options) {
         },
 
         language: function(lang) {
-            var language = that.pages.getLanguage(lang),
+            var language = that.pages.get(lang),
                 view = new View.PageList({
                     languages: that.pages.getLanguages(),
                     pageTypes: that.pageTypes,
@@ -37,20 +37,18 @@ Controller.Content = function(options) {
         },
 
         editPage: function(lang, id) {
-            var language = that.pages.getLanguage(lang),
-                route = that.pages.getPage(id),
+            var language = that.pages.get(lang),
+                page = that.pages.get(id),
                 header = new View.PageHeader({
-                    page: route.getContent(),
-                    route: route,
+                    page: page,
                     language: language
                 }),
-                pageType = that.pageTypes.get(route.getContent().get('type')),
+                pageType = that.pageTypes.get(page.get('type')),
                 content;
 
 
             content = pageType.createView({
-                page: route.getContent(),
-                route: route,
+                page: page,
                 language: language
             });
             that.cleanup();
@@ -64,7 +62,7 @@ Controller.Content = function(options) {
         firstLanguage: function() {
             var languages = that.pages.getLanguages();
             if (languages.length > 0) {
-                that.router.navigate(languages[0].get('name'), {trigger: true});
+                that.router.navigate(languages[0].get('language').prefix, {trigger: true});
             } else {
                 // @todo show an error page saying there are no languages
                 alert("No languages");

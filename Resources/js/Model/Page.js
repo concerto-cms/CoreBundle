@@ -9,7 +9,18 @@ Model.Page = Backbone.Model.extend({
             },{ type: 'success' });
         })
     },
-    getId: function() {
-        return this.get('id').replace("/cms/pages/", "");
+    getParent: function() {
+        if (this.collection) {
+            return this.collection.get(this.get('parent'));
+        }
+    },
+    getChildren: function() {
+        if (this.collection) {
+            return this.collection.where({parent: this.id});
+        }
+    },
+    getLanguage: function() {
+        var idParts = this.id.split("/");
+        return this.collection.get(idParts[0]);
     }
-})
+});

@@ -1,7 +1,7 @@
 <li>
-    <a href="#{{ language.get('name') }}/{{ page.getId() }}" class="list-group-item">
-        <h4 class="list-group-item-heading">{{ page.getContent().get('title')|default('<em>Geen titel</em>') }}</h4>
-        <p class="list-group-item-text">{{ page.getId() }}</p>
+    <a href="#{{ language.get('name') }}/{{ page.id }}" class="list-group-item">
+        <h4 class="list-group-item-heading">{{ page.get('title')|default('<em>Untitled</em>') }}</h4>
+        <p class="list-group-item-text">{{ page.id }}</p>
     </a>
     {% if page.children|length > 0 %}
         <ul>
