@@ -57,7 +57,7 @@ _.extend(Controller.Menu.prototype, {
 
     },
     editAction: function(menu, language, id) {
-        var model = this.menus.getMenuItem(menu + "/" + language + "/" + id),
+        var model = this.menus.get(menu + "/" + language + "/" + id),
             container;
         if (!(this.views[0] instanceof View.MenuList)) {
             this.listAction(menu, language);

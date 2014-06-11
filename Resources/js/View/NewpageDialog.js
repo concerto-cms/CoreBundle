@@ -49,7 +49,7 @@ View.NewpageDialog = Backbone.View.extend({
     },
     getPageTypes: function() {
         var parentId = this.model.get('parent'),
-            parentPage = this.pages.get('/cms/routes/' + parentId),
+            parentPage = this.pages.get(parentId),
             parentType = this.pageTypes.get(parentPage.getContent().get('type'));
 
         return this.pageTypes.getList(parentType);

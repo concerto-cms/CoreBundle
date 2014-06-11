@@ -11,9 +11,5 @@ Model.Menu = Backbone.Model.extend({
         if (this.collection) {
             return this.collection.where({parent: this.get('id')});
         }
-    },
-
-    getId: function() {
-        return this.get('id').replace("/cms/menu/", "");
     }
 });

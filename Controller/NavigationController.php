@@ -124,6 +124,8 @@ class NavigationController extends BaseController
             "label" => $node->getLabel(),
             "parent" => $node->getParent()->getId()
         );
+        $item["id"] = ltrim(str_replace("/cms/menu", "", $item["id"]), "/");
+        $item["parent"] = ltrim(str_replace("/cms/menu", "", $item["parent"]), "/");
         if ($node->getContent()) {
             $item["uri"] = str_replace("/cms/routes/", "", $node->getContent()->getId());
         } else {
