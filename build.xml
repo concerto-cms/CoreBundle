@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="ConcertoCmsCoreBundle" default="test">
     <target name="test">
-        <echo msg="Running PHP_CodeSniffer..." />
         <phpcodesniffer
                 standard="PSR2"
                 format="full"
-                ignorePatterns="Resources/public/*"
+                ignorePatterns="Resources/public/*,vendor/*"
                 file="."
                 haltonerror="true"
                 allowedFileExtensions="php"/>
+        <exec command="phpunit" passthru="true" />
     </target>
 </project>

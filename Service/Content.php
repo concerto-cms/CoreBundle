@@ -121,13 +121,7 @@ class Content
      */
     public function createPage($parentUrl, $type, $params = array())
     {
-        // Check if parentUrl is a valid route
-        $parentRoute = $this->getRoute($parentUrl);
         $parentPage = $this->getPage($parentUrl);
-        if (!$parentRoute) {
-            throw new \InvalidArgumentException("Couldn't find route for url " . $parentUrl);
-        }
-
         if (!$parentPage) {
             throw new \InvalidArgumentException("Couldn't find parent page with url " . $parentUrl);
         }
@@ -153,6 +147,17 @@ class Content
         }
 
         $this->persist($page);
+        $route = $this->createRoute($parentUrl, $page);
+        return $route;
+    }
+
+    public function createRoute($parentUrl, ContentInterface $page)
+    {
+        // Check if parentUrl is a valid route
+        $parentRoute = $this->getRoute($parentUrl);
+        if (!$parentRoute) {
+            throw new \InvalidArgumentException("Couldn't find route for url " . $parentUrl);
+        }
         // Create a route for the new page
         $route = new Route();
         $route->setName($page->getSlug());
@@ -161,6 +166,7 @@ class Content
         $route->setContent($page);
         $this->dm->persist($route);
         return $route;
+
     }
 
     public function populate($page, $params)
@@ -206,5 +212,9 @@ class Content
             $types[] = $type;
         }
         return $types;
+    }
+    public function clear()
+    {
+        $this->dm->clear();
     }
 }

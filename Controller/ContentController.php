@@ -21,6 +21,7 @@ class ContentController extends BaseController
 
         $data = array();
         $this->populatePageData($data, $this->getContentService()->getSplash());
+
         return $this->render('ConcertoCmsCoreBundle:Content:index.html.twig', array(
                 "pages" => $data,
                 "pagetypes" => $pageTypes

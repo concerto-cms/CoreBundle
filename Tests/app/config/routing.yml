@@ -1,0 +1,9 @@
+core_bundle:
+    resource: "@ConcertoCmsCoreBundle/Resources/config/routing.yml"
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+elfinder:
+     resource: "@FMElfinderBundle/Resources/config/routing.yml"
+     prefix:   /cms

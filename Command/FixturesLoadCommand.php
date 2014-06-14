@@ -50,27 +50,37 @@ class FixturesLoadCommand extends ContainerAwareCommand
         $cm->addLanguage($language, $page);
 
 
-        $page = new Page();
-        $page->setTitle("Meet the company");
-        $page->setSlug("company");
-        $cm->createPage("/en", $page);
+        $cm->createPage(
+            "/en",
+            "ConcertoCmsCoreBundle:Page",
+            array(
+                "slug" => "company",
+                "title" => "Meet the company"
+            )
+        );
 
-        $page = new Page();
-        $page->setTitle("Meet the sales team");
-        $page->setSlug("team");
-        $cm->createPage("/en/company", $page);
+        $cm->createPage(
+            "/en/company",
+            "ConcertoCmsCoreBundle:Page",
+            array(
+                "slug" => "team",
+                "title" => "Meet the sales team"
+            )
+        );
 
-        $page = new Page();
-        $page->setTitle("Drop us a line");
-        $page->setSlug("contact");
-        $cm->createPage("/en/company", $page);
+        $cm->createPage(
+            "/en",
+            "ConcertoCmsCoreBundle:Page",
+            array(
+                "slug" => "contact",
+                "title" => "Drop us a line"
+            )
+        );
 
         // Splash page is not supported yet...
         //$cm->setSplash(Content::SPLASH_MODE_REDIRECT, "/en");
 
-
-
-
-
+        $cm->flush();
+        $cm->clear();
     }
 }

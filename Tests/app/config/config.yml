@@ -1,0 +1,62 @@
+framework:
+    secret:          Not so secret
+    router:          { resource: "%kernel.root_dir%/config/routing.yml" }
+    form:            true
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    csrf_protection: true
+    session:
+          storage_id: session.storage.filesystem
+    default_locale:  en
+    translator:      { fallback: en }
+    test:            ~
+    profiler:        { only_exceptions: false }
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     localhost
+        port:     null
+        dbname:   concerto
+        user:     root
+        password: ""
+        charset:  UTF8
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_mapping: true
+
+doctrine_phpcr:
+   # configure the PHPCR session
+   session:
+       backend:
+          type: doctrinedbal
+          connection: default
+       workspace: default
+       username: admin
+       password: admin
+   # enable the ODM layer
+   odm:
+       auto_mapping: true
+       auto_generate_proxy_classes: %kernel.debug%
+
+cmf_routing:
+    chain:
+        routers_by_id:
+            cmf_routing.dynamic_router: 20
+            router.default: 100
+    dynamic:
+        enabled: true
+        persistence:
+            phpcr:
+                route_basepath: /cms/routes
+        generic_controller: website.controller.page:pageAction
+cmf_menu:
+    persistence:
+        phpcr:
+            enabled:              true
+            menu_basepath:        /cms/menu
+            use_sonata_admin:     false
+

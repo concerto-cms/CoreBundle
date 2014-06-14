@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="Tests/app/bootstrap.php"
+        >
+    <testsuites>
+        <testsuite name="Functional testing">
+            <file>Tests/Functional/Content.php</file>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <server name="KERNEL_DIR" value="./Tests/app" />
+    </php>
+</phpunit>
