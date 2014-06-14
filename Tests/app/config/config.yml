@@ -16,12 +16,8 @@ framework:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   pdo_mysql
-        host:     localhost
-        port:     null
-        dbname:   concerto
-        user:     root
-        password: ""
+        driver:   pdo_sqlite
+        path:     "%kernel.root_dir%/app.db"
         charset:  UTF8
 
     orm:
