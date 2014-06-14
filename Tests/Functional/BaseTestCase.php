@@ -24,13 +24,19 @@ class BaseTestCase extends WebTestCase
 
         return self::$kernel;
     }
+
     final protected static function configureDB()
     {
         $application = new \Symfony\Bundle\FrameworkBundle\Console\Application(self::$kernel);
         $application->setAutoExit(false);
 
-        $input = new StringInput("doctrine:phpcr:init:dbal --drop");
-        $application->run($input);
+        if (file_exists(__DIR__ . "/../app/app.db")) {
+            $input = new StringInput("doctrine:phpcr:init:dbal --drop");
+            $application->run($input);
+        } else {
+            $input = new StringInput("doctrine:phpcr:init:dbal");
+            $application->run($input);
+        }
 
         $options = array('command' => 'doctrine:phpcr:repository:init');
         $input = new ArrayInput($options);
