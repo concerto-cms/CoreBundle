@@ -134,8 +134,7 @@ class Content
         $page = $createEvent->getDocument();
         if ($page == null) {
             throw new \UnexpectedValueException(
-                "Document was not created after dispatching event " .
-                PageManagerContainer::CREATE_EVENT
+                "Document was not created after dispatching event"
             );
         }
 

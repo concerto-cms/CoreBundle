@@ -18,7 +18,7 @@
                     <label>Url</label><br />
                     <select class="form-control" name="parent">
                         {% for page in parentList %}
-                            <option value="{{ page.getId() }}">{{ page.getId() }}</option>
+                            <option value="{{ page.id }}">{{ page.id }}</option>
                         {% endfor %}
                     </select> / <input class="form-control" type="text" placeholder="slug" name="name"/>
                 </fieldset>

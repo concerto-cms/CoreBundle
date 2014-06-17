@@ -6,7 +6,7 @@ View.PageContent_Page = Backbone.View.extend({
         this.model = options.page.clone();
         this.language = options.language;
         this.route = options.route;
-        this.original_model.url = Routing.generate('concerto_cms_core_content_rest', {path: this.model.getId()});
+        this.original_model.url = Routing.generate('concerto_cms_core_content_rest', {path: this.model.id});
 
         this.render();
         this.listenToOnce(this.model, "change", this.onChange);

@@ -1,7 +1,7 @@
 {% if menu.getChildren()|length > 0 %}
     {% for child in menu.getChildren() %}
-        <li data-id="{{ child.getId() }}">
-            <a href="#{{ child.getId() }}" class="list-group-item">
+        <li data-id="{{ child.id }}">
+            <a href="#{{ child.id }}" class="list-group-item">
                 <h4 class="list-group-item-heading">{{ child.get('label') }}</h4>
             </a>
             {% if child.getChildren()|length > 0 %}

@@ -6,7 +6,7 @@ View.MenuEdit = Backbone.View.extend({
         this.originalModel = this.model;
         this.model = this.originalModel.clone();
         this.listenToOnce(this.model, "change", this.onChange);
-        this.originalModel.url = Routing.generate('concerto_cms_core_navigation_rest', {path: this.model.getId()});
+        this.originalModel.url = Routing.generate('concerto_cms_core_navigation_rest', {path: this.model.id});
     },
 
     render: function() {
@@ -64,7 +64,7 @@ View.MenuEdit = Backbone.View.extend({
         var that = this;
         $.ajax({
             type: 'DELETE',
-            url: Routing.generate('concerto_cms_core_navigation_rest', {path: this.model.getId()}),
+            url: Routing.generate('concerto_cms_core_navigation_rest', {path: this.model.id}),
             contentType:"application/json; charset=utf-8",
             dataType:"json"
         });
@@ -104,7 +104,7 @@ View.MenuEdit = Backbone.View.extend({
             view = new View.NewMenuDialog({
                 model: model
             });
-        model.url = Routing.generate('concerto_cms_core_navigation_rest', {path: this.model.getId()});
+        model.url = Routing.generate('concerto_cms_core_navigation_rest', {path: this.model.id});
         model.once("change:id", this.trigger("add"));
     }
 });

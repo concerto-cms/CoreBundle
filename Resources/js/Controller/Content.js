@@ -84,6 +84,6 @@ _.extend(Controller.Content.prototype, {
         this.views = [];
     },
     onAddPage: function(page) {
-        this.router.navigate(page.getLanguage().get('name') + "/" + page.getId(), {trigger: true});
+        this.router.navigate(page.getLanguage().get('name') + "/" + page.id, {trigger: true});
     }
 });

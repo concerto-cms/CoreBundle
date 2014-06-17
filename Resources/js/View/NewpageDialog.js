@@ -5,9 +5,9 @@ View.NewpageDialog = Backbone.View.extend({
         var that = this;
         _.extend(this, options);
 
-        this.model = new Model.Route({
+        this.model = new Model.Page({
             type: this.pageTypes.first().id,
-            parent: this.current.getId()
+            parent: this.current.id
         });
         window.newModel = this.model;
 
@@ -36,10 +36,11 @@ View.NewpageDialog = Backbone.View.extend({
         '[name=parent]': 'parent',
         '[name=name]': 'slug'
     },
+
     populateParents: function(item) {
         var that = this;
         _.each(item.getChildren(), function(route) {
-            var id = route.getId(),
+            var id = route.id,
                 idParts = _.rest(id.split("/")),
                 label = idParts.join(" / ");
             that.parentList.push(route);
@@ -50,7 +51,7 @@ View.NewpageDialog = Backbone.View.extend({
     getPageTypes: function() {
         var parentId = this.model.get('parent'),
             parentPage = this.pages.get(parentId),
-            parentType = this.pageTypes.get(parentPage.getContent().get('type'));
+            parentType = this.pageTypes.get(parentPage.get('type'));
 
         return this.pageTypes.getList(parentType);
     },

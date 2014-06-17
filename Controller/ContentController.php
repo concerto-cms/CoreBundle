@@ -57,6 +57,7 @@ class ContentController extends BaseController
         }
         $type = $data["type"];
         unset($data["type"]);
+        unset($data["parent"]);
 
         $page = $this->getContentService()->createPage($path, $type, $data);
 

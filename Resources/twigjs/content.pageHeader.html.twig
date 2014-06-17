@@ -4,7 +4,7 @@
             <div class="col-sm-6">
 
                 <ol class="breadcrumb">
-                    {% set urlParts = route.getId()|split("/") %}
+                    {% set urlParts = page.id|split("/") %}
 
                     {% set urlPrefix = '' %}
                     {% for part in urlParts %}
@@ -12,13 +12,13 @@
                             {% if loop.last %}
                                 <li class="active"><i class="glyphicon glyphicon-home"></i></li>
                             {% else %}
-                                <li><a href="#{{ language.get('name') }}/{{ part }}"><i class="glyphicon glyphicon-home"></i></a></li>
+                                <li><a href="#{{ language.get('slug') }}/{{ part }}"><i class="glyphicon glyphicon-home"></i></a></li>
                             {% endif %}
                         {% else %}
                             {% if loop.last %}
                                 <li class="active">{{ part }}</li>
                             {% else %}
-                                <li><a href="#{{ language.get('name') }}/{{ urlPrefix }}{{ part }}">{{ part }}</a></li>
+                                <li><a href="#{{ language.get('slug') }}/{{ urlPrefix }}{{ part }}">{{ part }}</a></li>
                             {% endif %}
                         {% endif %}
                         {% set urlPrefix = urlPrefix ~ part ~ '/' %}

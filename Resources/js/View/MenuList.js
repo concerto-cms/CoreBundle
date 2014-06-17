@@ -21,7 +21,7 @@ View.MenuList = Backbone.View.extend({
             view = new View.NewMenuDialog({
                 model: model
             });
-        model.url = Routing.generate('concerto_cms_core_navigation_rest', {path: this.model.getId()});
+        model.url = Routing.generate('concerto_cms_core_navigation_rest', {path: this.model.id});
         model.once("change:id", this.trigger("add"));
     }
 

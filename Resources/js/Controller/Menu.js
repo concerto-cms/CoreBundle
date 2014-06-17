@@ -86,6 +86,6 @@ _.extend(Controller.Menu.prototype, {
         this.views = [];
     },
     onAddPage: function(page) {
-        this.router.navigate(page.getLanguage().get('name') + "/" + page.getId(), {trigger: true});
+        this.router.navigate(page.getLanguage().get('name') + "/" + page.id, {trigger: true});
     }
 });
