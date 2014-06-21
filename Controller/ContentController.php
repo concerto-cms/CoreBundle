@@ -46,7 +46,10 @@ class ContentController extends BaseController
 
         $this->getContentService()->populate($page, $data);
         $this->getContentService()->flush();
-        return new JsonResponse($page);
+        $json = $page->jsonSerialize();
+        $json["id"] = ltrim(str_replace("/cms/pages", "", $json["id"]), "/");
+
+        return new JsonResponse($json);
     }
 
     public function postAction($path)
@@ -62,7 +65,10 @@ class ContentController extends BaseController
         $page = $this->getContentService()->createPage($path, $type, $data);
 
         $this->getContentService()->flush();
-        return new JsonResponse($page);
+        $json = $page->getContent()->jsonSerialize();
+        $json["id"] = ltrim(str_replace("/cms/pages", "", $json["id"]), "/");
+
+        return new JsonResponse($json);
     }
 
     public function deleteAction($path)

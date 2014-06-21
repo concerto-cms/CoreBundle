@@ -70,14 +70,14 @@ concerto_cms_core_navigation_rest_post:
         path: .+
 
 concerto_cms_core_navigation_rest_put:
-    pattern:  /rest/content/{path}
+    pattern:  /rest/navigation/{path}
     defaults: { _controller: ConcertoCmsCoreBundle:Navigation:put }
     methods:  [PUT]
     requirements:
         path: .+
 
 concerto_cms_core_navigation_rest_delete:
-    pattern:  /rest/content/{path}
+    pattern:  /rest/navigation/{path}
     defaults: { _controller: ConcertoCmsCoreBundle:Navigation:delete }
     methods:  [DELETE]
     requirements:

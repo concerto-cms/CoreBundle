@@ -6,7 +6,7 @@ Controller.Menu = function(options) {
 
     this.views = [];
     this.menus = new Collection.Menus(options.menus);
-    this.languages = new Collection.Routes(options.languages);
+    this.languages = new Collection.Pages(options.languages);
     this.menuContainer = document.getElementById("navigationContainer");
 
     this.listenTo(this.menus, "add", this.onAddMenu);
@@ -30,7 +30,7 @@ Controller.Menu = function(options) {
 _.extend(Controller.Menu.prototype, Backbone.Events);
 _.extend(Controller.Menu.prototype, {
     indexAction: function() {
-        var language = this.languages.first().get('name'),
+        var language = this.languages.first().get('slug'),
             menu = _.first(this.menus.getMenus()).get('name');
         if (!menu) {
             // @todo show an error page saying there are no menus
@@ -86,6 +86,6 @@ _.extend(Controller.Menu.prototype, {
         this.views = [];
     },
     onAddPage: function(page) {
-        this.router.navigate(page.getLanguage().get('name') + "/" + page.id, {trigger: true});
+        this.router.navigate(page.getLanguage().get('slug') + "/" + page.id, {trigger: true});
     }
 });

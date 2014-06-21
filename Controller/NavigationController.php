@@ -32,13 +32,12 @@ class NavigationController extends BaseController
 
     public function putAction($path)
     {
-        $content = $this->getJsonInput();
+        $params = $this->getJsonInput();
 
         $menu = $this->getNavigationService()->getMenu($path);
         if (!$menu) {
             throw $this->createNotFoundException("Menu with id '/cms/menu/" . $path . "' not found");
         }
-        $params = json_decode($content, true); // 2nd param to get as array
 
         if (isset($params["label"])) {
             $menu->setLabel($params["label"]);
@@ -64,29 +63,26 @@ class NavigationController extends BaseController
 
     public function postAction($path)
     {
+        $params = $this->getJsonInput();
         $parent = $this->getNavigationService()->getMenu($path);
         if (!$parent) {
             throw $this->createNotFoundException("Menu with id '/cms/menu/" . $path . "' not found");
         }
 
-        $content = $this->get("request")->getContent();
-        if (empty($content)) {
-            throw $this->createNotFoundException("Empty request");
-        }
-        $params = json_decode($content, true); // 2nd param to get as array
-
         $menu = new MenuNode();
-        $menu->setParent($parent);
+        $menu->setParentDocument($parent);
         $menu->setName(\Ferrandini\Urlizer::urlize($params["label"]));
         $menu->setLabel($params["label"]);
 
-        $page = $this->getContentService()->getRoute($params["uri"]);
-        if ($page) {
-            $menu->setContent($page);
-            $menu->setUri(null);
-        } else {
-            $menu->setUri($params["uri"]);
-            $menu->setContent(null);
+        if (isset($params["uri"])) {
+            $page = $this->getContentService()->getRoute($params["uri"]);
+            if ($page) {
+                $menu->setContent($page);
+                $menu->setUri(null);
+            } else {
+                $menu->setUri($params["uri"]);
+                $menu->setContent(null);
+            }
         }
 
         $this->getNavigationService()->save($menu);
