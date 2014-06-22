@@ -13,8 +13,10 @@ use ConcertoCms\CoreBundle\Document\Page;
 use ConcertoCms\CoreBundle\Model\Locale;
 use ConcertoCms\CoreBundle\Service\Content;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu;
 
 class FixturesLoadCommand extends ContainerAwareCommand
 {
@@ -31,12 +33,30 @@ class FixturesLoadCommand extends ContainerAwareCommand
          * @var $cm Content
          */
         $cm = $this->getContainer()->get("concerto_cms_core.content");
+        $nm = $this->getContainer()->get('concerto_cms_core.navigation');
 
         // English homepage
         $page = new Page();
         $page->setTitle("Hello world");
         $language = new Locale("en-UK", "English", "en");
         $cm->addLanguage($language, $page);
+        $cm->flush();
+        $cm->clear();
+
+        // Create the main menu
+        $menu = new Menu();
+        $menu->setName("main-menu");
+        $menu->setLabel("Main menu");
+        $nm->addMenu($menu);
+        $cm->flush();
+        $cm->clear();
+
+        $route = $cm->getRoute("en");
+        $item = new MenuNode();
+        $item->setLabel("Home");
+        $item->setName("home");
+        $item->setContent($route);
+        $nm->addMenuItem("main-menu", "en", "", $item);
 
         // Dutch homepage
         $page = new Page();
@@ -49,8 +69,7 @@ class FixturesLoadCommand extends ContainerAwareCommand
         $language = new Locale("fr-BE", "Français", "fr");
         $cm->addLanguage($language, $page);
 
-
-        $cm->createPage(
+        $route = $cm->createPage(
             "/en",
             "ConcertoCmsCoreBundle:Page",
             array(
@@ -59,7 +78,13 @@ class FixturesLoadCommand extends ContainerAwareCommand
             )
         );
 
-        $cm->createPage(
+        $item = new MenuNode();
+        $item->setLabel("Company");
+        $item->setName("company");
+        $item->setContent($route);
+        $nm->addMenuItem("main-menu", "en", "/", $item);
+
+        $route = $cm->createPage(
             "/en/company",
             "ConcertoCmsCoreBundle:Page",
             array(
@@ -67,8 +92,13 @@ class FixturesLoadCommand extends ContainerAwareCommand
                 "title" => "Meet the sales team"
             )
         );
+        $item = new MenuNode();
+        $item->setLabel("Sales");
+        $item->setName("sales");
+        $item->setContent($route);
+        $nm->addMenuItem("main-menu", "en", "company", $item);
 
-        $cm->createPage(
+        $route = $cm->createPage(
             "/en",
             "ConcertoCmsCoreBundle:Page",
             array(
@@ -77,10 +107,15 @@ class FixturesLoadCommand extends ContainerAwareCommand
             )
         );
 
+        $item = new MenuNode();
+        $item->setLabel("Contact");
+        $item->setName("contact");
+        $item->setContent($route);
+        $nm->addMenuItem("main-menu", "en", "/", $item);
+
         // Splash page is not supported yet...
         //$cm->setSplash(Content::SPLASH_MODE_REDIRECT, "/en");
 
         $cm->flush();
-        $cm->clear();
     }
 }

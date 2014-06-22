@@ -65,15 +65,15 @@ class Navigation
     public function addMenu($menu)
     {
         $parent = $this->dm->find(null, "/cms/menu");
-        $menu->setParent($parent);
+        $menu->setParentDocument($parent);
         $this->dm->persist($menu);
         $this->dm->flush();
 
         $languages = $this->dm->find(null, "/cms/routes");
+
         foreach ($languages->getChildren() as $lang) {
             $this->addLanguageToMenu($menu, $lang);
         }
-
     }
 
     /**
@@ -88,10 +88,13 @@ class Navigation
             $parentName = "";
         }
         $parentName = "/" . ltrim($parentName, "/");
+        if ($parentName == "/") {
+            $parentName = "";
+        }
         $menu = $this->getMenuLocale($menuName, $locale);
 
         $parent = $this->dm->find(null, $menu->getId() . $parentName);
-        $item->setParent($parent);
+        $item->setParentDocument($parent);
         $this->save($item);
     }
 
@@ -115,9 +118,21 @@ class Navigation
     private function addLanguageToMenu(Menu $menu, LanguageRoute $route)
     {
         $lang = new MenuNode();
-        $lang->setParent($menu);
+        $lang->setParentDocument($menu);
         $lang->setName($route->getLocale()->getPrefix());
         $lang->setLabel($route->getLocale()->getName());
         $this->save($lang);
+    }
+    public function persist($document)
+    {
+        $this->dm->persist($document);
+    }
+    public function flush()
+    {
+        $this->dm->flush();
+    }
+    public function clear()
+    {
+        $this->dm->clear();
     }
 }

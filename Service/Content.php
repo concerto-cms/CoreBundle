@@ -40,15 +40,6 @@ class Content
         $this->dispatcher = $dispatcher;
     }
 
-    public function persist($document)
-    {
-        $this->dm->persist($document);
-    }
-    public function flush()
-    {
-        $this->dm->flush();
-    }
-
     /**
      * @param $url string
      * @return null|ContentInterface
@@ -104,6 +95,7 @@ class Content
         $this->dispatcher->dispatch('concerto.language.add', $event);
 
         $this->dm->flush();
+        return $route;
     }
 
     public function getSplash()
@@ -211,6 +203,14 @@ class Content
             $types[] = $type;
         }
         return $types;
+    }
+    public function persist($document)
+    {
+        $this->dm->persist($document);
+    }
+    public function flush()
+    {
+        $this->dm->flush();
     }
     public function clear()
     {
