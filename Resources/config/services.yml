@@ -45,6 +45,18 @@ services:
         scope: request # needed as we have the request as a dependency here
         tags:
             - { name: knp_menu.menu, alias: topmenu } # The alias is what is used to retrieve the menu
+    concerto_cms_core.languagesmenu.builder:
+        class: ConcertoCms\CoreBundle\Menu\LanguagesMenuBuilder
+        arguments:
+            - @concerto_cms_core.content
+    concerto_cms_core.languagesmenu.provider:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: concerto_cms_core.languagesmenu.builder
+        factory_method: build
+        arguments: ["@knp_menu.factory", "@request"]
+        scope: request # needed as we have the request as a dependency here
+        tags:
+            - { name: knp_menu.menu, alias: languagesmenu } # The alias is what is used to retrieve the menu
     concerto_cms_core.extension.mainmenu:
         class: ConcertoCms\CoreBundle\Extension\MainMenuListener
         tags:

@@ -38,6 +38,7 @@ class FixturesLoadCommand extends ContainerAwareCommand
         // English homepage
         $page = new Page();
         $page->setTitle("Hello world");
+        $page->setContent(file_get_contents("http://loripsum.net/api"));
         $language = new Locale("en-UK", "English", "en");
         $cm->addLanguage($language, $page);
         $cm->flush();
@@ -61,6 +62,7 @@ class FixturesLoadCommand extends ContainerAwareCommand
         // Dutch homepage
         $page = new Page();
         $page->setTitle("Hallo, wereld");
+        $page->setContent(file_get_contents("http://loripsum.net/api"));
         $language = new Locale("nl-BE", "Nederlands", "nl");
         $cm->addLanguage($language, $page);
 
@@ -74,7 +76,8 @@ class FixturesLoadCommand extends ContainerAwareCommand
             "ConcertoCmsCoreBundle:Page",
             array(
                 "slug" => "company",
-                "title" => "Meet the company"
+                "title" => "Meet the company",
+                "content" => file_get_contents("http://loripsum.net/api")
             )
         );
 
@@ -89,7 +92,8 @@ class FixturesLoadCommand extends ContainerAwareCommand
             "ConcertoCmsCoreBundle:Page",
             array(
                 "slug" => "team",
-                "title" => "Meet the sales team"
+                "title" => "Meet the sales team",
+                "content" => file_get_contents("http://loripsum.net/api")
             )
         );
         $item = new MenuNode();
@@ -103,7 +107,8 @@ class FixturesLoadCommand extends ContainerAwareCommand
             "ConcertoCmsCoreBundle:Page",
             array(
                 "slug" => "contact",
-                "title" => "Drop us a line"
+                "title" => "Drop us a line",
+                "content" => file_get_contents("http://loripsum.net/api")
             )
         );
 
