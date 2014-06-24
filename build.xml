@@ -8,6 +8,7 @@
                 file="."
                 haltonerror="true"
                 allowedFileExtensions="php"/>
+        <exec command="grunt test" passthru="true" />
         <exec command="phpunit" passthru="true" />
     </target>
 </project>

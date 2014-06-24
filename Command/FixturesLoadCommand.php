@@ -86,6 +86,8 @@ class FixturesLoadCommand extends ContainerAwareCommand
         $item->setName("company");
         $item->setContent($route);
         $nm->addMenuItem("main-menu", "en", "/", $item);
+        $cm->flush();
+        $cm->clear();
 
         $route = $cm->createPage(
             "/en/company",
