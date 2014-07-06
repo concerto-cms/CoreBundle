@@ -6,7 +6,7 @@ View.PageHeader = Backbone.View.extend({
         this.language = options.language;
         this.route = options.route;
         this.render();
-        this.listenTo(this.model, "sync", this.render);
+        this.listenTo(this.model, "change", this.render);
     },
 
     render: function() {

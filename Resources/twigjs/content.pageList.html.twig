@@ -2,7 +2,7 @@
     {% if languages|length > 1 %}
     <ul class="nav nav-pills pull-left">
         {% for lang in languages %}
-            <li{% if lang.get('name') == page.get('name') %} class="active"{% endif %}><a href="#{{ lang.get('name') }}" data-toggle="tab">{{ lang.get('description') }}</a></li>
+            <li{% if lang.get('language').prefix == page.get('language').prefix %} class="active"{% endif %}><a href="#{{ lang.get('slug') }}" data-toggle="tab">{{ lang.get('language').name }}</a></li>
         {% endfor %}
     </ul>
     {% endif %}

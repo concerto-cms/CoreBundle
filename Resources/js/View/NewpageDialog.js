@@ -9,7 +9,6 @@ View.NewpageDialog = Backbone.View.extend({
             type: this.pageTypes.first().id,
             parent: this.current.id
         });
-        window.newModel = this.model;
 
         //this.listenTo(this.model, "change:parent", this.render);
         this.parentList = [this.current];
@@ -60,19 +59,10 @@ View.NewpageDialog = Backbone.View.extend({
     },
     save: function() {
         var that = this;
-        console.dir(this.model);
-        this.model.url = Routing.generate('concerto_cms_core_content_rest', {path: this.model.get('parent')});
-
         this.$("button").attr("disabled", "disabled").addClass("disabled");
-
         this.model.once("change:id", function() {
             that.current.collection.add(this);
             that.$el.modal('hide');
-            $.growl({
-                title: 'De pagina is toegevoegd',
-                icon: 'glyphicon glyphicon-saved'
-            },{ type: 'success' });
-
             that.remove();
         })
         this.model.save();

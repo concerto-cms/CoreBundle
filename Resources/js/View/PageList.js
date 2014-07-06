@@ -18,6 +18,7 @@ View.PageList = Backbone.View.extend({
     },
 
     openNewpageDialog: function() {
+        var model = new Model.Page();
         window.modal = new View.NewpageDialog({
             languages: this.languages,
             current: this.model,
