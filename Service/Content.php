@@ -204,6 +204,15 @@ class Content
         }
         return $types;
     }
+
+    /**
+     * @param Route $route
+     */
+    public function remove($route)
+    {
+        $this->dm->remove($route->getContent());
+        $this->dm->remove($route);
+    }
     public function persist($document)
     {
         $this->dm->persist($document);

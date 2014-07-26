@@ -73,7 +73,13 @@ class ContentController extends BaseController
 
     public function deleteAction($path)
     {
-        return new ServiceUnavailableHttpException("Deleting is not implemented yet");
+        $route = $this->getContentService()->getRoute($path);
+        if (!$route) {
+            throw $this->createNotFoundException("Route with id '/cms/routes/" . $path . "' not found");
+        }
+        $this->getContentService()->remove($route);
+        $this->getContentService()->flush();
+        return new JsonResponse("ok");
     }
 
     /**

@@ -53,8 +53,9 @@ _.extend(Controller.Content.prototype, {
 
     },
     editAction: function(lang, id) {
-        var language = this.pages.get(lang),
-            page = this.pages.get(id),
+        var collection = this.pages,
+            language = collection.get(lang),
+            page = collection.get(id),
             header = new View.PageHeader({
                 page: page,
                 language: language
@@ -69,6 +70,12 @@ _.extend(Controller.Content.prototype, {
         this.listenTo(content, "save", function() {
             page.set(model.attributes);
             page.save();
+        })
+        this.listenTo(content, "delete", function() {
+            var url = language.get('slug');
+            collection.remove(model);
+            model.destroy();
+            this.router.navigate(url, {trigger: true});
         })
         this.cleanup();
         $(this.contentContainer)

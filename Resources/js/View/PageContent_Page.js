@@ -29,7 +29,8 @@ View.PageContent_Page = Backbone.View.extend({
         this.stickit();
     },
     events: {
-        "click button.save": "save"
+        "click button.save": "save",
+        "click button.delete": "delete"
     },
     onChange: function() {
         this.$("button.save").removeAttr("disabled").removeClass("disabled");
@@ -38,5 +39,8 @@ View.PageContent_Page = Backbone.View.extend({
         this.$("button.save").attr("disabled", "disabled").addClass("disabled");
         this.trigger("save");
         this.listenToOnce(this.model, "change", this.onChange);
+    },
+    delete: function() {
+        this.trigger("delete");
     }
 });
