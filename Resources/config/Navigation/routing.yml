@@ -1,0 +1,29 @@
+concerto_cms_core_content_rest:
+    pattern:  /pages/{path}
+    defaults: { _controller: ConcertoCmsCoreBundle:Content:get, path: null }
+    methods:  [GET]
+    requirements:
+        path: .+
+    options:
+        expose: true
+
+concerto_cms_core_content_rest_post:
+    pattern:  /pages/{path}
+    defaults: { _controller: ConcertoCmsCoreBundle:Content:post }
+    methods:  [POST]
+    requirements:
+        path: .+
+
+concerto_cms_core_content_rest_put:
+    pattern:  /pages/{path}
+    defaults: { _controller: ConcertoCmsCoreBundle:Content:put }
+    methods:  [PUT]
+    requirements:
+        path: .+
+
+concerto_cms_core_content_rest_delete:
+    pattern:  /pages/{path}
+    defaults: { _controller: ConcertoCmsCoreBundle:Content:delete }
+    methods:  [DELETE]
+    requirements:
+        path: .+

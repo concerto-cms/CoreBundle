@@ -1,91 +1,10 @@
-concerto_cms_core_dashboard:
-    path: /
-    defaults:
-        _controller: FrameworkBundle:Redirect:redirect
-        route: concerto_cms_core_content
-        permanent: true
-
 #concerto_cms_core_dashboard:
-#    pattern:  /
-#    defaults: { _controller: ConcertoCmsCoreBundle:Default:index }
+#    path: /
+#    defaults:
+#        _controller: FrameworkBundle:Redirect:redirect
+#        route: concerto_cms_core_content
+#        permanent: true
 
-########################################################################
-#  Content
-########################################################################
-concerto_cms_core_content:
-    pattern:  /content
-    defaults: { _controller: ConcertoCmsCoreBundle:Content:index }
 
-concerto_cms_core_content_rest:
-    pattern:  /rest/content/{path}
-    defaults: { _controller: ConcertoCmsCoreBundle:Content:get, path: null }
-    methods:  [GET]
-    requirements:
-        path: .+
-    options:
-        expose: true
-
-concerto_cms_core_content_rest_post:
-    pattern:  /rest/content/{path}
-    defaults: { _controller: ConcertoCmsCoreBundle:Content:post }
-    methods:  [POST]
-    requirements:
-        path: .+
-
-concerto_cms_core_content_rest_put:
-    pattern:  /rest/content/{path}
-    defaults: { _controller: ConcertoCmsCoreBundle:Content:put }
-    methods:  [PUT]
-    requirements:
-        path: .+
-
-concerto_cms_core_content_rest_delete:
-    pattern:  /rest/content/{path}
-    defaults: { _controller: ConcertoCmsCoreBundle:Content:delete }
-    methods:  [DELETE]
-    requirements:
-        path: .+
-
-########################################################################
-#  Navigation
-########################################################################
-concerto_cms_core_navigation:
-    pattern:  /navigation
-    defaults: { _controller: ConcertoCmsCoreBundle:Navigation:index }
-
-concerto_cms_core_navigation_rest:
-    pattern:  /rest/navigation/{path}
-    defaults: { _controller: ConcertoCmsCoreBundle:Navigation:get, path: null }
-    methods:  [GET]
-    requirements:
-        path: .+
-    options:
-        expose: true
-
-concerto_cms_core_navigation_rest_post:
-    pattern:  /rest/navigation/{path}
-    defaults: { _controller: ConcertoCmsCoreBundle:Navigation:post }
-    methods:  [POST]
-    requirements:
-        path: .+
-
-concerto_cms_core_navigation_rest_put:
-    pattern:  /rest/navigation/{path}
-    defaults: { _controller: ConcertoCmsCoreBundle:Navigation:put }
-    methods:  [PUT]
-    requirements:
-        path: .+
-
-concerto_cms_core_navigation_rest_delete:
-    pattern:  /rest/navigation/{path}
-    defaults: { _controller: ConcertoCmsCoreBundle:Navigation:delete }
-    methods:  [DELETE]
-    requirements:
-        path: .+
-
-########################################################################
-#  Media
-########################################################################
-concerto_cms_core_media:
-    pattern:  /media
-    defaults: { _controller: ConcertoCmsCoreBundle:Media:index }
+_concerto_cms_core_pages_api:
+    resource: Pages/routing.yml

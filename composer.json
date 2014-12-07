@@ -8,7 +8,7 @@
         }
     ],
     "autoload": {
-        "psr-0": { "ConcertoCms\\CoreBundle": "" }
+        "psr-4": { "ConcertoCms\\CoreBundle\\": "src/" }
     },
     "target-dir": "ConcertoCms/CoreBundle",
     "require": {

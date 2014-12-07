@@ -1,0 +1,36 @@
+concerto_cms_core_languages_rest:
+    pattern:  /languages
+    defaults: { _controller: @concerto_cms_core.languages.controller.languages:listAction }
+    methods:  [GET]
+    options:
+        expose: true
+
+concerto_cms_core_languages_rest_get:
+    pattern:  /languages/{path}
+    defaults: { _controller: @concerto_cms_core.languages.controller.languages:getAction }
+    methods:  [GET]
+    requirements:
+        path: .+
+    options:
+        expose: true
+
+concerto_cms_core_languages_rest_post:
+    pattern:  /languages/{path}
+    defaults: { _controller: @concerto_cms_core.languages.controller.languages:postAction }
+    methods:  [POST]
+    requirements:
+        path: .+
+
+concerto_cms_core_languages_rest_put:
+    pattern:  /languages/{path}
+    defaults: { _controller: @concerto_cms_core.languages.controller.languages:putAction }
+    methods:  [PUT]
+    requirements:
+        path: .+
+
+concerto_cms_core_languages_rest_delete:
+    pattern:  /languages/{path}
+    defaults: { _controller: @concerto_cms_core.languages.controller.languages:deleteAction }
+    methods:  [DELETE]
+    requirements:
+        path: .+

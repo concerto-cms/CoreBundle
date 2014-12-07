@@ -1,0 +1,5 @@
+services:
+    concerto_cms_core.navigation.service.navigation_manager:
+        class: ConcertoCms\CoreBundle\Navigation\Service\NavigationManager
+        arguments:
+            - @doctrine_phpcr.odm.default_document_manager
