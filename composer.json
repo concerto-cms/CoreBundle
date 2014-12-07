@@ -10,7 +10,6 @@
     "autoload": {
         "psr-4": { "ConcertoCms\\CoreBundle\\": "src/" }
     },
-    "target-dir": "ConcertoCms/CoreBundle",
     "require": {
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
