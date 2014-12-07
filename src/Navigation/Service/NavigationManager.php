@@ -5,6 +5,7 @@
  * Date: 07/12/2014
  * Time: 11:41
  */
+namespace ConcertoCms\CoreBundle\Navigation\Service;
 
 class NavigationManager {
     use \ConcertoCms\CoreBundle\Util\DocumentManagerTrait;

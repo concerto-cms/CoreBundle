@@ -5,6 +5,7 @@
  * Date: 07/12/2014
  * Time: 11:42
  */
+namespace ConcertoCms\CoreBundle\Pages\Service;
 
 class PagesManager {
     use \ConcertoCms\CoreBundle\Util\DocumentManagerTrait;
@@ -25,16 +26,15 @@ class PagesManager {
      */
     public function getByUrl($url)
     {
-        $url = ltrim($url, "/");
-        return $this->dm->find(null, "/cms/pages/" . $url);
+        $url = "/cms/pages/" . ltrim($url, "/");
+
+        $url = rtrim($url, "/");
+        return $this->dm->find(null, $url);
     }
 
     public function getSplash()
     {
-        $splash = $this->getRoute("");
-        if (!$splash) {
-            $splash = $this->initializeRoute();
-        }
+        $splash = $this->getByUrl("");
         return $splash;
     }
 

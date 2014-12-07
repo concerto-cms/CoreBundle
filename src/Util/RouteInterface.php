@@ -6,7 +6,7 @@
  * Time: 16:15
  */
 
-namespace ConcertoCms\CoreBundle\Document;
+namespace ConcertoCms\CoreBundle\Util;
 
 
 interface RouteInterface extends \JsonSerializable

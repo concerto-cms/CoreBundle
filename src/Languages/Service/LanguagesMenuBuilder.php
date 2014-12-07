@@ -5,7 +5,7 @@
  * Date: 23/06/14
  * Time: 20:19
  */
-namespace ConcertoCms\CoreBundle\Menu;
+namespace ConcertoCms\CoreBundle\Languages\Service;
 
 use ConcertoCms\CoreBundle\Service\Content;
 use Knp\Menu\FactoryInterface;

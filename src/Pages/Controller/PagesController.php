@@ -5,6 +5,7 @@
  * Date: 07/12/2014
  * Time: 14:00
  */
+namespace ConcertoCms\CoreBundle\Pages\Controller;
 
 class PagesController {
     use \ConcertoCms\CoreBundle\Util\JsonApiTrait;

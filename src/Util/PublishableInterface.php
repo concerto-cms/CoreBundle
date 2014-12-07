@@ -9,7 +9,7 @@
 namespace ConcertoCms\CoreBundle\Util;
 
 
-interface PublishableInterface {
+interface PublishableInterface extends HierarchyInterface {
     /**
      * @return string
      */
@@ -29,6 +29,11 @@ interface PublishableInterface {
      * @return string
      */
     public function getSlug();
+
+    /**
+     * @return string
+     */
+    public function setSlug($slug);
 
     /**
      * @return array

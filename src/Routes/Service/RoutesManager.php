@@ -5,6 +5,10 @@
  * Date: 07/12/2014
  * Time: 11:32
  */
+namespace ConcertoCms\CoreBundle\Routes\Service;
+
+use ConcertoCms\CoreBundle\Document\Route;
+use ConcertoCms\CoreBundle\Document\SplashRoute;
 
 class RoutesManager {
     use \ConcertoCms\CoreBundle\Util\DocumentManagerTrait;
@@ -18,6 +22,13 @@ class RoutesManager {
         $this->setDocumentManager($dm);
     }
 
+    public function getRoot() {
+        $root = $this->getDocumentManager()->find(null, "/cms/routes");
+        if (!$root) {
+            return $this->initialize();
+        }
+        return $root;
+    }
     /**
      * @param $url string
      * @return Route
@@ -58,7 +69,6 @@ class RoutesManager {
         $route->setName("routes");
         //$route->setId("routes");
 
-        
         $this->getDocumentManager()->persist($route);
         $this->getDocumentManager()->flush();
         return $route;

@@ -6,18 +6,51 @@
  * Time: 15:38
  */
 
-namespace ConcertoCms\CoreBundle\Languages\Menu;
+namespace ConcertoCms\CoreBundle\Languages\Service;
+use ConcertoCms\CoreBundle\Navigation\Model\Locale;
+use ConcertoCms\CoreBundle\Pages\Service\PagesManager;
+use ConcertoCms\CoreBundle\Document\LanguageRoute;
+use ConcertoCms\CoreBundle\Routes\Service\RoutesManager;
 use \ConcertoCms\CoreBundle\Util\DocumentManagerTrait;
+use ConcertoCms\CoreBundle\Util\PublishableInterface;
+use Doctrine\ODM\PHPCR\DocumentManager;
 
 
 class LanguagesManager {
+    use DocumentManagerTrait;
+
+    /**
+     * @var RoutesManager
+     */
+    private $rm;
+
+    private $pm;
+
     /**
      * @param $dm \Doctrine\ODM\PHPCR\DocumentManager
      */
     public function __construct(
-        \Doctrine\ODM\PHPCR\DocumentManager $dm
+        DocumentManager $dm,
+        RoutesManager $rm,
+        PagesManager $pm
     ) {
         $this->setDocumentManager($dm);
+        $this->rm = $rm;
+        $this->pm = $pm;
     }
 
+    public function addLocale(Locale $locale, PublishableInterface $page) {
+        $routeParent = $this->rm->getRoot();
+        $pageParent = $this->pm->getSplash();
+
+        $page->setSlug($locale->getPrefix());
+        $page->setParent($pageParent);
+        $this->persist($page);
+
+        $route = new LanguageRoute();
+        $route->setParentDocument($routeParent);
+        $route->setLocale($locale);
+        $route->setContent($page);
+        $this->persist($route);
+    }
 } 

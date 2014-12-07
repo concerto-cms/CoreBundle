@@ -8,19 +8,28 @@
 
 namespace ConcertoCms\CoreBundle\Languages\Command;
 
-use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
+use ConcertoCms\CoreBundle\Languages\Service\LanguagesManager;
+use ConcertoCms\CoreBundle\Navigation\Model\Locale;
+use ConcertoCms\CoreBundle\Document\SimplePage;
+use ConcertoCms\CoreBundle\Routes\Service\RoutesManager;
+use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu;
 use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
 use Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use ConcertoCms\CoreBundle\Document\Page;
-use ConcertoCms\CoreBundle\Model\Locale;
-use ConcertoCms\CoreBundle\Service\Content;
 
 class CreateLanguageCommand extends ContainerAwareCommand
 {
+    /**
+     * @var LanguagesManager
+     */
+    private $lm;
+    public function __construct(LanguagesManager $lm) {
+        parent::__construct();
+        $this->lm = $lm;
+    }
     protected function configure()
     {
         $this
@@ -30,11 +39,6 @@ class CreateLanguageCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /**
-         * @var $cm Content
-         * @var $dialog DialogHelper
-         */
-        $cm = $this->getContainer()->get("concerto_cms_core.content");
         $dialog = $this->getHelperSet()->get('dialog');
 
         $language = new Locale(
@@ -55,10 +59,11 @@ class CreateLanguageCommand extends ContainerAwareCommand
             )
         );
 
-        $page = new Page();
+        $page = new SimplePage();
         $page->setTitle("");
 
-        $cm->addLanguage($language, $page);
+        $this->lm->addLocale($language, $page);
+        $this->lm->flush();
 
         $output->writeln("Language was created successfully!");
     }

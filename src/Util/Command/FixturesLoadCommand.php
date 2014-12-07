@@ -6,7 +6,7 @@
  * Time: 21:43
  */
 
-namespace ConcertoCms\CoreBundle\Command;
+namespace ConcertoCms\CoreBundle\Util\Command;
 
 
 use ConcertoCms\CoreBundle\Document\Page;

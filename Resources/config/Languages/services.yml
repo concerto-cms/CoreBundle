@@ -3,6 +3,8 @@ services:
         class: ConcertoCms\CoreBundle\Languages\Service\LanguagesManager
         arguments:
             - @doctrine_phpcr.odm.default_document_manager
+            - @concerto_cms_core.routes.service.routes_manager
+            - @concerto_cms_core.pages.service.pages_manager
 
     concerto_cms_core.languages.service.languagesmenu.builder:
         class: ConcertoCms\CoreBundle\Menu\LanguagesMenuBuilder

@@ -6,7 +6,7 @@
  * Time: 15:59
  */
 
-namespace ConcertoCms\CoreBundle\Command;
+namespace ConcertoCms\CoreBundle\Navigation\Command;
 
 use ConcertoCms\CoreBundle\Service\Navigation;
 use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
