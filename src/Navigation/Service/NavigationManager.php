@@ -7,6 +7,8 @@
  */
 namespace ConcertoCms\CoreBundle\Navigation\Service;
 
+use Doctrine\ODM\PHPCR\ChildrenCollection;
+
 class NavigationManager {
     use \ConcertoCms\CoreBundle\Util\DocumentManagerTrait;
 

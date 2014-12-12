@@ -13,6 +13,7 @@ use ConcertoCms\CoreBundle\Document\LanguageRoute;
 use ConcertoCms\CoreBundle\Routes\Service\RoutesManager;
 use \ConcertoCms\CoreBundle\Util\DocumentManagerTrait;
 use ConcertoCms\CoreBundle\Util\PublishableInterface;
+use Doctrine\ODM\PHPCR\ChildrenCollection;
 use Doctrine\ODM\PHPCR\DocumentManager;
 
 
@@ -39,6 +40,11 @@ class LanguagesManager {
         $this->pm = $pm;
     }
 
+    /**
+     * @param Locale $locale
+     * @param PublishableInterface $page
+     * @return LanguageRoute
+     */
     public function addLocale(Locale $locale, PublishableInterface $page) {
         $routeParent = $this->rm->getRoot();
         $pageParent = $this->pm->getSplash();
@@ -52,5 +58,15 @@ class LanguagesManager {
         $route->setLocale($locale);
         $route->setContent($page);
         $this->persist($route);
+        return $route;
     }
-} 
+
+
+    /**
+     * @return ChildrenCollection
+     */
+    public function getAll() {
+        $root = $this->rm->getRoot();
+        return $root->getChildren();
+    }
+}
