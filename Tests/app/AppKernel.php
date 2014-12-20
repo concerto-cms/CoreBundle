@@ -20,7 +20,7 @@ class AppKernel extends Kernel
             new \Symfony\Bundle\MonologBundle\MonologBundle(),
             new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new \FM\ElfinderBundle\FMElfinderBundle(),
-
+            new \JMS\SerializerBundle\JMSSerializerBundle(),
             new \ConcertoCms\CoreBundle\ConcertoCmsCoreBundle(),
         );
     }

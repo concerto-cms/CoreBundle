@@ -9,9 +9,10 @@
 namespace ConcertoCms\CoreBundle\Util\Command;
 
 
-use ConcertoCms\CoreBundle\Document\Page;
-use ConcertoCms\CoreBundle\Model\Locale;
-use ConcertoCms\CoreBundle\Service\Content;
+use ConcertoCms\CoreBundle\Document\SimplePage;
+use ConcertoCms\CoreBundle\Languages\Model\Locale;
+use ConcertoCms\CoreBundle\Languages\Service\LanguagesManager;
+use ConcertoCms\CoreBundle\Pages\Service\PagesManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,6 +21,14 @@ use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu;
 
 class FixturesLoadCommand extends ContainerAwareCommand
 {
+    private $pm;
+    private $lm;
+
+    public function __construct(PagesManager $pm, LanguagesManager $lm) {
+        parent::__construct();
+        $this->pm = $pm;
+        $this->lm = $lm;
+    }
     protected function configure()
     {
         $this
@@ -29,100 +38,54 @@ class FixturesLoadCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /**
-         * @var $cm Content
-         */
-        $cm = $this->getContainer()->get("concerto_cms_core.content");
-        $nm = $this->getContainer()->get('concerto_cms_core.navigation');
-
         // English homepage
-        $page = new Page();
+        $page = new SimplePage();
         $page->setTitle("Hello world");
         $page->setContent(file_get_contents("http://loripsum.net/api"));
         $language = new Locale("en-UK", "English", "en");
-        $cm->addLanguage($language, $page);
-        $cm->flush();
-        $cm->clear();
-
-        // Create the main menu
-        $menu = new Menu();
-        $menu->setName("main-menu");
-        $menu->setLabel("Main menu");
-        $nm->addMenu($menu);
-        $cm->flush();
-        $cm->clear();
-
-        $route = $cm->getRoute("en");
-        $item = new MenuNode();
-        $item->setLabel("Home");
-        $item->setName("home");
-        $item->setContent($route);
-        $nm->addMenuItem("main-menu", "en", "", $item);
+        $this->lm->addLocale($language, $page);
+        $this->lm->flush();
+        $this->lm->clear();
 
         // Dutch homepage
-        $page = new Page();
+        $page = new SimplePage();
         $page->setTitle("Hallo, wereld");
         $page->setContent(file_get_contents("http://loripsum.net/api"));
         $language = new Locale("nl-BE", "Nederlands", "nl");
-        $cm->addLanguage($language, $page);
+        $this->lm->addLocale($language, $page);
+        $this->lm->flush();
+        $this->lm->clear();
 
-        $page = new Page();
+        $page = new SimplePage();
         $page->setTitle("Hello world");
         $language = new Locale("fr-BE", "Français", "fr");
-        $cm->addLanguage($language, $page);
+        $this->lm->addLocale($language, $page);
+        $this->lm->flush();
+        $this->lm->clear();
 
-        $route = $cm->createPage(
-            "/en",
-            "ConcertoCmsCoreBundle:Page",
-            array(
+        /*
+        $this->pm->createPage("/en", "simplepage", [
                 "slug" => "company",
                 "title" => "Meet the company",
                 "content" => file_get_contents("http://loripsum.net/api")
-            )
-        );
+            ]);
 
-        $item = new MenuNode();
-        $item->setLabel("Company");
-        $item->setName("company");
-        $item->setContent($route);
-        $nm->addMenuItem("main-menu", "en", "/", $item);
-        $cm->flush();
-        $cm->clear();
-
-        $route = $cm->createPage(
-            "/en/company",
-            "ConcertoCmsCoreBundle:Page",
-            array(
+        $this->pm->createPage("/en/company", "simplepage", [
                 "slug" => "team",
                 "title" => "Meet the sales team",
                 "content" => file_get_contents("http://loripsum.net/api")
-            )
-        );
-        $item = new MenuNode();
-        $item->setLabel("Sales");
-        $item->setName("sales");
-        $item->setContent($route);
-        $nm->addMenuItem("main-menu", "en", "company", $item);
+            ]);
 
-        $route = $cm->createPage(
-            "/en",
-            "ConcertoCmsCoreBundle:Page",
-            array(
+        $this->pm->createPage("/en", "simplepage", [
                 "slug" => "contact",
                 "title" => "Drop us a line",
                 "content" => file_get_contents("http://loripsum.net/api")
-            )
-        );
+            ]);
+        */
 
-        $item = new MenuNode();
-        $item->setLabel("Contact");
-        $item->setName("contact");
-        $item->setContent($route);
-        $nm->addMenuItem("main-menu", "en", "/", $item);
-
+        $this->pm->flush();
         // Splash page is not supported yet...
         //$cm->setSplash(Content::SPLASH_MODE_REDIRECT, "/en");
 
-        $cm->flush();
     }
 }

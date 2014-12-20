@@ -3,3 +3,17 @@ services:
         class: ConcertoCms\CoreBundle\Pages\Service\PagesManager
         arguments:
             - @doctrine_phpcr.odm.default_document_manager
+            - @concerto_cms_core.routes.service.routes_manager
+            - @concerto_cms_core.pages.service.page_factory_repository
+            - @event_dispatcher
+
+    concerto_cms_core.pages.service.page_factory_repository:
+        class: ConcertoCms\CoreBundle\Pages\Service\PageFactoryRepository
+
+    concerto_cms_core.pages.factory.simplepage:
+        class: ConcertoCms\CoreBundle\Pages\Service\GenericPageFactory
+        arguments:
+            - @jms_serializer
+            - ConcertoCms\CoreBundle\Document\SimplePage
+        tags:
+            -  { name: concerto.pagefactory, alias: simplepage }

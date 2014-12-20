@@ -8,7 +8,7 @@
 
 namespace ConcertoCms\CoreBundle\Document;
 
-use ConcertoCms\CoreBundle\Navigation\Model\Locale;
+use ConcertoCms\CoreBundle\Languages\Model\Locale;
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 
 /**

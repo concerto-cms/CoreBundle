@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\StringInput;
 
-class BaseTestCase extends WebTestCase
+class AbstractWebTestCase extends WebTestCase
 {
     protected static function createKernel(array $options = array())
     {

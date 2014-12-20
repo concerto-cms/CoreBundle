@@ -3,7 +3,7 @@
         >
     <testsuites>
         <testsuite name="Functional testing">
-            <file>Tests/Functional/Content.php</file>
+            <file>Tests/Functional/Pages.php</file>
         </testsuite>
     </testsuites>
 

@@ -2,24 +2,20 @@
 /**
  * Created by PhpStorm.
  * User: mathieu
- * Date: 14/06/14
- * Time: 10:52
+ * Date: 19/12/2014
+ * Time: 20:04
  */
 
 namespace ConcertoCms\CoreBundle\Tests\Functional;
 
-class Content extends BaseTestCase
-{
-    public function testModule()
-    {
-        $client = $this->createClient();
-        $crawler = $client->request("GET", "/content");
-        $this->assertTrue($client->getResponse()->isSuccessful());
-    }
+
+use ConcertoCms\CoreBundle\Tests\Functional\AbstractWebTestCase;
+
+class Pages extends AbstractWebTestCase {
     public function testGetRequest()
     {
         $client = $this->createClient();
-        $crawler = $client->request("GET", "/rest/content");
+        $crawler = $client->request("GET", "/pages");
         $response = $client->getResponse();
 
         $this->assertTrue($response->isSuccessful());
@@ -37,4 +33,4 @@ class Content extends BaseTestCase
         $crawler = $client->request("GET", "/rest/content/en");
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
-}
+} 

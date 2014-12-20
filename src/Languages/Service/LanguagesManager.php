@@ -7,7 +7,7 @@
  */
 
 namespace ConcertoCms\CoreBundle\Languages\Service;
-use ConcertoCms\CoreBundle\Navigation\Model\Locale;
+use ConcertoCms\CoreBundle\Languages\Model\Locale;
 use ConcertoCms\CoreBundle\Pages\Service\PagesManager;
 use ConcertoCms\CoreBundle\Document\LanguageRoute;
 use ConcertoCms\CoreBundle\Routes\Service\RoutesManager;

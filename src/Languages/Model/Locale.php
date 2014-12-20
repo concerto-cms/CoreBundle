@@ -6,7 +6,7 @@
  * Time: 08:51
  */
 
-namespace ConcertoCms\CoreBundle\Navigation\Model;
+namespace ConcertoCms\CoreBundle\Languages\Model;
 
 
 class Locale implements \JsonSerializable

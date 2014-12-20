@@ -9,6 +9,7 @@ namespace ConcertoCms\CoreBundle\Routes\Service;
 
 use ConcertoCms\CoreBundle\Document\Route;
 use ConcertoCms\CoreBundle\Document\SplashRoute;
+use ConcertoCms\CoreBundle\Util\PublishableInterface;
 
 class RoutesManager {
     use \ConcertoCms\CoreBundle\Util\DocumentManagerTrait;
@@ -42,10 +43,10 @@ class RoutesManager {
         return $this->getDocumentManager()->find(null, "/cms/routes" . $url);
     }
 
-    public function createRoute($parentUrl, ContentInterface $page)
+    public function createRoute($parentUrl, PublishableInterface $page)
     {
         // Check if parentUrl is a valid route
-        $parentRoute = $this->getRoute($parentUrl);
+        $parentRoute = $this->getByUrl($parentUrl);
         if (!$parentRoute) {
             throw new \InvalidArgumentException("Couldn't find route for url " . $parentUrl);
         }
@@ -73,4 +74,14 @@ class RoutesManager {
         $this->getDocumentManager()->flush();
         return $route;
     }
+
+    public function delete($route) {
+        $children = $route->getChildren();
+        foreach ($children as $child) {
+            $this->delete($child);
+        }
+        $this->getDocumentManager()->remove($route);
+
+    }
+
 } 
