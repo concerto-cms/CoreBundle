@@ -10,6 +10,8 @@ namespace ConcertoCms\CoreBundle\Pages\Controller;
 use ConcertoCms\CoreBundle\Pages\Service\PagesManager;
 use ConcertoCms\CoreBundle\Routes\Service\RoutesManager;
 use ConcertoCms\CoreBundle\Util\HierarchyInterface;
+use ConcertoCms\CoreBundle\Util\PublishableInterface;
+use JMS\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,15 +20,16 @@ class PagesController {
     use \ConcertoCms\CoreBundle\Util\JsonApiTrait;
 
     private $pm;
+    private $serializer;
 
-    public function __construct(PagesManager $pm) {
+    public function __construct(PagesManager $pm, Serializer $serializer) {
         $this->pm = $pm;
+        $this->serializer = $serializer;
     }
 
     public function listAction() {
         $data = $this->flatten($this->pm->getSplash());
         return new JsonResponse($data);
-
     }
 
     public function getAction($path) {
@@ -55,9 +58,18 @@ class PagesController {
         return new JsonResponse(["success"=> true]);
     }
 
-    private function flatten(HierarchyInterface $object, $arr = []) {
-        $arr[] = $object;
-        $children = $object->getChildren();
+    private function flatten($object, &$arr = []) {
+        if ($object instanceof PublishableInterface) {
+            $arr[] = $object;
+
+        }
+        if ($object instanceof \Doctrine\ODM\PHPCR\Document\Generic) {
+            $children = $object->getChildren()->toArray();
+        } elseif ($object instanceof HierarchyInterface) {
+            $children = $object->getChildren()->toArray();
+        } else {
+            return $arr;
+        }
         foreach ($children as $child) {
             $this->flatten($child, $arr);
         }

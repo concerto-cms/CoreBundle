@@ -10,34 +10,51 @@ namespace ConcertoCms\CoreBundle\Pages\Service;
 
 
 use ConcertoCms\CoreBundle\Pages\PageFactoryInterface;
+use Doctrine\ODM\PHPCR\DocumentManager;
 use JMS\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 class GenericPageFactory implements PageFactoryInterface {
     private $serializer;
     private $pageFQN;
-    public function __construct(Serializer $serializer, $fqn) {
-        $this->serializer = $serializer;
+    private $dm;
+    public function __construct(DocumentManager $dm, $fqn) {
+        $encoders = array(new JsonEncoder());
+        $normalizers = array(new GetSetMethodNormalizer());
+
+        $this->dm = $dm;
+        $this->serializer = new \Symfony\Component\Serializer\Serializer($normalizers, $encoders);
         $this->pageFQN = $fqn;
     }
 
     public function createFromJson($data)
     {
-        $this->serializer->deserialize(json_encode($data), $this->getPageFQN(), "json");
+        $type = $this->getPageFQN();
+        $page = new $type();
+        $this->updateFromJson($page, $data);
+        return $page;
+
+   //     return $this->serializer->deserialize(json_encode($data), $this->getPageFQN(), "json");
     }
 
     public function updateFromJson($page, $data)
     {
         // Create a deserialization context, targeting the existing user
-        $context = new \JMS\Serializer\DeserializationContext();
-        $context->attributes->set('target', $page);
-
-        // Deserialize the data "on to" to the existing user
-        $this->serializer->deserialize(json_encode($data), 'MyApp\Model\User', 'json', $context);
+        if (get_class($page) !== $this->pageFQN) {
+            throw new \RuntimeException("given page doesn't match the factory's page FQN");
+        }
+        $metadata = $this->dm->getClassMetadata(get_class($page));
+        foreach ($data as $key => $value) {
+            if ($metadata->hasField($key)) {
+                $metadata->setFieldValue($page, $key, $value);
+            }
+        }
+        return $page;
     }
 
     public function getPageFQN()
     {
         return $this->pageFQN;
     }
-
-} 
+}

@@ -63,12 +63,12 @@ class FixturesLoadCommand extends ContainerAwareCommand
         $this->lm->flush();
         $this->lm->clear();
 
-        /*
         $this->pm->createPage("/en", "simplepage", [
                 "slug" => "company",
                 "title" => "Meet the company",
                 "content" => file_get_contents("http://loripsum.net/api")
             ]);
+
 
         $this->pm->createPage("/en/company", "simplepage", [
                 "slug" => "team",
@@ -81,7 +81,7 @@ class FixturesLoadCommand extends ContainerAwareCommand
                 "title" => "Drop us a line",
                 "content" => file_get_contents("http://loripsum.net/api")
             ]);
-        */
+
 
         $this->pm->flush();
         // Splash page is not supported yet...

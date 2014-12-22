@@ -13,7 +13,7 @@ use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 /**
  * @PHPCR\Document(referenceable=true)
  */
-class SimplePage extends AbstractPage {
+class SimplePage extends AbstractPage implements \JsonSerializable {
     /**
      * @PHPCR\String(nullable=true)
      */
@@ -37,6 +37,25 @@ class SimplePage extends AbstractPage {
     public function setContent($content)
     {
         $this->content = $content;
+    }
+
+    function jsonSerialize()
+    {
+        $data = [
+            "type" => "simplepage",
+            "title" => $this->getTitle(),
+            "slug" => $this->getSlug(),
+            "content" => $this->getContent(),
+            "meta_description" => $this->getMetaDescription(),
+            "routes" => []
+        ];
+        /**
+         * @var $route Route
+         */
+        foreach ($this->getRoutes() as $route) {
+            $data["routes"][] = $route->getId();
+        }
+        return $data;
     }
 
 

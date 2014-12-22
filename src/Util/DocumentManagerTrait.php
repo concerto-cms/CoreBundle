@@ -44,4 +44,5 @@ trait DocumentManagerTrait {
     public function clear() {
         $this->dm->clear();
     }
+
 } 

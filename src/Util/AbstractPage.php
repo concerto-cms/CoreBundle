@@ -10,7 +10,7 @@ namespace ConcertoCms\CoreBundle\Util;
 
 use ConcertoCms\CoreBundle\Util\HierarchyTrait;
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
-
+use JMS\Serializer\Annotation as Serializer;
 /**
  * @PHPCR\Document(referenceable=true)
  */
@@ -20,19 +20,23 @@ abstract class AbstractPage implements PublishableInterface
 
     /**
      * @PHPCR\String(nullable=true)
+     * @Serializer\Type("string")
      */
     protected $title;
 
     /**
      * @PHPCR\String(nullable=true)
+     * @Serializer\Type("string")
      */
     protected $metaDescription;
 
     /**
      * @PHPCR\Referrers(
-     *     referringDocument="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route",
+     *     referringDocument="Route",
      *     referencedBy="content"
      * )
+     * @var \Doctrine\ODM\PHPCR\ReferrersCollection
+     * @Serializer\Exclude()
      */
     protected $routes;
 
@@ -59,7 +63,7 @@ abstract class AbstractPage implements PublishableInterface
     }
 
     /**
-     * @param mixed $description
+     * @param string $description
      */
     public function setMetaDescription($description)
     {
@@ -72,11 +76,11 @@ abstract class AbstractPage implements PublishableInterface
      */
     public function getMetaDescription()
     {
-        return $this->description;
+        return $this->metaDescription;
     }
 
     /**
-     * @return mixed
+     * @return \Doctrine\ODM\PHPCR\ReferrersCollection
      */
     public function getRoutes()
     {

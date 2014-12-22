@@ -12,8 +12,8 @@ services:
 
     concerto_cms_core.pages.factory.simplepage:
         class: ConcertoCms\CoreBundle\Pages\Service\GenericPageFactory
+        factory: [@concerto_cms_core.pages.service.pages_manager, "createGenericPageFactory"]
         arguments:
-            - @jms_serializer
             - ConcertoCms\CoreBundle\Document\SimplePage
         tags:
             -  { name: concerto.pagefactory, alias: simplepage }

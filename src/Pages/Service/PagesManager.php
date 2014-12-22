@@ -119,4 +119,8 @@ class PagesManager {
         $this->getDocumentManager()->remove($page);
 
     }
+
+    public function createGenericPageFactory($fqn) {
+        $pageFactory = new GenericPageFactory($this->getDocumentManager(), $fqn);
+    }
 }
