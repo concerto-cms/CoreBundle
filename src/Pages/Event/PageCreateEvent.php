@@ -7,7 +7,6 @@
  */
 namespace ConcertoCms\CoreBundle\Pages\Event;
 
-
 use ConcertoCms\CoreBundle\Util\PublishableInterface;
 
 class PageCreateEvent extends \Symfony\Component\EventDispatcher\Event

@@ -8,7 +8,6 @@
 
 namespace ConcertoCms\CoreBundle\Languages\Model;
 
-
 class Locale implements \JsonSerializable
 {
     private $prefix;

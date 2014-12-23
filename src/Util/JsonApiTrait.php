@@ -8,7 +8,6 @@
 
 namespace ConcertoCms\CoreBundle\Util;
 
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 

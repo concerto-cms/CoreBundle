@@ -8,7 +8,6 @@
 
 namespace ConcertoCms\CoreBundle\Pages\Service;
 
-
 use ConcertoCms\CoreBundle\Pages\Exception\FactoryNotFoundException;
 use ConcertoCms\CoreBundle\Pages\PageFactoryInterface;
 use ConcertoCms\CoreBundle\Util\PublishableInterface;

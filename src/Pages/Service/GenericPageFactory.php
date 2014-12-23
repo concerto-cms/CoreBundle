@@ -8,7 +8,6 @@
 
 namespace ConcertoCms\CoreBundle\Pages\Service;
 
-
 use ConcertoCms\CoreBundle\Pages\PageFactoryInterface;
 use Doctrine\ODM\PHPCR\DocumentManager;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;

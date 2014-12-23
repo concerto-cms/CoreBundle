@@ -8,7 +8,6 @@
 
 namespace ConcertoCms\CoreBundle\Util;
 
-
 trait DocumentManagerTrait
 {
     /**

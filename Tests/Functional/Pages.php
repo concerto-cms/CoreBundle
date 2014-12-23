@@ -8,7 +8,6 @@
 
 namespace ConcertoCms\CoreBundle\Tests\Functional;
 
-
 use ConcertoCms\CoreBundle\Tests\Functional\AbstractWebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 

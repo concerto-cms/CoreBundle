@@ -8,7 +8,6 @@
 
 namespace ConcertoCms\CoreBundle\Util\Command;
 
-
 use ConcertoCms\CoreBundle\Document\SimplePage;
 use ConcertoCms\CoreBundle\Languages\Model\Locale;
 use ConcertoCms\CoreBundle\Languages\Service\LanguagesManager;

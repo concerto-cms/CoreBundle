@@ -8,7 +8,6 @@
 
 namespace ConcertoCms\CoreBundle\Util;
 
-
 interface RouteInterface extends \JsonSerializable
 {
     public function getId();

@@ -8,7 +8,6 @@
 
 namespace ConcertoCms\CoreBundle\Pages;
 
-
 use ConcertoCms\CoreBundle\Util\PublishableInterface;
 
 interface PageFactoryInterface

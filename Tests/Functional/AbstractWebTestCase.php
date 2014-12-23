@@ -8,7 +8,6 @@
 
 namespace ConcertoCms\CoreBundle\Tests\Functional;
 
-
 use ConcertoCms\CoreBundle\Tests\app\AppKernel;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\ArrayInput;
