@@ -11,7 +11,6 @@ namespace ConcertoCms\CoreBundle\Pages\Service;
 
 use ConcertoCms\CoreBundle\Pages\PageFactoryInterface;
 use Doctrine\ODM\PHPCR\DocumentManager;
-use JMS\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
@@ -20,11 +19,7 @@ class GenericPageFactory implements PageFactoryInterface {
     private $pageFQN;
     private $dm;
     public function __construct(DocumentManager $dm, $fqn) {
-        $encoders = array(new JsonEncoder());
-        $normalizers = array(new GetSetMethodNormalizer());
-
         $this->dm = $dm;
-        $this->serializer = new \Symfony\Component\Serializer\Serializer($normalizers, $encoders);
         $this->pageFQN = $fqn;
     }
 
