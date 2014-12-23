@@ -6,30 +6,25 @@
  * Time: 16:21
  */
 namespace ConcertoCms\CoreBundle\Util;
-use JMS\Serializer\Annotation as Serializer;
 
 trait HierarchyTrait {
     /**
      * @PHPCR\Id()
-     * @Serializer\Exclude()
      */
     protected $id;
 
     /**
      * @PHPCR\ParentDocument()
-     * @Serializer\Exclude()
      */
     protected $parent;
 
     /**
      * @PHPCR\NodeName()
-     * @Serializer\Type("string")
      */
     protected $slug;
 
     /**
      * @PHPCR\Children
-     * @Serializer\Exclude()
      */
     protected $children;
 

@@ -1,7 +1,6 @@
 services:
-    concerto_cms_core.pages.controller.pages:
-        class: ConcertoCms\CoreBundle\Pages\Controller\PagesController
+    concerto_cms_core.languages.controller.languages:
+        class: ConcertoCms\CoreBundle\Languages\Controller\LanguagesController
         arguments:
-            - @concerto_cms_core.pages.service.pages_manager
-            - @concerto_cms_core.routes.service.routes_manager
+            - @concerto_cms_core.languages.service.languages_manager
 

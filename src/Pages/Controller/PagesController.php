@@ -11,7 +11,6 @@ use ConcertoCms\CoreBundle\Pages\Service\PagesManager;
 use ConcertoCms\CoreBundle\Routes\Service\RoutesManager;
 use ConcertoCms\CoreBundle\Util\HierarchyInterface;
 use ConcertoCms\CoreBundle\Util\PublishableInterface;
-use JMS\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,11 +19,9 @@ class PagesController {
     use \ConcertoCms\CoreBundle\Util\JsonApiTrait;
 
     private $pm;
-    private $serializer;
 
-    public function __construct(PagesManager $pm, Serializer $serializer) {
+    public function __construct(PagesManager $pm) {
         $this->pm = $pm;
-        $this->serializer = $serializer;
     }
 
     public function listAction() {
@@ -39,7 +36,7 @@ class PagesController {
 
     public function postAction(Request $req, $path) {
         $post = $this->getJsonInput($req);
-        $page = $this->pm->createPage($path, $post["type"], $post);
+        $page = $this->pm->createPage($path, $post["type"], $post["page"]);
         $this->pm->flush();
         return new JsonResponse($page);
 

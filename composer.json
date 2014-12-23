@@ -25,9 +25,7 @@
         "liip/imagine-bundle": "~0.12",
         "symfony-cmf/menu-bundle": "1.1.*",
         "helios-ag/fm-elfinder-bundle": "1.x",
-        "aferrandini/urlizer": "1.0.*",
-        "jms/serializer": "~0.16",
-        "jms/serializer-bundle": "~0.13"
+        "aferrandini/urlizer": "1.0.*"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.x"

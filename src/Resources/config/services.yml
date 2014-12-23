@@ -5,6 +5,7 @@ imports:
     - { resource: Routes/services.yml }
     - { resource: Languages/services.yml }
     - { resource: Languages/commands.yml }
+    - { resource: Languages/controllers.yml }
     - { resource: Pages/services.yml }
     - { resource: Pages/controllers.yml }
 

@@ -10,7 +10,6 @@ namespace ConcertoCms\CoreBundle\Util;
 
 use ConcertoCms\CoreBundle\Util\HierarchyTrait;
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
-use JMS\Serializer\Annotation as Serializer;
 /**
  * @PHPCR\Document(referenceable=true)
  */
@@ -20,13 +19,11 @@ abstract class AbstractPage implements PublishableInterface
 
     /**
      * @PHPCR\String(nullable=true)
-     * @Serializer\Type("string")
      */
     protected $title;
 
     /**
      * @PHPCR\String(nullable=true)
-     * @Serializer\Type("string")
      */
     protected $metaDescription;
 
@@ -36,7 +33,6 @@ abstract class AbstractPage implements PublishableInterface
      *     referencedBy="content"
      * )
      * @var \Doctrine\ODM\PHPCR\ReferrersCollection
-     * @Serializer\Exclude()
      */
     protected $routes;
 

@@ -8,3 +8,6 @@
 
 _concerto_cms_core_pages_api:
     resource: Pages/routing.yml
+
+_concerto_cms_core_languages_api:
+    resource: Languages/routing.yml

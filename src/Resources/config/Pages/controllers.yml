@@ -3,5 +3,3 @@ services:
         class: ConcertoCms\CoreBundle\Pages\Controller\PagesController
         arguments:
             - @concerto_cms_core.pages.service.pages_manager
-            - @jms_serializer
-

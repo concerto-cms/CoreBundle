@@ -14,7 +14,7 @@ use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 /**
  * @PHPCR\Document(referenceable=true)
  */
-class LanguageRoute extends Route
+class LanguageRoute extends Route implements \JsonSerializable
 {
     /**
      * @PHPCR\String(nullable=false)
@@ -73,13 +73,9 @@ class LanguageRoute extends Route
     public function jsonSerialize()
     {
         return array(
-            "id" => $this->getId(),
             "isoCode" => $this->getIsoCode(),
             "description" => $this->getDescription(),
-            "slug" => $this->getName(),
-            "content" => $this->getContent()->jsonSerialize(),
-            "parent" => $this->getParentDocument()->getId()
-
+            "name" => $this->getName()
         );
     }
 }

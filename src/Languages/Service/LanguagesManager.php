@@ -69,4 +69,16 @@ class LanguagesManager {
         $root = $this->rm->getRoot();
         return $root->getChildren();
     }
+
+    /**
+     * @param $slug
+     * @return null|LanguageRoute
+     */
+    public function getBySlug($slug) {
+        return $this->getDocumentManager()->find(null, "/cms/routes/" . $slug);
+    }
+
+    public function delete($language) {
+        throw new \RuntimeException("Deletion of languages is not yet possible");
+    }
 }
