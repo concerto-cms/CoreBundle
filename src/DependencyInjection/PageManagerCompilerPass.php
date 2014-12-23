@@ -13,11 +13,14 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class PageManagerCompilerPass implements CompilerPassInterface {
+class PageManagerCompilerPass implements CompilerPassInterface
+{
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition('concerto_cms_core.pages.service.page_factory_repository')) {
-            throw new \RuntimeException("Couldn't find service concerto_cms_core.pages.service.page_factory_repository");
+            throw new \RuntimeException(
+                "Couldn't find service concerto_cms_core.pages.service.page_factory_repository"
+            );
         }
 
         $repository_definition = $container->getDefinition(
@@ -45,4 +48,4 @@ class PageManagerCompilerPass implements CompilerPassInterface {
             );
         }
     }
-} 
+}

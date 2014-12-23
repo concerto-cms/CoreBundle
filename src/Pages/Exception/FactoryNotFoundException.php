@@ -7,6 +7,7 @@
  */
 namespace ConcertoCms\CoreBundle\Pages\Exception;
 
-class FactoryNotFoundException extends \Exception {
+class FactoryNotFoundException extends \Exception
+{
 
-} 
+}

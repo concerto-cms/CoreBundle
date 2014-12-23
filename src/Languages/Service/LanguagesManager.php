@@ -5,8 +5,8 @@
  * Date: 07/12/2014
  * Time: 15:38
  */
-
 namespace ConcertoCms\CoreBundle\Languages\Service;
+
 use ConcertoCms\CoreBundle\Languages\Model\Locale;
 use ConcertoCms\CoreBundle\Pages\Service\PagesManager;
 use ConcertoCms\CoreBundle\Document\LanguageRoute;
@@ -16,8 +16,8 @@ use ConcertoCms\CoreBundle\Util\PublishableInterface;
 use Doctrine\ODM\PHPCR\ChildrenCollection;
 use Doctrine\ODM\PHPCR\DocumentManager;
 
-
-class LanguagesManager {
+class LanguagesManager
+{
     use DocumentManagerTrait;
 
     /**
@@ -45,7 +45,8 @@ class LanguagesManager {
      * @param PublishableInterface $page
      * @return LanguageRoute
      */
-    public function addLocale(Locale $locale, PublishableInterface $page) {
+    public function addLocale(Locale $locale, PublishableInterface $page)
+    {
         $routeParent = $this->rm->getRoot();
         $pageParent = $this->pm->getSplash();
 
@@ -65,7 +66,8 @@ class LanguagesManager {
     /**
      * @return ChildrenCollection
      */
-    public function getAll() {
+    public function getAll()
+    {
         $root = $this->rm->getRoot();
         return $root->getChildren();
     }
@@ -74,11 +76,13 @@ class LanguagesManager {
      * @param $slug
      * @return null|LanguageRoute
      */
-    public function getBySlug($slug) {
+    public function getBySlug($slug)
+    {
         return $this->getDocumentManager()->find(null, "/cms/routes/" . $slug);
     }
 
-    public function delete($language) {
+    public function delete($language)
+    {
         throw new \RuntimeException("Deletion of languages is not yet possible");
     }
 }

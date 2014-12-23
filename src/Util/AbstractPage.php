@@ -10,6 +10,7 @@ namespace ConcertoCms\CoreBundle\Util;
 
 use ConcertoCms\CoreBundle\Util\HierarchyTrait;
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+
 /**
  * @PHPCR\Document(referenceable=true)
  */

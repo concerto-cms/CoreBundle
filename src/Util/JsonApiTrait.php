@@ -12,9 +12,10 @@ namespace ConcertoCms\CoreBundle\Util;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-trait JsonApiTrait {
-
-    protected function getJsonInput(Request $req) {
+trait JsonApiTrait
+{
+    protected function getJsonInput(Request $req)
+    {
         $content = $req->getContent();
         if (empty($content)) {
             throw new BadRequestHttpException("Empty request");
@@ -22,4 +23,4 @@ trait JsonApiTrait {
         $data = json_decode($content, true);
         return $data;
     }
-} 
+}

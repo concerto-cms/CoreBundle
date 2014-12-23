@@ -9,7 +9,8 @@
 namespace ConcertoCms\CoreBundle\Util;
 
 
-trait DocumentManagerTrait {
+trait DocumentManagerTrait
+{
     /**
      * @var \Doctrine\ODM\PHPCR\DocumentManager
      */
@@ -18,31 +19,36 @@ trait DocumentManagerTrait {
     /**
      * @param $dm \Doctrine\ODM\PHPCR\DocumentManager
      */
-    protected function setDocumentManager($dm) {
+    protected function setDocumentManager($dm)
+    {
         $this->dm = $dm;
     }
 
     /**
      * @returns \Doctrine\ODM\PHPCR\DocumentManager
      */
-    protected function getDocumentManager() {
+    protected function getDocumentManager()
+    {
         return $this->dm;
     }
 
-    public function persist($document) {
+    public function persist($document)
+    {
         $this->dm->persist($document);
     }
 
-    public function flush() {
+    public function flush()
+    {
         $this->dm->flush();
     }
 
-    public function remove($document) {
+    public function remove($document)
+    {
         $this->dm->remove($document);
     }
 
-    public function clear() {
+    public function clear()
+    {
         $this->dm->clear();
     }
-
-} 
+}

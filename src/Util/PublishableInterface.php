@@ -9,7 +9,8 @@
 namespace ConcertoCms\CoreBundle\Util;
 
 
-interface PublishableInterface extends HierarchyInterface {
+interface PublishableInterface extends HierarchyInterface
+{
     /**
      * @return string
      */
@@ -39,4 +40,4 @@ interface PublishableInterface extends HierarchyInterface {
      * @return array
      */
     public function getRoutes();
-} 
+}

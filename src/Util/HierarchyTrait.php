@@ -7,7 +7,8 @@
  */
 namespace ConcertoCms\CoreBundle\Util;
 
-trait HierarchyTrait {
+trait HierarchyTrait
+{
     /**
      * @PHPCR\Id()
      */
@@ -69,4 +70,4 @@ trait HierarchyTrait {
     {
         return $this->children;
     }
-} 
+}

@@ -10,7 +10,8 @@ namespace ConcertoCms\CoreBundle\Pages\Event;
 
 use ConcertoCms\CoreBundle\Util\PublishableInterface;
 
-class PageCreateEvent extends \Symfony\Component\EventDispatcher\Event {
+class PageCreateEvent extends \Symfony\Component\EventDispatcher\Event
+{
     private $page;
     private $params;
 
@@ -46,5 +47,4 @@ class PageCreateEvent extends \Symfony\Component\EventDispatcher\Event {
     {
         $this->params = $params;
     }
-
-} 
+}

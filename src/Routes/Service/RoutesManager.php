@@ -11,7 +11,8 @@ use ConcertoCms\CoreBundle\Document\Route;
 use ConcertoCms\CoreBundle\Document\SplashRoute;
 use ConcertoCms\CoreBundle\Util\PublishableInterface;
 
-class RoutesManager {
+class RoutesManager
+{
     use \ConcertoCms\CoreBundle\Util\DocumentManagerTrait;
 
     /**
@@ -23,7 +24,8 @@ class RoutesManager {
         $this->setDocumentManager($dm);
     }
 
-    public function getRoot() {
+    public function getRoot()
+    {
         $root = $this->getDocumentManager()->find(null, "/cms/routes");
         if (!$root) {
             return $this->initialize();
@@ -75,7 +77,8 @@ class RoutesManager {
         return $route;
     }
 
-    public function delete($route) {
+    public function delete($route)
+    {
         $children = $route->getChildren();
         foreach ($children as $child) {
             $this->delete($child);
@@ -83,5 +86,4 @@ class RoutesManager {
         $this->getDocumentManager()->remove($route);
 
     }
-
-} 
+}

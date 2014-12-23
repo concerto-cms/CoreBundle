@@ -14,11 +14,13 @@ use Doctrine\ODM\PHPCR\DocumentManager;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
-class GenericPageFactory implements PageFactoryInterface {
+class GenericPageFactory implements PageFactoryInterface
+{
     private $serializer;
     private $pageFQN;
     private $dm;
-    public function __construct(DocumentManager $dm, $fqn) {
+    public function __construct(DocumentManager $dm, $fqn)
+    {
         $this->dm = $dm;
         $this->pageFQN = $fqn;
     }

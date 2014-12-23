@@ -37,7 +37,7 @@ class CreateMenuCommand extends ContainerAwareCommand
          * @var $cm Navigation
          */
         $cm = $this->getContainer()->get("concerto_cms_core.navigation");
-        $provider =  $this->getContainer()->get("cmf_menu.provider");
+        //$provider =  $this->getContainer()->get("cmf_menu.provider");
         $dialog = $this->getHelperSet()->get('dialog');
 
         $name = $dialog->ask(

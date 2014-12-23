@@ -13,7 +13,8 @@ use ConcertoCms\CoreBundle\Pages\Event\PageUpdateEvent;
 use ConcertoCms\CoreBundle\Routes\Service\RoutesManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class PagesManager {
+class PagesManager
+{
     use \ConcertoCms\CoreBundle\Util\DocumentManagerTrait;
 
     private $rm;
@@ -96,7 +97,8 @@ class PagesManager {
         return $page;
     }
 
-    public function update($page, $params) {
+    public function update($page, $params)
+    {
         $factory = $this->factory->getByPage($page);
         $factory->updateFromJson($page, $params);
 
@@ -108,7 +110,8 @@ class PagesManager {
         return $page;
     }
 
-    public function delete($page) {
+    public function delete($page)
+    {
         $children = $page->getChildren();
         foreach ($children as $child) {
             $this->delete($child);

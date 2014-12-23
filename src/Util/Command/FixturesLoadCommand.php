@@ -24,7 +24,8 @@ class FixturesLoadCommand extends ContainerAwareCommand
     private $pm;
     private $lm;
 
-    public function __construct(PagesManager $pm, LanguagesManager $lm) {
+    public function __construct(PagesManager $pm, LanguagesManager $lm)
+    {
         parent::__construct();
         $this->pm = $pm;
         $this->lm = $lm;
@@ -56,6 +57,7 @@ class FixturesLoadCommand extends ContainerAwareCommand
         $this->lm->flush();
         $this->lm->clear();
 
+        // French homepage
         $page = new SimplePage();
         $page->setTitle("Hello world");
         $language = new Locale("fr-BE", "Français", "fr");
@@ -68,24 +70,23 @@ class FixturesLoadCommand extends ContainerAwareCommand
                 "title" => "Meet the company",
                 "content" => file_get_contents("http://loripsum.net/api")
             ]);
-
+        $this->pm->flush();
+        $this->pm->clear();
 
         $this->pm->createPage("/en/company", "simplepage", [
                 "slug" => "team",
                 "title" => "Meet the sales team",
                 "content" => file_get_contents("http://loripsum.net/api")
             ]);
+        $this->pm->flush();
+        $this->pm->clear();
 
         $this->pm->createPage("/en", "simplepage", [
                 "slug" => "contact",
                 "title" => "Drop us a line",
                 "content" => file_get_contents("http://loripsum.net/api")
             ]);
-
-
         $this->pm->flush();
-        // Splash page is not supported yet...
-        //$cm->setSplash(Content::SPLASH_MODE_REDIRECT, "/en");
-
+        $this->pm->clear();
     }
 }

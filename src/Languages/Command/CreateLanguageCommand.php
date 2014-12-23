@@ -26,7 +26,8 @@ class CreateLanguageCommand extends ContainerAwareCommand
      * @var LanguagesManager
      */
     private $lm;
-    public function __construct(LanguagesManager $lm) {
+    public function __construct(LanguagesManager $lm)
+    {
         parent::__construct();
         $this->lm = $lm;
     }

@@ -18,26 +18,31 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class LanguagesController {
+class LanguagesController
+{
     use \ConcertoCms\CoreBundle\Util\JsonApiTrait;
 
     private $lm;
 
-    public function __construct(LanguagesManager $lm) {
+    public function __construct(LanguagesManager $lm)
+    {
         $this->lm = $lm;
     }
 
-    public function listAction() {
+    public function listAction()
+    {
         $data = $this->lm->getAll()->toArray();
         return new JsonResponse($data);
     }
 
-    public function getAction($path) {
+    public function getAction($path)
+    {
         $language = $this->lm->getBySlug($path);
         return new JsonResponse($language);
     }
 
-    public function postAction(Request $req) {
+    public function postAction(Request $req)
+    {
         $post = $this->getJsonInput($req);
         $locale = new Locale($post["isoCode"], $post["description"], $post["name"]);
         $route = $this->lm->addLocale($locale, new SimplePage());
@@ -46,7 +51,8 @@ class LanguagesController {
 
     }
 
-    public function putAction(Request $req, $path) {
+    public function putAction(Request $req, $path)
+    {
         $language = $this->lm->getBySlug($path);
         $post = $this->getJsonInput($req);
         $locale = new Locale($post["isoCode"], $post["description"], $post["name"]);
@@ -55,7 +61,8 @@ class LanguagesController {
         return new JsonResponse($language);
     }
 
-    public function deleteAction($path) {
+    public function deleteAction($path)
+    {
         $language = $this->lm->getBySlug($path);
         $this->lm->delete($language);
         return new JsonResponse(["success"=> true]);

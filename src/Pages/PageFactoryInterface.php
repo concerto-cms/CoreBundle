@@ -11,7 +11,8 @@ namespace ConcertoCms\CoreBundle\Pages;
 
 use ConcertoCms\CoreBundle\Util\PublishableInterface;
 
-interface PageFactoryInterface {
+interface PageFactoryInterface
+{
     public function createFromJson($data);
     public function updateFromJson($page, $data);
     public function getPageFQN();

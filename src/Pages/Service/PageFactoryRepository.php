@@ -13,7 +13,8 @@ use ConcertoCms\CoreBundle\Pages\Exception\FactoryNotFoundException;
 use ConcertoCms\CoreBundle\Pages\PageFactoryInterface;
 use ConcertoCms\CoreBundle\Util\PublishableInterface;
 
-class PageFactoryRepository  {
+class PageFactoryRepository
+{
     private $factories = [];
     private $entityClasses = [];
 
@@ -21,7 +22,8 @@ class PageFactoryRepository  {
      * @param $name
      * @param PageFactoryInterface $factory
      */
-    public function addFactory($name, PageFactoryInterface $factory) {
+    public function addFactory($name, PageFactoryInterface $factory)
+    {
         $this->factories[$name] = $factory;
         $this->entityClasses[$factory->getPageFQN()] = $factory;
     }
@@ -31,7 +33,8 @@ class PageFactoryRepository  {
      * @return PageFactoryInterface
      * @throws FactoryNotFoundException
      */
-    public function getByName($name) {
+    public function getByName($name)
+    {
 
         if (isset($this->factories[$name])) {
             return $this->factories[$name];
@@ -45,7 +48,8 @@ class PageFactoryRepository  {
      * @throws FactoryNotFoundException
      * @return PageFactoryInterface
      */
-    public function getByPage(PublishableInterface $page) {
+    public function getByPage(PublishableInterface $page)
+    {
         $fqn = get_class($page);
         if (isset($this->entityClasses[$fqn])) {
             return $this->entityClasses[$fqn];
@@ -53,5 +57,4 @@ class PageFactoryRepository  {
             throw new FactoryNotFoundException("Couldn't find factory for " . $fqn);
         }
     }
-
-} 
+}

@@ -9,7 +9,8 @@ namespace ConcertoCms\CoreBundle\Navigation\Service;
 
 use Doctrine\ODM\PHPCR\ChildrenCollection;
 
-class NavigationManager {
+class NavigationManager
+{
     use \ConcertoCms\CoreBundle\Util\DocumentManagerTrait;
 
     /**
@@ -39,7 +40,7 @@ class NavigationManager {
         $page->setParent($this->dm->find(null, "/cms/pages"));
         $this->persist($page);
 
-        $parent = $this->dm->find(null, "/cms/routes");
+        //$parent = $this->dm->find(null, "/cms/routes");
         $route = new LanguageRoute();
         $route->setParentDocument($this->getSplash());
         //$route->setParent($this->getSplash());
@@ -54,5 +55,4 @@ class NavigationManager {
         $this->dm->flush();
         return $route;
     }
-
-} 
+}

@@ -4,14 +4,11 @@
         <phpcodesniffer
                 standard="PSR2"
                 format="full"
-                ignorePatterns="Resources/public/*,vendor/*"
+                ignorePatterns="vendor/*"
                 file="."
                 haltonerror="true"
                 allowedFileExtensions="php"/>
-        <exec command="npm install -g grunt-cli" passthru="true" />
-        <exec command="npm install" passthru="true" />
         <exec command="composer install" passthru="true" />
-        <exec command="grunt test" passthru="true" />
         <exec command="phpunit" passthru="true" />
     </target>
 </project>
