@@ -20,11 +20,8 @@
         "jackalope/jackalope-doctrine-dbal": "1.1.*",
         "symfony-cmf/routing-bundle": "1.*",
         "doctrine/data-fixtures": "1.0.*",
-        "friendsofsymfony/jsrouting-bundle": "1.5.3",
         "symfony-cmf/media-bundle": "1.1.*",
-        "liip/imagine-bundle": "~0.12",
         "symfony-cmf/menu-bundle": "1.1.*",
-        "helios-ag/fm-elfinder-bundle": "1.x",
         "aferrandini/urlizer": "1.0.*"
     },
     "require-dev": {
