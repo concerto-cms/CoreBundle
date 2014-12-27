@@ -42,6 +42,9 @@ class GenericPageFactory implements PageFactoryInterface
         }
         $metadata = $this->dm->getClassMetadata(get_class($page));
         foreach ($data as $key => $value) {
+            if (in_array($key, ["id"])) {
+                continue;
+            }
             if ($metadata->hasField($key)) {
                 $metadata->setFieldValue($page, $key, $value);
             }
