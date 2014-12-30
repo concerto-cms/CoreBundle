@@ -3,3 +3,4 @@ services:
         class: ConcertoCms\CoreBundle\Navigation\Service\NavigationManager
         arguments:
             - @doctrine_phpcr.odm.default_document_manager
+            - @concerto_cms_core.languages.service.languages_manager

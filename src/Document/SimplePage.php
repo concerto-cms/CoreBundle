@@ -55,8 +55,10 @@ class SimplePage extends AbstractPage implements \JsonSerializable
         /**
          * @var $route Route
          */
-        foreach ($this->getRoutes() as $route) {
-            $data["routes"][] = $route->getId();
+        if ($this->getRoutes()) {
+            foreach ($this->getRoutes() as $route) {
+                $data["routes"][] = $route->getId();
+            }
         }
         return $data;
     }
