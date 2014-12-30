@@ -38,6 +38,7 @@ class FixturesLoadCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+
         // English homepage
         $page = new SimplePage();
         $page->setTitle("Hello world");
