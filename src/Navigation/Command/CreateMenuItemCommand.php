@@ -8,20 +8,28 @@
 
 namespace ConcertoCms\CoreBundle\Navigation\Command;
 
-use ConcertoCms\CoreBundle\Service\Navigation;
-use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu;
+
+use ConcertoCms\CoreBundle\Routes\Service\RoutesManager;
 use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
 use Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use ConcertoCms\CoreBundle\Document\Page;
-use ConcertoCms\CoreBundle\Model\Locale;
-use ConcertoCms\CoreBundle\Service\Content;
+use ConcertoCms\CoreBundle\Navigation\Service\NavigationManager;
+use Symfony\Component\Console\Helper\DialogHelper;
 
-class CreateMenuItemCommand extends ContainerAwareCommand
+class CreateMenuItemCommand extends Command
 {
+    private $nm;
+    private $rm;
+
+    public function __construct(NavigationManager $nm, RoutesManager $rm)
+    {
+        parent::__construct();
+        $this->nm = $nm;
+        $this->rm = $rm;
+    }
+
     protected function configure()
     {
         $this
@@ -37,8 +45,7 @@ class CreateMenuItemCommand extends ContainerAwareCommand
          * @var $cm Navigation
          * @var $contentService Content
          */
-        $contentService = $this->getContainer()->get("concerto_cms_core.content");
-        $cm = $this->getContainer()->get("concerto_cms_core.navigation");
+
         //$provider =  $this->getContainer()->get("cmf_menu.provider");
         $dialog = $this->getHelperSet()->get('dialog');
 
@@ -56,7 +63,7 @@ class CreateMenuItemCommand extends ContainerAwareCommand
         );
 
 
-        $menu = $cm->getMenuLocale($menuName, $locale);
+        $menu = $this->nm->getMenu($menuName, $locale);
         if (!$menu) {
             $output->writeln("The menu you entered does not exist!");
             die();
@@ -71,7 +78,7 @@ class CreateMenuItemCommand extends ContainerAwareCommand
         if ($parentName == "/") {
             $parentName = "";
         }
-        $parent = $cm->getMenu($menuName . "/" . $locale . "/" . $parentName);
+        $parent = $this->nm->getMenu($menuName . "/" . $locale . "/" . $parentName);
 
         if (!$parent) {
             $output->writeln(
@@ -102,15 +109,14 @@ class CreateMenuItemCommand extends ContainerAwareCommand
         $item->setName($itemName);
         $item->setLabel($itemLabel);
 
-        $page = $contentService->getRoute($itemUrl);
+        $page = $this->rm->getByUrl($itemUrl);
         if ($page) {
             $item->setContent($page);
         } else {
             $item->setUri($itemUrl);
         }
-
-        $cm->addMenuItem($menuName, $locale, $parentName, $item);
-
+        $this->nm->addMenuItem($menuName, $locale, $parentName, $item);
+        $this->nm->flush();
         $output->writeln("Menu was created successfully!");
     }
 }

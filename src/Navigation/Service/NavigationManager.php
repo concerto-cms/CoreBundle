@@ -81,6 +81,7 @@ class NavigationManager
      */
     public function getMenu($id, $locale = null)
     {
+        $id = rtrim($id, "/");
         if ($locale) {
             return $this->dm->find(null, "/cms/menu/" . $id . "/" . $locale);
         }
@@ -122,8 +123,9 @@ class NavigationManager
         }
         $parentName = "/" . ltrim($parentName, "/");
         $menu = $this->getMenu($menuName, $locale);
+        $parentUrl = rtrim($menu->getId() . $parentName, "/");
 
-        $parent = $this->dm->find(null, $menu->getId() . $parentName);
+        $parent = $this->dm->find(null, $parentUrl);
         $item->setParentDocument($parent);
         $this->persist($item);
     }

@@ -1,0 +1,15 @@
+services:
+    concerto_cms_core.navigation.command.create_menu:
+        class: ConcertoCms\CoreBundle\Navigation\Command\CreateMenuCommand
+        arguments:
+            - @concerto_cms_core.navigation.service.navigation_manager
+        tags:
+            -  { name: console.command }
+
+    concerto_cms_core.navigation.command.create_menu_item:
+        class: ConcertoCms\CoreBundle\Navigation\Command\CreateMenuItemCommand
+        arguments:
+            - @concerto_cms_core.navigation.service.navigation_manager
+            - @concerto_cms_core.routes.service.routes_manager
+        tags:
+            -  { name: console.command }

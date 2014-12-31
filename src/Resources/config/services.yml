@@ -3,11 +3,17 @@ parameters:
 
 imports:
     - { resource: Routes/services.yml }
+
     - { resource: Languages/services.yml }
     - { resource: Languages/commands.yml }
     - { resource: Languages/controllers.yml }
+
     - { resource: Pages/services.yml }
     - { resource: Pages/controllers.yml }
+
+    - { resource: Navigation/services.yml }
+    - { resource: Navigation/commands.yml }
+#    - { resource: Navigation/controllers.yml }
 
 services:
     concerto_cms_core.phpcr.initializer:
