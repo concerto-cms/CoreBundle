@@ -13,7 +13,7 @@ imports:
 
     - { resource: Navigation/services.yml }
     - { resource: Navigation/commands.yml }
-#    - { resource: Navigation/controllers.yml }
+    - { resource: Navigation/controllers.yml }
 
 services:
     concerto_cms_core.phpcr.initializer:

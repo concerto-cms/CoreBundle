@@ -1,29 +1,29 @@
-concerto_cms_core_content_rest:
-    pattern:  /pages/{path}
-    defaults: { _controller: ConcertoCmsCoreBundle:Content:get, path: null }
+concerto_cms_core_navigation_rest:
+    pattern:  /navigation/{path}
+    defaults: { _controller: concerto_cms_core.navigation.controller.navigation:listAction, path: null }
     methods:  [GET]
     requirements:
         path: .+
     options:
         expose: true
 
-concerto_cms_core_content_rest_post:
-    pattern:  /pages/{path}
-    defaults: { _controller: ConcertoCmsCoreBundle:Content:post }
+concerto_cms_core_navigation_rest_post:
+    pattern:  /navigation/{path}
+    defaults: { _controller: concerto_cms_core.navigation.controller.navigation:postAction }
     methods:  [POST]
     requirements:
         path: .+
 
-concerto_cms_core_content_rest_put:
-    pattern:  /pages/{path}
-    defaults: { _controller: ConcertoCmsCoreBundle:Content:put }
+concerto_cms_core_navigation_rest_put:
+    pattern:  /navigation/{path}
+    defaults: { _controller: concerto_cms_core.navigation.controller.navigation:putAction }
     methods:  [PUT]
     requirements:
         path: .+
 
-concerto_cms_core_content_rest_delete:
-    pattern:  /pages/{path}
-    defaults: { _controller: ConcertoCmsCoreBundle:Content:delete }
+concerto_cms_core_navigation_rest_delete:
+    pattern:  /navigation/{path}
+    defaults: { _controller: concerto_cms_core.navigation.controller.navigation:deleteAction }
     methods:  [DELETE]
     requirements:
         path: .+
