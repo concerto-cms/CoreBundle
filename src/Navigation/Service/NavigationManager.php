@@ -39,6 +39,13 @@ class NavigationManager
         return $root->getChildren()->toArray();
     }
 
+    public function getByUrl($path)
+    {
+        $url = "/cms/menu/" . ltrim($path, "/");
+        $url = rtrim($url, "/");
+        return $this->dm->find(null, $url);
+    }
+
     public function syncLanguages()
     {
         $menus = $this->getAll();

@@ -8,6 +8,7 @@
 namespace ConcertoCms\CoreBundle\Navigation\Controller;
 
 use ConcertoCms\CoreBundle\Navigation\Service\NavigationManager;
+use ConcertoCms\CoreBundle\Pages\Service\PagesManager;
 use ConcertoCms\CoreBundle\Routes\Service\RoutesManager;
 use ConcertoCms\CoreBundle\Util\PublishableInterface;
 use Doctrine\ODM\PHPCR\ChildrenCollection;
@@ -16,16 +17,19 @@ use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class NavigationController
 {
     use \ConcertoCms\CoreBundle\Util\JsonApiTrait;
 
     private $nm;
+    private $rm;
 
-    public function __construct(NavigationManager $nm)
+    public function __construct(NavigationManager $nm, RoutesManager $rm)
     {
         $this->nm = $nm;
+        $this->rm = $rm;
     }
 
     public function listAction($path = null)
@@ -34,21 +38,66 @@ class NavigationController
         return new JsonResponse($data);
     }
 
-    public function postAction(Request $req, $path)
-    {
-        $post = $this->getJsonInput($req);
-        $page = $this->pm->createPage($path, $post["type"], $post["page"]);
-        $this->pm->flush();
-        return new JsonResponse($page);
-
-    }
-
     public function putAction(Request $req, $path)
     {
-        $page = $this->pm->getByUrl($path);
-        $this->pm->update($page, $this->getJsonInput($req));
-        $this->pm->flush();
-        return new JsonResponse($page);
+        $params = $this->getJsonInput($req);
+
+        $menu = $this->nm->getByUrl($path);
+        if (!$menu) {
+            throw new NotFoundHttpException("Menu with id '/cms/menu/" . $path . "' not found");
+        }
+
+        if (isset($params["label"])) {
+            $menu->setLabel($params["label"]);
+        }
+
+        if (isset($params["uri"])) {
+            $page = $this->rm->getByUrl($params["uri"]);
+            if ($page) {
+                $menu->setContent($page);
+                $menu->setUri(null);
+            } else {
+                $menu->setUri($params["uri"]);
+                $menu->setContent(null);
+            }
+        }
+        /*
+        if (isset($params["orderBefore"])) {
+            $this->getNavigationService()->reorder($menu, $params["orderBefore"]);
+        }
+        */
+
+        $this->nm->flush();
+        return new JsonResponse($this->getMenuJSON($menu));
+    }
+
+    public function postAction(Request $req, $path)
+    {
+        $params = $this->getJsonInput($req);
+        $parent = $this->nm->getByUrl($path);
+        if (!$parent) {
+            throw new NotFoundHttpException("Menu with id '/cms/menu/" . $path . "' not found");
+        }
+
+        $menu = new MenuNode();
+        $menu->setParentDocument($parent);
+        $menu->setName(\Ferrandini\Urlizer::urlize($params["label"]));
+        $menu->setLabel($params["label"]);
+
+        if (isset($params["uri"])) {
+            $page = $this->rm->getByUrl($params["uri"]);
+            if ($page) {
+                $menu->setContent($page);
+                $menu->setUri(null);
+            } else {
+                $menu->setUri($params["uri"]);
+                $menu->setContent(null);
+            }
+        }
+        $this->nm->persist($menu);
+
+        $this->nm->flush();
+        return new JsonResponse($this->getMenuJSON($menu));
     }
 
     public function deleteAction($path)

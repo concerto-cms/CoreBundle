@@ -3,3 +3,4 @@ services:
         class: ConcertoCms\CoreBundle\Navigation\Controller\NavigationController
         arguments:
             - @concerto_cms_core.navigation.service.navigation_manager
+            - @concerto_cms_core.routes.service.routes_manager
