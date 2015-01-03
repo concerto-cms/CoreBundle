@@ -8,7 +8,6 @@
 
 namespace ConcertoCms\CoreBundle\Navigation\Command;
 
-
 use ConcertoCms\CoreBundle\Routes\Service\RoutesManager;
 use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode;
 use Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider;

@@ -24,7 +24,7 @@ class NavigationManager
      */
     public function __construct(
         \Doctrine\ODM\PHPCR\DocumentManager $dm,
-    LanguagesManager $lm
+        LanguagesManager $lm
     ) {
         $this->setDocumentManager($dm);
         $this->lm = $lm;
@@ -135,6 +135,4 @@ class NavigationManager
         $item->setParentDocument($parent);
         $this->persist($item);
     }
-
-
 }

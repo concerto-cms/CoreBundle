@@ -50,5 +50,4 @@ trait DocumentManagerTrait
     {
         $this->dm->clear();
     }
-
 }
