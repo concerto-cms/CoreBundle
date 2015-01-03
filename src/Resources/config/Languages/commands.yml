@@ -1,0 +1,7 @@
+services:
+    concerto_cms_core.languages.command.create_language:
+        class: ConcertoCms\CoreBundle\Languages\Command\CreateLanguageCommand
+        arguments:
+            - @concerto_cms_core.languages.service.languages_manager
+        tags:
+            -  { name: console.command }

@@ -1,0 +1,6 @@
+services:
+    concerto_cms_core.languages.controller.languages:
+        class: ConcertoCms\CoreBundle\Languages\Controller\LanguagesController
+        arguments:
+            - @concerto_cms_core.languages.service.languages_manager
+

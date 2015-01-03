@@ -8,21 +8,21 @@
         }
     ],
     "autoload": {
-        "psr-0": { "ConcertoCms\\CoreBundle": "" }
+        "psr-4": {
+            "ConcertoCms\\CoreBundle\\": "src/",
+            "ConcertoCms\\CoreBundle\\Tests\\": "Tests/"
+        }
     },
-    "target-dir": "ConcertoCms/CoreBundle",
     "require": {
+        "symfony/symfony": "~2.4",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "symfony/monolog-bundle": "~2.4",
-        "jackalope/jackalope-doctrine-dbal": "1.1.*",
-        "symfony-cmf/routing-bundle": "1.*",
+        "jackalope/jackalope-doctrine-dbal": "~1",
+        "symfony-cmf/routing-bundle": "~1",
         "doctrine/data-fixtures": "1.0.*",
-        "friendsofsymfony/jsrouting-bundle": "1.5.3",
-        "symfony-cmf/media-bundle": "1.1.*",
-        "liip/imagine-bundle": "~0.12",
-        "symfony-cmf/menu-bundle": "1.1.*",
-        "helios-ag/fm-elfinder-bundle": "1.x",
+        "symfony-cmf/media-bundle": "~1",
+        "symfony-cmf/menu-bundle": "~1",
         "aferrandini/urlizer": "1.0.*"
     },
     "require-dev": {

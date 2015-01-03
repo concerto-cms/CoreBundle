@@ -1,0 +1,36 @@
+concerto_cms_core_pages_rest:
+    pattern:  /pages
+    defaults: { _controller: concerto_cms_core.pages.controller.pages:listAction }
+    methods:  [GET]
+    options:
+        expose: true
+
+concerto_cms_core_pages_rest_get:
+    pattern:  /pages/{path}
+    defaults: { _controller: concerto_cms_core.pages.controller.pages:getAction, path: null }
+    methods:  [GET]
+    requirements:
+        path: .+
+    options:
+        expose: true
+
+concerto_cms_core_pages_rest_post:
+    pattern:  /pages/{path}
+    defaults: { _controller: concerto_cms_core.pages.controller.pages:postAction }
+    methods:  [POST]
+    requirements:
+        path: .+
+
+concerto_cms_core_pages_rest_put:
+    pattern:  /pages/{path}
+    defaults: { _controller: concerto_cms_core.pages.controller.pages:putAction }
+    methods:  [PUT]
+    requirements:
+        path: .+
+
+concerto_cms_core_pages_rest_delete:
+    pattern:  /pages/{path}
+    defaults: { _controller: concerto_cms_core.pages.controller.pages:deleteAction }
+    methods:  [DELETE]
+    requirements:
+        path: .+

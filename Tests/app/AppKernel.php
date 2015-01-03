@@ -18,9 +18,6 @@ class AppKernel extends Kernel
             new \Symfony\Cmf\Bundle\CoreBundle\CmfCoreBundle(),
             new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new \Symfony\Bundle\MonologBundle\MonologBundle(),
-            new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new \FM\ElfinderBundle\FMElfinderBundle(),
-
             new \ConcertoCms\CoreBundle\ConcertoCmsCoreBundle(),
         );
     }

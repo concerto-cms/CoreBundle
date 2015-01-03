@@ -1,0 +1,6 @@
+services:
+    concerto_cms_core.routes.service.routes_manager:
+        class: ConcertoCms\CoreBundle\Routes\Service\RoutesManager
+        arguments:
+            - @doctrine_phpcr.odm.default_document_manager
+

@@ -1,0 +1,16 @@
+#concerto_cms_core_dashboard:
+#    path: /
+#    defaults:
+#        _controller: FrameworkBundle:Redirect:redirect
+#        route: concerto_cms_core_content
+#        permanent: true
+
+
+_concerto_cms_core_pages_api:
+    resource: Pages/routing.yml
+
+_concerto_cms_core_languages_api:
+    resource: Languages/routing.yml
+
+_concerto_cms_core_navigation_api:
+    resource: Navigation/routing.yml

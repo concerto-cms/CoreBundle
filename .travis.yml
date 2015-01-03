@@ -3,10 +3,9 @@ language: php
 php:
   - 5.5
   - 5.4
+  - 5.6
 
 before_install:
-  - npm install -g grunt-cli
-  - npm install
   - pear install PHP_CodeSniffer
   - composer install
 
@@ -14,6 +13,5 @@ before_script:
   - phpenv rehash
 
 script:
-  - phpcs --report=summary --ignore=Resources/public/*,vendor/* --extensions=php --standard=PSR2 .
-  - grunt test
+  - phpcs --ignore=vendor/* --extensions=php --standard=PSR2 .
   - phpunit

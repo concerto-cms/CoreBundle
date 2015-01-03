@@ -1,0 +1,36 @@
+parameters:
+#    concerto_cms_core.example.class: ConcertoCms\CoreBundle\Example
+
+imports:
+    - { resource: Routes/services.yml }
+
+    - { resource: Languages/services.yml }
+    - { resource: Languages/commands.yml }
+    - { resource: Languages/controllers.yml }
+
+    - { resource: Pages/services.yml }
+    - { resource: Pages/controllers.yml }
+
+    - { resource: Navigation/services.yml }
+    - { resource: Navigation/commands.yml }
+    - { resource: Navigation/controllers.yml }
+
+services:
+    concerto_cms_core.phpcr.initializer:
+        class: Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
+        arguments:
+            - concerto_cms_core.phpcr.initializer
+            - [ "/cms", "/cms/pages", "/cms/media", "/cms/media/shared" ]
+        tags:
+            - { name: doctrine_phpcr.initializer }
+
+    concerto_cms_core.util.command.fixtures_load:
+        class: ConcertoCms\CoreBundle\Util\Command\FixturesLoadCommand
+        arguments:
+            - @concerto_cms_core.pages.service.pages_manager
+            - @concerto_cms_core.languages.service.languages_manager
+        tags:
+            -  { name: console.command }
+
+
+

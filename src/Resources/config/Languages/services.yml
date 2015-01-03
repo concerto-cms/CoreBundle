@@ -1,0 +1,21 @@
+services:
+    concerto_cms_core.languages.service.languages_manager:
+        class: ConcertoCms\CoreBundle\Languages\Service\LanguagesManager
+        arguments:
+            - @doctrine_phpcr.odm.default_document_manager
+            - @concerto_cms_core.routes.service.routes_manager
+            - @concerto_cms_core.pages.service.pages_manager
+
+    concerto_cms_core.languages.service.menu.languages_builder:
+        class: ConcertoCms\CoreBundle\Languages\Menu\LanguagesBuilder
+        arguments:
+            - @concerto_cms_core.languages.service.languages_manager
+
+    concerto_cms_core.languages.service.languagesmenu.provider:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: concerto_cms_core.languages.service.menu.languages_builder
+        factory_method: build
+        arguments: ["@knp_menu.factory", "@request"]
+        scope: request # needed as we have the request as a dependency here
+        tags:
+            - { name: knp_menu.menu, alias: languagesmenu } # The alias is what is used to retrieve the menu
