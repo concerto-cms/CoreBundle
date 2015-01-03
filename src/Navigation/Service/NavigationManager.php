@@ -98,8 +98,7 @@ class NavigationManager
     public function reorder(MenuNode $menu, $beforePath)
     {
         $parent = $menu->getParentDocument();
-        $this->dm->reorder($parent, $menu->getName(), basename($beforePath), false);
-        $this->dm->flush();
+        $this->dm->reorder($parent, $menu->getName(), basename($beforePath), true);
     }
 
 
@@ -136,5 +135,6 @@ class NavigationManager
         $item->setParentDocument($parent);
         $this->persist($item);
     }
+
 
 }

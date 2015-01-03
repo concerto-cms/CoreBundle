@@ -61,11 +61,11 @@ class NavigationController
                 $menu->setContent(null);
             }
         }
-        /*
+
         if (isset($params["orderBefore"])) {
-            $this->getNavigationService()->reorder($menu, $params["orderBefore"]);
+            $this->nm->reorder($menu, $params["orderBefore"]);
         }
-        */
+
 
         $this->nm->flush();
         return new JsonResponse($this->getMenuJSON($menu));
@@ -102,8 +102,9 @@ class NavigationController
 
     public function deleteAction($path)
     {
-        $page = $this->pm->getByUrl($path);
-        $this->pm->delete($page);
+        $menu = $this->nm->getByUrl($path);
+        $this->nm->remove($menu);
+        $this->nm->flush();
         return new JsonResponse(["success"=> true]);
     }
 
