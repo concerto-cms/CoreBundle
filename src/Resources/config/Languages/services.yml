@@ -6,14 +6,14 @@ services:
             - @concerto_cms_core.routes.service.routes_manager
             - @concerto_cms_core.pages.service.pages_manager
 
-    concerto_cms_core.languages.service.languagesmenu.builder:
-        class: ConcertoCms\CoreBundle\Menu\LanguagesMenuBuilder
+    concerto_cms_core.languages.service.menu.languages_builder:
+        class: ConcertoCms\CoreBundle\Languages\Menu\LanguagesBuilder
         arguments:
             - @concerto_cms_core.languages.service.languages_manager
 
     concerto_cms_core.languages.service.languagesmenu.provider:
         class: Knp\Menu\MenuItem # the service definition requires setting the class
-        factory_service: concerto_cms_core.navigation.service.languagesmenu.builder
+        factory_service: concerto_cms_core.languages.service.menu.languages_builder
         factory_method: build
         arguments: ["@knp_menu.factory", "@request"]
         scope: request # needed as we have the request as a dependency here
