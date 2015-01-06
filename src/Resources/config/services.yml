@@ -29,6 +29,7 @@ services:
         arguments:
             - @concerto_cms_core.pages.service.pages_manager
             - @concerto_cms_core.languages.service.languages_manager
+            - @concerto_cms_core.navigation.service.navigation_manager
         tags:
             -  { name: console.command }
 
