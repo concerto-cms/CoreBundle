@@ -8,7 +8,6 @@
 
 namespace ConcertoCms\CoreBundle\Languages\Menu;
 
-
 use ConcertoCms\CoreBundle\Document\LanguageRoute;
 use ConcertoCms\CoreBundle\Languages\Service\LanguagesManager;
 use Knp\Menu\FactoryInterface;
