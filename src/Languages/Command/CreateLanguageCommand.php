@@ -9,7 +9,7 @@
 namespace ConcertoCms\CoreBundle\Languages\Command;
 
 use ConcertoCms\CoreBundle\Languages\Service\LanguagesManager;
-use ConcertoCms\CoreBundle\Navigation\Model\Locale;
+use ConcertoCms\CoreBundle\Languages\Model\Locale;
 use ConcertoCms\CoreBundle\Document\SimplePage;
 use ConcertoCms\CoreBundle\Routes\Service\RoutesManager;
 use Symfony\Component\Console\Helper\DialogHelper;
