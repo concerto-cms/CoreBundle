@@ -12,6 +12,10 @@ use ConcertoCms\CoreBundle\Util\PublishableInterface;
 
 interface PageFactoryInterface
 {
+    /**
+     * @param array $data
+     * @return PublishableInterface
+     */
     public function createFromJson($data);
     public function updateFromJson($page, $data);
     public function getPageFQN();

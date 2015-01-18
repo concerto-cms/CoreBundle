@@ -11,7 +11,11 @@ namespace ConcertoCms\CoreBundle\Languages\Command;
 use ConcertoCms\CoreBundle\Languages\Service\LanguagesManager;
 use ConcertoCms\CoreBundle\Languages\Model\Locale;
 use ConcertoCms\CoreBundle\Document\SimplePage;
+use ConcertoCms\CoreBundle\Pages\Service\PageFactoryRepository;
+use ConcertoCms\CoreBundle\Pages\Service\PagesManager;
 use ConcertoCms\CoreBundle\Routes\Service\RoutesManager;
+use ConcertoCms\CoreBundle\Util\DocumentManagerTrait;
+use Doctrine\ODM\PHPCR\DocumentManager;
 use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu;
@@ -22,13 +26,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateLanguageCommand extends ContainerAwareCommand
 {
-    /**
-     * @var LanguagesManager
-     */
     private $lm;
-    public function __construct(LanguagesManager $lm)
+    private $factory;
+    public function __construct(LanguagesManager $lm, PageFactoryRepository $factory)
     {
         parent::__construct();
+        $this->factory = $factory;
         $this->lm = $lm;
     }
     protected function configure()
@@ -59,9 +62,14 @@ class CreateLanguageCommand extends ContainerAwareCommand
                 'en'
             )
         );
+        $pagetype = $dialog->ask(
+            $output,
+            'Please choose a page type [simplepage]:  ',
+            'simplepage'
+        );
 
-        $page = new SimplePage();
-        $page->setTitle("");
+        $factory = $this->factory->getByName($pagetype);
+        $page = $factory->createFromJson([]);
 
         $this->lm->addLocale($language, $page);
         $this->lm->flush();
