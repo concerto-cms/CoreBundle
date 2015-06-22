@@ -33,10 +33,13 @@ class PagesController
         return new JsonResponse($data);
     }
 
-    public function getAction($path)
+    public function getAction(Request $req, $path)
     {
-        $page = $this->pm->getByUrl($path);
-        return new JsonResponse($page);
+        $data = $this->pm->getByUrl($path);
+        if ($req->get("flatten") == "1") {
+            $data = $this->flatten($data);
+        }
+        return new JsonResponse($data);
     }
 
     public function postAction(Request $req, $path)

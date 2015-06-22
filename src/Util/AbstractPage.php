@@ -9,6 +9,7 @@
 namespace ConcertoCms\CoreBundle\Util;
 
 use ConcertoCms\CoreBundle\Util\HierarchyTrait;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
 
 /**
@@ -54,6 +55,9 @@ abstract class AbstractPage implements PublishableInterface
         return $this->title;
     }
 
+    /**
+     * @return ArrayCollection
+     */
     public function getChildren()
     {
         return $this->children;
