@@ -79,6 +79,7 @@ class NavigationManager
                 }
             }
         }
+        $this->flush();
     }
 
     /**
