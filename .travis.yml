@@ -4,7 +4,6 @@ php:
   - 5.5
   - 5.4
   - 5.6
-
 before_install:
   - pear install PHP_CodeSniffer
   - composer install
@@ -15,3 +14,5 @@ before_script:
 script:
   - phpcs --ignore=vendor/* --extensions=php --standard=PSR2 .
   - phpunit
+
+sudo: false
