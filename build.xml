@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="ConcertoCmsCoreBundle" default="test">
-    <target name="test">
+    <target name="phpcs">
         <phpcodesniffer
                 standard="PSR2"
                 format="full"
@@ -8,6 +8,9 @@
                 file="."
                 haltonerror="true"
                 allowedFileExtensions="php"/>
+    </target>
+    <target name="test">
+        <phingcall target="phpcs"></phingcall>
         <exec command="composer install" passthru="true" />
         <exec command="phpunit" passthru="true" />
     </target>
