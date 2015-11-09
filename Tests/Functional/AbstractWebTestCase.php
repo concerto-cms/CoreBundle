@@ -26,21 +26,26 @@ class AbstractWebTestCase extends WebTestCase
 
     final protected static function configureDB()
     {
-        $application = new \Symfony\Bundle\FrameworkBundle\Console\Application(self::$kernel);
+        $application =
+            new \Symfony\Bundle\FrameworkBundle\Console\Application(self::$kernel);
         $application->setAutoExit(false);
 
         if (file_exists(__DIR__ . "/../app/app.db")) {
-            $input = new StringInput("doctrine:phpcr:init:dbal --drop");
+            echo("Resetting database\n\r");
+            $input = new StringInput("doctrine:phpcr:init:dbal --drop --force");
             $application->run($input);
         } else {
-            $input = new StringInput("doctrine:phpcr:init:dbal");
+            echo("Creating database\n\r");
+            $input = new StringInput("doctrine:phpcr:init:dbal --force");
             $application->run($input);
         }
 
+        echo("Initializing database\n\r");
         $options = array('command' => 'doctrine:phpcr:repository:init');
         $input = new ArrayInput($options);
         $application->run($input);
 
+        echo("Inserting fixtures\n\r");
         $options = array('command' => 'concerto:fixtures:load');
         $input = new ArrayInput($options);
         $application->run($input);
