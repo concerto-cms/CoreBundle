@@ -63,6 +63,7 @@ class PagesController
     {
         $page = $this->pm->getByUrl($path);
         $this->pm->delete($page);
+        $this->pm->flush();
         return new JsonResponse(["success"=> true]);
     }
 
