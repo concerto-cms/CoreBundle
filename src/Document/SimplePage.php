@@ -49,7 +49,7 @@ class SimplePage extends AbstractPage implements \JsonSerializable
             "title" => $this->getTitle(),
             "slug" => $this->getSlug(),
             "content" => $this->getContent(),
-            "meta_description" => $this->getMetaDescription(),
+            "metaDescription" => $this->getMetaDescription(),
             "routes" => []
         ];
         /**
