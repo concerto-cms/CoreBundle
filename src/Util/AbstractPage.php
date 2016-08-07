@@ -68,7 +68,7 @@ abstract class AbstractPage implements PublishableInterface
      */
     public function setMetaDescription($description)
     {
-        $this->description = $description;
+        $this->metaDescription = $description;
         return $this;
     }
 
